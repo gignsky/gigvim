@@ -29,7 +29,7 @@
         "aarch64-darwin"
       ];
 
-      perSystem = { pkgs, ... }:
+      perSystem = { pkgs, system, ... }:
         let
           configModule = import ./nvf-config.nix;
           nvimConfig = nvf.lib.neovimConfiguration {
@@ -50,13 +50,7 @@
             package = lib.mkOption {
               type = lib.types.package;
               description = "The Neovim package to use";
-              default = let
-                configModule = import ./nvf-config.nix;
-                nvimConfig = nvf.lib.neovimConfiguration {
-                  modules = [ configModule ];
-                  inherit pkgs;
-                };
-              in nvimConfig.neovim;
+              default = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.default;
             };
           };
 
