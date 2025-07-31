@@ -1,19 +1,14 @@
 {pkgs, ...}: {
   imports = [
-    # ./assembly.nix
-    ./bash.nix
-    # ./clang.nix
-    # ./csharp.nix
+    # ./bash.nix
     # ./css.nix
-    # ./go.nix
     # ./html.nix
-    ./lua.nix
-    ./markdown.nix
+    # ./lua.nix
+    # ./markdown.nix
     ./nix.nix
     ./nu.nix
-    # ./php.nix
     # ./python.nix
-    ./rust.nix
+    # ./rust.nix
     # ./sql.nix
     # ./svelte.nix
     # ./tailwind.nix
@@ -25,13 +20,13 @@
     lsp = {
       enable = true;
       formatOnSave = true;
-      lightbulb.enable = true;
+      lightbulb.enable = false;
       trouble.enable = true;
-      otter-nvim.enable = true;
+      otter-nvim.enable = false;
     };
 
     debugger.nvim-dap = {
-      enable = true;
+      enable = false;
       ui = {
         enable = true;
         autoStart = true;
@@ -46,10 +41,10 @@
     };
 
     languages = {
-      enableFormat = true;
+      enableFormat = false;
       enableTreesitter = true;
-      enableExtraDiagnostics = true;
-      enableDAP = true;
+      enableExtraDiagnostics = false;
+      enableDAP = false;
     };
   };
 }

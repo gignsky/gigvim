@@ -27,17 +27,24 @@
       ];
 
       perSystem = {pkgs, ...}: let
-        configModule = import ./nvf-config.nix;
-        nvimConfig = nvf.lib.neovimConfiguration {
-          modules = [configModule];
+        minimalConfigModule = import ./minimal.nix;
+        fullConfigModule = import ./full.nix;
+        fullNvimConfig = nvf.lib.neovimConfiguration {
+          modules = [fullConfigModule];
+          inherit pkgs;
+        };
+        minimalNvimConfig = nvf.lib.neovimConfiguration {
+          modules = [minimalConfigModule];
           inherit pkgs;
         };
       in {
-        packages.default = nvimConfig.neovim;
+        packages.minimal = minimalNvimConfig.neovim;
+        packages.default = minimalNvimConfig.neovim;
+        packages.full = fullNvimConfig.neovim;
         formatter = pkgs.alejandra;
         devShells.default = pkgs.mkShell {
           packages = [
-            nvimConfig.neovim
+            fullNvimConfig.neovim
           ];
         };
       };
@@ -55,7 +62,7 @@
             package = lib.mkOption {
               type = lib.types.package;
               description = "The Neovim package to use";
-              default = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.default;
+              default = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.full;
             };
           };
 
