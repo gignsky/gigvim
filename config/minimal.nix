@@ -1,6 +1,6 @@
 {
   imports = [
-    ./options.nix
+    # ./options.nix
   ];
 
   config.vim.clipboard.registers = "unnamedplus";

@@ -1,7 +1,8 @@
 {
   imports = [
     ./lang
-    ./config
+    ./config/minimal.nix
+    ./plugins/minimal.nix
   ];
 
   config.vim = {

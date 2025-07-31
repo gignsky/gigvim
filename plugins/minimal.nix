@@ -1,6 +1,7 @@
-{ lib, ... }: {
+{lib, ...}: {
   imports = [
     # ./mini.nix
+    ./core
   ];
 
   config.vim = {
