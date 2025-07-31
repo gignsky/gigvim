@@ -10,10 +10,7 @@
       # inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
     };
     gigdot.url = "github:gignsky/dotfiles";
-    home-manager = {
-      url = "github:nix-community/home-manager/release-25.05";
-      inputs.nixpkgs.follows = "gigdot/nixpkgs";
-    };
+    home-manager.follows = "gigdot/nixpkgs";
   };
 
   outputs =
