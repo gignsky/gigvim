@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{pkgs, ...}: {
   imports = [
     # ./assembly.nix
     ./bash.nix
@@ -10,6 +10,7 @@
     ./lua.nix
     ./markdown.nix
     ./nix.nix
+    ./nu.nix
     # ./php.nix
     # ./python.nix
     ./rust.nix
