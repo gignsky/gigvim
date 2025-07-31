@@ -13,12 +13,12 @@
     home-manager.follows = "gigdot/nixpkgs";
   };
 
-  outputs =
-    { flake-parts
-    , nvf
-    , ...
-    } @ inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+  outputs = {
+    flake-parts,
+    nvf,
+    ...
+  } @ inputs:
+    flake-parts.lib.mkFlake {inherit inputs;} {
       systems = [
         "x86_64-linux"
         "x86_64-darwin"
@@ -26,24 +26,32 @@
         "aarch64-darwin"
       ];
 
-      perSystem = { pkgs, system, ... }:
-        let
-          configModule = import ./nvf-config.nix;
-          nvimConfig = nvf.lib.neovimConfiguration {
-            modules = [ configModule ];
-            inherit pkgs;
-          };
-        in
-        {
-          packages.default = nvimConfig.neovim;
-          formatter = pkgs.alejandra;
+      perSystem = {pkgs, ...}: let
+        configModule = import ./nvf-config.nix;
+        nvimConfig = nvf.lib.neovimConfiguration {
+          modules = [configModule];
+          inherit pkgs;
         };
+      in {
+        packages.default = nvimConfig.neovim;
+        formatter = pkgs.alejandra;
+        devShells.default = pkgs.mkShell {
+          packages = [
+            nvimConfig.neovim
+          ];
+        };
+      };
 
       flake = {
-        homeManagerModules.default = { config, lib, pkgs, ... }: {
+        homeManagerModules.default = {
+          config,
+          lib,
+          pkgs,
+          ...
+        }: {
           options.programs.gigvim = {
             enable = lib.mkEnableOption "GigVim Neovim configuration";
-            
+
             package = lib.mkOption {
               type = lib.types.package;
               description = "The Neovim package to use";
@@ -52,8 +60,8 @@
           };
 
           config = lib.mkIf config.programs.gigvim.enable {
-            home.packages = [ config.programs.gigvim.package ];
-            
+            home.packages = [config.programs.gigvim.package];
+
             # Optional: Set as default editor
             home.sessionVariables = {
               EDITOR = lib.mkDefault "${config.programs.gigvim.package}/bin/nvim";
