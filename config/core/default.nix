@@ -1,5 +1,5 @@
 {
   imports = [
-    # ./options.nix
+    ./options.nix
   ];
 }
