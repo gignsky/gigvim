@@ -4,9 +4,9 @@
     ./bash.nix
     # ./clang.nix
     # ./csharp.nix
-    ./css.nix
+    # ./css.nix
     # ./go.nix
-    ./html.nix
+    # ./html.nix
     ./lua.nix
     ./markdown.nix
     ./nix.nix
@@ -14,11 +14,11 @@
     # ./php.nix
     # ./python.nix
     ./rust.nix
-    ./sql.nix
-    ./svelte.nix
-    ./tailwind.nix
-    ./typescript.nix
-    ./typst.nix
+    # ./sql.nix
+    # ./svelte.nix
+    # ./tailwind.nix
+    # ./typescript.nix
+    # ./typst.nix
   ];
 
   config.vim = {
