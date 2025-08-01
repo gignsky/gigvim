@@ -45,8 +45,16 @@
       grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
     };
 
+    autocomplete.nvim-cmp = {
+      enable = true;
+      sourcePlugins = [
+        "nvim-lspconfig"
+        "nvim-treesitter"
+      ];
+    };
+
     languages = {
-      enableFormat = false;
+      enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = false;
       enableDAP = false;

@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config.vim.languages.nix = {
     enable = true;
     format = {
@@ -11,5 +12,20 @@
       server = "nil";
     };
     treesitter.enable = true;
+  };
+
+  config.vim.lsp.servers.nil = {
+    settings.nixos-options = {
+      expr = "builtins.getFlake(toString ./.);";
+    };
+    enable = true;
+  };
+
+  config.vim.autocomplete.nvim-cmp = {
+    enable = true;
+    sourcePlugins = [
+      "nix-develop-nvim"
+      pkgs.nil
+    ];
   };
 }
