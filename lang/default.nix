@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   imports = [
     # ./bash.nix
     # ./css.nix
@@ -20,9 +21,13 @@
     lsp = {
       enable = true;
       formatOnSave = true;
-      lightbulb.enable = false;
+      inlayHints.enable = true;
+      lspkind.enable = true;
+      null-ls.enable = true;
+      nvim-docs-view.enable = true;
+      lightbulb.enable = true;
       trouble.enable = true;
-      otter-nvim.enable = false;
+      otter-nvim.enable = true;
     };
 
     debugger.nvim-dap = {
