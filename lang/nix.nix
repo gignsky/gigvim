@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{pkgs, ...}: {
   config.vim.languages.nix = {
     enable = true;
     format = {
@@ -21,9 +20,9 @@
     enable = true;
   };
 
-  config.vim.autocomplete.nvim-cmp = {
+  config.vim.snippets.luasnip = {
     enable = true;
-    sourcePlugins = [
+    providers = [
       "nix-develop-nvim"
       pkgs.nil
     ];

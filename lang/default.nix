@@ -45,9 +45,9 @@
       grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
     };
 
-    autocomplete.nvim-cmp = {
+    snippets.luasnip = {
       enable = true;
-      sourcePlugins = [
+      providers = [
         "nvim-lspconfig"
         "nvim-treesitter"
       ];

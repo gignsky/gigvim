@@ -1,3 +1,4 @@
+{ pkgs, ... }:
 {
   imports = [
     ./core
@@ -15,4 +16,10 @@
     maplocalleader = " ";
     have_nerd_font = true;
   };
+
+  config.vim.extraPackages = with pkgs; [
+    nil
+    alejandra
+    tree-sitter
+  ];
 }

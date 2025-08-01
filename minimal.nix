@@ -3,6 +3,7 @@
     ./lang
     ./config
     ./plugins
+    ./binds
   ];
 
   config.vim = {
