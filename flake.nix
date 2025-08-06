@@ -39,9 +39,9 @@
         };
       in {
         packages.minimal = minimalNvimConfig.neovim;
-        packages.default = minimalNvimConfig.neovim;
+        packages.default = fullNvimConfig.neovim;
         packages.full = fullNvimConfig.neovim;
-        formatter = pkgs.alejandra;
+        formatter = pkgs.nixfmt;
         devShells.default = pkgs.mkShell {
           packages = [
             fullNvimConfig.neovim
