@@ -9,7 +9,7 @@
     ./nix.nix
     ./nu.nix
     # ./python.nix
-    # ./rust.nix
+    ./rust.nix
     # ./sql.nix
     # ./svelte.nix
     # ./tailwind.nix
