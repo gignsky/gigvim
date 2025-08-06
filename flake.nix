@@ -11,6 +11,10 @@
     };
     gigdot.url = "github:gignsky/dotfiles";
     home-manager.follows = "gigdot/nixpkgs";
+    themery-nvim = {
+      url = "github:zaldih/themery.nvim";
+      flake = false;
+    };
   };
 
   outputs =
