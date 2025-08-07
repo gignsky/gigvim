@@ -40,7 +40,11 @@ in
               "catppuccin-latte",
               "catppuccin-frappe", 
               "catppuccin-macchiato",
-              "catppuccin-mocha"
+              "catppuccin-mocha",
+              -- Other themes
+              "gruvbox",
+              "tokyonight",
+              "nord"
             },
             livePreview = true
           })
@@ -60,6 +64,11 @@ in
       # Add nord theme package
       nord = {
         package = pkgs.vimPlugins.nord-nvim;
+      };
+
+      # Add catpuccin theme packages
+      catppuccin = {
+        package = pkgs.vimPlugins.catppuccin-nvim;
       };
     };
   };
