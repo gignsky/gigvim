@@ -49,19 +49,20 @@
                     table.insert(result, parts[i]:sub(1, 1))
                   end
                 end
+
                 table.insert(result, parts[#parts]) -- filename
                 
                 return table.concat(result, "/")
               end,
-              symbols = {modified = ' ', readonly = ' '},
-              separator = {right = ''}
+              symbols = {modified = ' ', readonly = ' '},
+              separator = {right = ''}
             }
           '')
           (lib.generators.mkLuaInline ''
             {
               "",
               draw_empty = true,
-              separator = { left = '', right = '' }
+              separator = { left = '', right = '' }
             }
           '')
         ];
