@@ -12,6 +12,7 @@
     ./monokai.nix
     ./solarized.nix
     ./everforest.nix
+    ./sonokai.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix
