@@ -46,6 +46,7 @@ in
               "ayu",
               "onedark",
               "onelight",
+              "dracula",
               "gruvbox",
               "tokyonight",
               "nord"
