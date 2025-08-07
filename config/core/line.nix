@@ -4,7 +4,7 @@
     enable = true;
     setupOpts = {
       sections = {
-        lualine_c = [
+        lualine_b = [
           (lib.generators.mkLuaInline ''
             function()
               local path = vim.fn.expand('%:p')
