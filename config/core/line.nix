@@ -1,5 +1,6 @@
 { lib, ... }:
 {
+  imports = [ ../../themes/gruvbox.nix ];
   config.vim.statusline.lualine = {
     enable = true;
     # setupOpts = {
@@ -68,6 +69,6 @@
     #     ];
     #   };
     # };
-    theme = "16color";
+    theme = "gruvbox";
   };
 }
