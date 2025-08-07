@@ -28,6 +28,16 @@
 
 { pkgs, ... }:
 {
+  imports = [
+    # Python environment switchers (choose one based on preference)
+    # ../plugins/optional/python-env-switcher/whichpy.nix    # Automatic environment detection
+    # ../plugins/optional/python-env-switcher/swenv.nix      # Manual environment switching
+    
+    # Python development enhancements
+    ../plugins/optional/python-import.nix      # Intelligent import management
+    ../plugins/optional/f-string-toggle.nix    # F-string conversion tools
+  ];
+  
   config.vim.languages.python = {
     enable = true;
     treesitter.enable = true;
@@ -63,6 +73,10 @@
     pylint          # Additional linter
     autopep8        # PEP 8 formatter
     python3Packages.pep8-naming  # PEP 8 naming conventions
+    
+    # Python environment management
+    python3Packages.virtualenv    # Virtual environment creation
+    python3Packages.pip          # Package installer
   ];
   
   # File type associations for Python files
@@ -109,6 +123,55 @@
         -- Enable spell checking in comments and strings
         vim.opt_local.spell = true
         vim.opt_local.spelllang = "en_us"
+        
+        -- Python development workflow keybindings
+        vim.keymap.set('n', '<leader>pr', '<cmd>!python %<cr>', { 
+          desc = 'Run Python file',
+          buffer = true 
+        })
+        vim.keymap.set('n', '<leader>pt', '<cmd>!python -m pytest<cr>', { 
+          desc = 'Run Python tests',
+          buffer = true 
+        })
+        vim.keymap.set('n', '<leader>pm', '<cmd>!python -m mypy %<cr>', { 
+          desc = 'Run mypy on current file',
+          buffer = true 
+        })
+        vim.keymap.set('n', '<leader>pb', '<cmd>!python -m black %<cr>', { 
+          desc = 'Format with black',
+          buffer = true 
+        })
+      end,
+    })
+    
+    -- Python project detection and workflow
+    vim.api.nvim_create_augroup("PythonProjectAutoCommands", { clear = true })
+    
+    -- Detect Python project type and show relevant information
+    vim.api.nvim_create_autocmd("VimEnter", {
+      group = "PythonProjectAutoCommands",
+      callback = function()
+        local project_files = {
+          { file = "pyproject.toml", type = "Poetry/Modern Python" },
+          { file = "Pipfile", type = "Pipenv" },
+          { file = "requirements.txt", type = "pip" },
+          { file = "setup.py", type = "setuptools" },
+          { file = "environment.yml", type = "conda" },
+          { file = ".python-version", type = "pyenv" },
+        }
+        
+        for _, project in ipairs(project_files) do
+          if vim.fn.filereadable(project.file) == 1 then
+            vim.defer_fn(function()
+              vim.notify(
+                string.format("Detected %s project", project.type),
+                vim.log.levels.INFO,
+                { title = "Python Project" }
+              )
+            end, 1000)
+            break
+          end
+        end
       end,
     })
   '';

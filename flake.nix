@@ -47,6 +47,22 @@
       url = "github:Julian/lean.nvim";
       flake = false;
     };
+    whichpy-nvim = {
+      url = "github:neolooong/whichpy.nvim";
+      flake = false;
+    };
+    swenv-nvim = {
+      url = "github:AckslD/swenv.nvim";
+      flake = false;
+    };
+    python-import-nvim = {
+      url = "github:kiyoon/python-import.nvim";
+      flake = false;
+    };
+    f-string-toggle-nvim = {
+      url = "github:roobert/f-string-toggle.nvim";
+      flake = false;
+    };
   };
 
   outputs =
