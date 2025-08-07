@@ -1,5 +1,7 @@
 { inputs, pkgs, ... }:
 let
+  # Themery plugin configuration - inlined here for reliable access to inputs
+  # See plugins/optional/themery-nvim.nix for template/reference version
   themery-from-source = pkgs.vimUtils.buildVimPlugin {
     name = "themery-nvim";
     src = inputs.themery-nvim;

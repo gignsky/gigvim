@@ -1,3 +1,15 @@
+# Themery.nvim Plugin Configuration for nvf
+# 
+# This file demonstrates how to add external (non-packaged) plugins to nvf.
+# Currently, the working version is inlined in full.nix, but this file serves
+# as a template and reference for adding external plugins.
+#
+# To use external plugins in nvf:
+# 1. Add plugin source to flake.nix inputs
+# 2. Create plugin configuration using pkgs.vimUtils.buildVimPlugin  
+# 3. Use config.vim.extraPlugins to register the plugin
+# 4. Ensure inputs are accessible (easiest via inline in full.nix)
+
 { inputs, pkgs, ... }:
 let
   themery-from-source = pkgs.vimUtils.buildVimPlugin {
@@ -13,7 +25,7 @@ in
         require('themery').setup({
           themes = {
             "gruvbox",
-            "ayu",
+            "ayu", 
             "catppuccin",
             "catppuccin-latte",
             "catppuccin-frappe", 
