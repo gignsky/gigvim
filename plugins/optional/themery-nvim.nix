@@ -44,6 +44,7 @@ in
               "catppuccin-mocha",
               -- Other themes
               "ayu",
+              "onedark",
               "gruvbox",
               "tokyonight",
               "nord"
