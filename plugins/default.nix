@@ -7,10 +7,7 @@
 
   config.vim = {
     telescope.enable = true;
-    autocomplete.blink-cmp = {
-      enable = true;
-      setupOpts.completion.documentation.auto_show = true;
-    };
+    # blink-cmp configuration moved to ./core/blink-cmp.nix for better organization
     formatter.conform-nvim.enable = true;
     snippets.luasnip.enable = true;
     notes.todo-comments.enable = true;

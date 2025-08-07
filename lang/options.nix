@@ -33,8 +33,10 @@
         nu = lib.mkEnableOption "Nu shell language support" // { default = true; };
         python = lib.mkEnableOption "Python language support" // { default = true; };
         rust = lib.mkEnableOption "Rust language support" // { default = true; };
+        sql = lib.mkEnableOption "SQL language support" // { default = true; };
         toml = lib.mkEnableOption "TOML language support" // { default = true; };
         yaml = lib.mkEnableOption "YAML language support" // { default = true; };
+        lean = lib.mkEnableOption "Lean theorem prover support" // { default = false; };
         
         # Additional languages (commented for now)
         # css = lib.mkEnableOption "CSS language support" // { default = false; };

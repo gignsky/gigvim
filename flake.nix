@@ -43,6 +43,10 @@
       url = "github:artemave/workspace-diagnostics.nvim";
       flake = false;
     };
+    lean-nvim = {
+      url = "github:Julian/lean.nvim";
+      flake = false;
+    };
   };
 
   outputs =

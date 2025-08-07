@@ -7,6 +7,8 @@
     ++ lib.optionals config.gigvim.languages.nu [ ./nu.nix ]
     ++ lib.optionals config.gigvim.languages.python [ ./python.nix ]
     ++ lib.optionals config.gigvim.languages.rust [ ./rust.nix ]
+    ++ lib.optionals config.gigvim.languages.sql [ ./sql.nix ]
     ++ lib.optionals config.gigvim.languages.toml [ ./toml.nix ]
-    ++ lib.optionals config.gigvim.languages.yaml [ ./yaml.nix ];
+    ++ lib.optionals config.gigvim.languages.yaml [ ./yaml.nix ]
+    ++ lib.optionals config.gigvim.languages.lean [ ./lean.nix ];
 }
