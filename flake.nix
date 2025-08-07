@@ -46,8 +46,26 @@
             inherit pkgs;
             extraSpecialArgs = { inherit inputs; };
           };
+          newConfig = {name,description,version,modules,import_paths,inputs,pkgs,extraSpecialArgs}:
+            (
+              builtins.trace ${name} "name is ${test}";
+            );
+          # packages.name = newConfig {name = "package-name";version = "0.0.0";inherit
+          # system;extraModules = [listOfExtraModulesPreBuilt];import_paths = [./list/of/import/paths/to/build/modules];inherit inputs;inherit pkgs;
+          # extraSpecialArgs = { inherit inputs };};
         in
         {
+          packages.test = newConfig {
+            name = "test";
+            version = "0.0.0";
+            extraModules = [];
+            import_paths = [
+              ./flake.lock
+            ];
+            inherit inputs;
+            inherit pkgs;
+            extraSpecialArgs = { inherit inputs; };
+          };
           packages.minimal = minimalNvimConfig.neovim;
           packages.mini = minimalNvimConfig.neovim;
           packages.default = fullNvimConfig.neovim;
