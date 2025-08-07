@@ -8,6 +8,7 @@
     ./palenight.nix
     ./nightfox.nix
     ./kanagawa.nix
+    ./rose-pine.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix

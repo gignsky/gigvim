@@ -58,6 +58,10 @@ in
               "kanagawa-wave",
               "kanagawa-dragon",
               "kanagawa-lotus",
+              "rose-pine",
+              "rose-pine-main",
+              "rose-pine-moon",
+              "rose-pine-dawn",
               "gruvbox",
               "tokyonight",
               "nord"
