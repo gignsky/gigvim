@@ -57,6 +57,7 @@
           devShells.default = pkgs.mkShell {
             packages = [
               fullNvimConfig.neovim
+              pkgs.git-lfs
             ];
           };
         };
