@@ -11,6 +11,7 @@
     ./rose-pine.nix
     ./monokai.nix
     ./solarized.nix
+    ./everforest.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix

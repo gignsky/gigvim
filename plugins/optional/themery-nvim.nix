@@ -66,6 +66,7 @@ in
               "monokai-pro",
               "solarized",
               "solarized8",
+              "everforest",
               "gruvbox",
               "tokyonight",
               "nord"
