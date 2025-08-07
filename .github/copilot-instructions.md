@@ -34,7 +34,10 @@ Always reference these instructions first and fallback to search or bash command
 ├── full.nix           # Full feature configuration (imports minimal.nix)
 ├── minimal.nix        # Base configuration with core imports
 ├── .envrc             # direnv configuration for automatic environment loading
-└── .gitignore         # Git ignore patterns
+├── .gitignore         # Git ignore patterns
+└── resources/         # Static resources (sounds, documentation, etc.)
+    ├── sounds/        # Audio files for plugins (minecraft sounds for beepboop.nvim)
+    └── zips/          # Archive storage
 ```
 
 ### Configuration Modules
@@ -46,8 +49,12 @@ Always reference these instructions first and fallback to search or bash command
 │   ├── default.nix    # Plugin imports and core plugin settings
 │   ├── core/          # Essential plugins
 │   └── optional/      # Optional plugin configurations
+│       ├── TEMPLATE-external-plugin.nix  # Template for adding external plugins
+│       ├── themery-nvim.nix             # Theme switcher plugin
+│       └── mini.nix                     # Mini.nvim plugin configuration
 ├── lang/              # Language-specific configurations
-│   ├── default.nix    # Language imports
+│   ├── default.nix    # Language imports and global language settings
+│   ├── bash.nix       # Bash language support
 │   ├── nix.nix        # Nix language support (LSP: nil, formatter: nixfmt)
 │   ├── rust.nix       # Rust language support (LSP: rust-analyzer, formatter: rustfmt)
 │   └── nu.nix         # Nu shell support
@@ -62,15 +69,18 @@ Always reference these instructions first and fallback to search or bash command
 
 ### Default/Full Configuration (`nix build` or `nix build .#full`)
 - Complete Neovim setup with all features enabled
-- Language servers: nil (Nix), rust-analyzer (Rust)
-- Formatters: nixfmt, rustfmt
-- Plugins: telescope, blink-cmp, conform-nvim, luasnip, todo-comments, fzf-lua
-- Features: LSP, treesitter, autocomplete, formatting, debugging support
+- Language servers: nil (Nix), rust-analyzer (Rust), bash-language-server
+- Formatters: nixfmt-rfc-style, rustfmt, shfmt
+- Core plugins: telescope, blink-cmp, conform-nvim, luasnip, todo-comments, fzf-lua
+- Optional plugins: themery-nvim (theme switcher)
+- Features: LSP, treesitter, autocomplete, formatting, debugging support, theme switching
+- Includes resources: minecraft sounds for audio feedback plugins
 
 ### Minimal Configuration (`nix build .#minimal`)
 - Basic Neovim setup with essential features only
-- Includes language support and core plugins
-- Suitable for lightweight environments
+- Includes core language support and essential plugins
+- Includes mini.nvim plugin for lightweight functionality
+- Suitable for lightweight environments and development shells
 
 ## Home Manager Integration
 
@@ -128,10 +138,26 @@ This automatically:
 4. Rebuild and test: `nix build`
 
 ### Adding New Plugins
-1. Add plugin configuration to `plugins/core/` or `plugins/optional/`
-2. Import in `plugins/default.nix`
-3. Configure plugin settings using nvf plugin options
+1. For external plugins not in nixpkgs:
+   - Add the plugin source to flake.nix inputs with `flake = false`
+   - Use the TEMPLATE-external-plugin.nix as a reference
+   - Create configuration in `plugins/core/` or `plugins/optional/`
+2. For plugins already in nvf:
+   - Check the nvf options documentation at https://notashelf.github.io/nvf/options.html
+   - Create configuration using `config.vim.*` options directly
+   - Still organize in appropriate plugin category folders
+3. Import in `plugins/default.nix` or relevant configuration files
 4. Rebuild and test the configuration
+
+### Plugin Organization
+Plugins are organized by functionality:
+- `plugins/core/` - Essential plugins included in both minimal and full configurations
+- `plugins/optional/` - Optional plugins included only in full configuration
+- Consider organizing by categories like:
+  - `plugins/language/` - Language-specific plugins
+  - `plugins/ui/` - Interface and appearance plugins
+  - `plugins/workflow/` - Productivity and workflow plugins
+  - `plugins/utility/` - General utility plugins
 
 ## Validation and Testing
 
@@ -175,10 +201,13 @@ After making any changes, always perform these validation steps:
 
 The configuration automatically includes these tools:
 - `nil` - Nix language server
-- `alejandra` - Nix formatter (alternative)
+- `nixfmt-rfc-style` - Nix formatter (RFC 166 compliant)
+- `alejandra` - Alternative Nix formatter (legacy, being phased out)
 - `tree-sitter` - Syntax highlighting
 - `rust-analyzer` - Rust language server
 - `rustfmt` - Rust formatter
+- `bash-language-server` - Bash LSP support
+- `shfmt` - Shell script formatter
 
 ## Build Time Expectations
 

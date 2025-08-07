@@ -16,48 +16,4 @@
     # ./typescript.nix
     # ./typst.nix
   ];
-
-  config.vim = {
-    lsp = {
-      enable = true;
-      formatOnSave = true;
-      inlayHints.enable = true;
-      lspkind.enable = true;
-      null-ls.enable = true;
-      nvim-docs-view.enable = true;
-      lightbulb.enable = true;
-      trouble.enable = true;
-      otter-nvim.enable = true;
-    };
-
-    debugger.nvim-dap = {
-      enable = false;
-      ui = {
-        enable = true;
-        autoStart = true;
-      };
-    };
-
-    treesitter = {
-      enable = true;
-      addDefaultGrammars = true;
-      autotagHtml = true;
-      grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
-    };
-
-    snippets.luasnip = {
-      enable = true;
-      providers = [
-        "nvim-lspconfig"
-        "nvim-treesitter"
-      ];
-    };
-
-    languages = {
-      enableFormat = true;
-      enableTreesitter = true;
-      enableExtraDiagnostics = false;
-      enableDAP = false;
-    };
-  };
 }

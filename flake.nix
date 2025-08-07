@@ -53,7 +53,7 @@
           packages.default = fullNvimConfig.neovim;
           packages.full = fullNvimConfig.neovim;
           packages.gigvim = fullNvimConfig.neovim;
-          formatter = pkgs.nixfmt;
+          formatter = pkgs.nixfmt-rfc-style;
           devShells.default = pkgs.mkShell {
             packages = [
               fullNvimConfig.neovim

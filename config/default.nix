@@ -19,7 +19,7 @@
 
   config.vim.extraPackages = with pkgs; [
     nil
-    alejandra
+    nixfmt-rfc-style
     tree-sitter
   ];
 }
