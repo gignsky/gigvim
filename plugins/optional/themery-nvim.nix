@@ -45,6 +45,7 @@ in
               -- Other themes
               "ayu",
               "onedark",
+              "onelight",
               "gruvbox",
               "tokyonight",
               "nord"
