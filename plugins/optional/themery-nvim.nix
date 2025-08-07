@@ -6,7 +6,7 @@ let
   };
 in
 {
-  vim.extraPlugins = {
+  config.vim.extraPlugins = {
     themery = {
       package = themery-from-source;
       setup = ''
