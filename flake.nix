@@ -23,6 +23,26 @@
       url = "github:EggbertFluffle/beepboop.nvim";
       flake = false;
     };
+    heirline-nvim = {
+      url = "github:rebelot/heirline.nvim";
+      flake = false;
+    };
+    lsp-lines-nvim = {
+      url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim";
+      flake = false;
+    };
+    diaglist-nvim = {
+      url = "github:onsails/diaglist.nvim";
+      flake = false;
+    };
+    wtf-nvim = {
+      url = "github:piersolenski/wtf.nvim";
+      flake = false;
+    };
+    workspace-diagnostics-nvim = {
+      url = "github:artemave/workspace-diagnostics.nvim";
+      flake = false;
+    };
   };
 
   outputs =
