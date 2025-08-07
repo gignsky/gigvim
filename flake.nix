@@ -15,6 +15,10 @@
       url = "github:zaldih/themery.nvim";
       flake = false;
     };
+    snacks-nvim = {
+      url = "github:folke/snacks.nvim";
+      flake = false;
+    };
   };
 
   outputs =
