@@ -64,6 +64,8 @@ in
               "rose-pine-dawn",
               "monokai",
               "monokai-pro",
+              "solarized",
+              "solarized8",
               "gruvbox",
               "tokyonight",
               "nord"

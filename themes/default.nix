@@ -10,6 +10,7 @@
     ./kanagawa.nix
     ./rose-pine.nix
     ./monokai.nix
+    ./solarized.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix
