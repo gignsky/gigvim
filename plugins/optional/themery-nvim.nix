@@ -71,6 +71,10 @@ in
               "edge",
               "gruvbox",
               "tokyonight",
+              "tokyonight-night",
+              "tokyonight-storm",
+              "tokyonight-day",
+              "tokyonight-moon",
               "nord"
             },
             livePreview = true
