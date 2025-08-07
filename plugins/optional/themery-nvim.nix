@@ -9,6 +9,7 @@ let
   };
 in
 {
+  imports = [ ../../themes ];
   config.vim = {
     extraPlugins = {
       themery = {
@@ -49,26 +50,6 @@ in
             livePreview = true
           })
         '';
-      };
-
-      # Add gruvbox theme package
-      gruvbox = {
-        package = pkgs.vimPlugins.gruvbox-nvim;
-      };
-
-      # Add tokyonight theme package
-      tokyonight = {
-        package = pkgs.vimPlugins.tokyonight-nvim;
-      };
-
-      # Add nord theme package
-      nord = {
-        package = pkgs.vimPlugins.nord-nvim;
-      };
-
-      # Add catpuccin theme packages
-      catppuccin = {
-        package = pkgs.vimPlugins.catppuccin-nvim;
       };
     };
   };
