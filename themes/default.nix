@@ -14,6 +14,7 @@
     ./everforest.nix
     ./sonokai.nix
     ./edge.nix
+    ./tender.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix

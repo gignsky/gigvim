@@ -69,6 +69,7 @@ in
               "everforest",
               "sonokai",
               "edge",
+              "tender",
               "gruvbox",
               "tokyonight",
               "tokyonight-night",
