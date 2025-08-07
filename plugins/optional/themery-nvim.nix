@@ -68,6 +68,7 @@ in
               "solarized8",
               "everforest",
               "sonokai",
+              "edge",
               "gruvbox",
               "tokyonight",
               "nord"

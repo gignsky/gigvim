@@ -13,6 +13,7 @@
     ./solarized.nix
     ./everforest.nix
     ./sonokai.nix
+    ./edge.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix
