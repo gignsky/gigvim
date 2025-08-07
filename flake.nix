@@ -32,10 +32,10 @@
       ];
 
       perSystem =
-        { inputs, pkgs, ... }:
+        { pkgs, ... }:
         let
           minimalConfigModule = import ./minimal.nix;
-          fullConfigModule = import ./full.nix;
+          fullConfigModule = import ./full.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ fullConfigModule ];
             inherit pkgs;
