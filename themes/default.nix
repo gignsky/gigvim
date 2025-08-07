@@ -4,6 +4,7 @@
     ./onedark.nix
     ./onelight.nix
     ./dracula.nix
+    ./material.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix

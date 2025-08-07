@@ -47,6 +47,7 @@ in
               "onedark",
               "onelight",
               "dracula",
+              "material",
               "gruvbox",
               "tokyonight",
               "nord"
