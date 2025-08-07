@@ -1,19 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, config, lib, ... }:
 {
   imports = [
-    ./bash.nix
-    # ./css.nix
-    # ./html.nix
-    # ./lua.nix
-    # ./markdown.nix
-    ./nix.nix
-    ./nu.nix
-    # ./python.nix
-    ./rust.nix
-    # ./sql.nix
-    # ./svelte.nix
-    # ./tailwind.nix
-    # ./typescript.nix
-    # ./typst.nix
-  ];
+    ./options.nix
+  ] ++ lib.optionals config.gigvim.languages.bash [ ./bash.nix ]
+    ++ lib.optionals config.gigvim.languages.nix [ ./nix.nix ]
+    ++ lib.optionals config.gigvim.languages.nu [ ./nu.nix ]
+    ++ lib.optionals config.gigvim.languages.python [ ./python.nix ]
+    ++ lib.optionals config.gigvim.languages.rust [ ./rust.nix ]
+    ++ lib.optionals config.gigvim.languages.toml [ ./toml.nix ]
+    ++ lib.optionals config.gigvim.languages.yaml [ ./yaml.nix ];
 }

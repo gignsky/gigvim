@@ -15,6 +15,14 @@
       url = "github:zaldih/themery.nvim";
       flake = false;
     };
+    nvim-bacon = {
+      url = "github:Canop/nvim-bacon";
+      flake = false;
+    };
+    beepboop-nvim = {
+      url = "github:EggbertFluffle/beepboop.nvim";
+      flake = false;
+    };
   };
 
   outputs =
