@@ -43,6 +43,7 @@ in
               "catppuccin-macchiato",
               "catppuccin-mocha",
               -- Other themes
+              "ayu",
               "gruvbox",
               "tokyonight",
               "nord"
