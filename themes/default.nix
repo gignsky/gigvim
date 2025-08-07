@@ -7,6 +7,7 @@
     ./material.nix
     ./palenight.nix
     ./nightfox.nix
+    ./kanagawa.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix

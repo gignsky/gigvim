@@ -54,6 +54,10 @@ in
               "nordfox", 
               "terafox",
               "carbonfox",
+              "kanagawa",
+              "kanagawa-wave",
+              "kanagawa-dragon",
+              "kanagawa-lotus",
               "gruvbox",
               "tokyonight",
               "nord"
