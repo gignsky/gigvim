@@ -1,9 +1,10 @@
 {
+  imports = [ ../../themes/gruvbox.nix ];
   config.vim = {
     theme = {
       enable = true;
-      name = "catppuccin";
-      style = "frappe";
+      name = "gruvbox";
+      style = "dark";
     };
 
     visuals = {

@@ -1465,7 +1465,8 @@
           "nixpkgs"
         ],
         "nixpkgs": "nixpkgs_17",
-        "nvf": "nvf"
+        "nvf": "nvf",
+        "themery-nvim": "themery-nvim"
       }
     },
     "rust-flake": {
@@ -1938,6 +1939,22 @@
         "owner": "gignsky",
         "ref": "develop",
         "repo": "tax-matrix",
+        "type": "github"
+      }
+    },
+    "themery-nvim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1735741390,
+        "narHash": "sha256-1I1fr4Hq6547pyj1yUq9yoYjnc/FO0z+x0lrXkwaLXM=",
+        "owner": "zaldih",
+        "repo": "themery.nvim",
+        "rev": "bfa58f4b279d21cb515b28023e1b68ec908584b2",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zaldih",
+        "repo": "themery.nvim",
         "type": "github"
       }
     },

@@ -11,6 +11,10 @@
     };
     gigdot.url = "github:gignsky/dotfiles";
     home-manager.follows = "gigdot/nixpkgs";
+    themery-nvim = {
+      url = "github:zaldih/themery.nvim";
+      flake = false;
+    };
   };
 
   outputs =
@@ -31,14 +35,16 @@
         { pkgs, ... }:
         let
           minimalConfigModule = import ./minimal.nix;
-          fullConfigModule = import ./full.nix;
+          fullConfigModule = import ./full.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ fullConfigModule ];
             inherit pkgs;
+            extraSpecialArgs = { inherit inputs; };
           };
           minimalNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ minimalConfigModule ];
             inherit pkgs;
+            extraSpecialArgs = { inherit inputs; };
           };
         in
         {
