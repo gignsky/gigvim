@@ -62,6 +62,8 @@ in
               "rose-pine-main",
               "rose-pine-moon",
               "rose-pine-dawn",
+              "monokai",
+              "monokai-pro",
               "gruvbox",
               "tokyonight",
               "nord"

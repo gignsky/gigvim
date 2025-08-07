@@ -9,6 +9,7 @@
     ./nightfox.nix
     ./kanagawa.nix
     ./rose-pine.nix
+    ./monokai.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix
