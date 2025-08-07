@@ -49,6 +49,11 @@ in
               "dracula",
               "material",
               "palenight",
+              "nightfox",
+              "duskfox",
+              "nordfox", 
+              "terafox",
+              "carbonfox",
               "gruvbox",
               "tokyonight",
               "nord"

@@ -6,6 +6,7 @@
     ./dracula.nix
     ./material.nix
     ./palenight.nix
+    ./nightfox.nix
     ./gruvbox.nix
     ./catppuccin.nix
     ./nord.nix
