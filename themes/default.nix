@@ -1,5 +1,23 @@
 {
   imports = [
-    # ./catppuccin/frappe.nix
+    ./ayu.nix
+    ./onedark.nix
+    ./onelight.nix
+    ./dracula.nix
+    ./material.nix
+    ./palenight.nix
+    ./nightfox.nix
+    ./kanagawa.nix
+    ./rose-pine.nix
+    ./monokai.nix
+    ./solarized.nix
+    ./everforest.nix
+    ./sonokai.nix
+    ./edge.nix
+    ./tender.nix
+    ./gruvbox.nix
+    ./catppuccin.nix
+    ./nord.nix
+    ./tokyonight.nix
   ];
 }
