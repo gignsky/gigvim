@@ -48,6 +48,7 @@ in
               "onelight",
               "dracula",
               "material",
+              "palenight",
               "gruvbox",
               "tokyonight",
               "nord"
