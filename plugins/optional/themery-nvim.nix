@@ -46,18 +46,18 @@ in
           })
         '';
       };
-      
-      -- Add gruvbox theme package
+
+      # Add gruvbox theme package
       gruvbox = {
         package = pkgs.vimPlugins.gruvbox-nvim;
       };
-      
-      -- Add tokyonight theme package  
+
+      # Add tokyonight theme package
       tokyonight = {
         package = pkgs.vimPlugins.tokyonight-nvim;
       };
-      
-      -- Add nord theme package
+
+      # Add nord theme package
       nord = {
         package = pkgs.vimPlugins.nord-nvim;
       };
