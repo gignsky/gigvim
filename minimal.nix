@@ -4,6 +4,7 @@
     ./config
     ./plugins
     ./binds
+    ./plugins/optional/mini.nix
   ];
 
   config.vim = {
