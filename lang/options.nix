@@ -8,7 +8,7 @@
 # ```nix
 # {
 #   inputs.gigvim.url = "github:gignsky/gigvim";
-#   
+#
 #   devShells.default = pkgs.mkShell {
 #     packages = [
 #       (inputs.gigvim.packages.${system}.configurable {
@@ -28,16 +28,34 @@
   options = {
     gigvim = {
       languages = {
-        bash = lib.mkEnableOption "Bash language support" // { default = true; };
-        nix = lib.mkEnableOption "Nix language support" // { default = true; };
-        nu = lib.mkEnableOption "Nu shell language support" // { default = true; };
-        python = lib.mkEnableOption "Python language support" // { default = true; };
-        rust = lib.mkEnableOption "Rust language support" // { default = true; };
-        sql = lib.mkEnableOption "SQL language support" // { default = true; };
-        toml = lib.mkEnableOption "TOML language support" // { default = true; };
-        yaml = lib.mkEnableOption "YAML language support" // { default = true; };
-        lean = lib.mkEnableOption "Lean theorem prover support" // { default = false; };
-        
+        bash = lib.mkEnableOption "Bash language support" // {
+          default = true;
+        };
+        nix = lib.mkEnableOption "Nix language support" // {
+          default = true;
+        };
+        nu = lib.mkEnableOption "Nu shell language support" // {
+          default = true;
+        };
+        python = lib.mkEnableOption "Python language support" // {
+          default = false;
+        };
+        rust = lib.mkEnableOption "Rust language support" // {
+          default = true;
+        };
+        sql = lib.mkEnableOption "SQL language support" // {
+          default = false;
+        };
+        toml = lib.mkEnableOption "TOML language support" // {
+          default = true;
+        };
+        yaml = lib.mkEnableOption "YAML language support" // {
+          default = true;
+        };
+        lean = lib.mkEnableOption "Lean theorem prover support" // {
+          default = false;
+        };
+
         # Additional languages (commented for now)
         # css = lib.mkEnableOption "CSS language support" // { default = false; };
         # html = lib.mkEnableOption "HTML language support" // { default = false; };
@@ -50,3 +68,4 @@
     };
   };
 }
+
