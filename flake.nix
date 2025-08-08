@@ -104,7 +104,8 @@
           formatter = pkgs.nixfmt-rfc-style;
           devShells.default = pkgs.mkShell {
             packages = [
-              fullNvimConfig.neovim
+              # fullNvimConfig.neovim
+              # minimalNvimConfig.neovim
               pkgs.git-lfs
             ];
           };
