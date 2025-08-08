@@ -22,63 +22,66 @@
 # - Import organization
 #
 # Additional Python tools and plugins:
-# - Python environment detection (see plugins/optional/python-env-switcher/)
-# - Python import helpers (see plugins/optional/python-import.nix)
-# - F-string helpers (see plugins/optional/f-string-toggle.nix)
+# - Python environment detection (see plugins/optional/python/python-env-switcher/)
+# - Python import helpers (see plugins/optional/python/python-import.nix)
+# - F-string helpers (see plugins/optional/python/f-string-toggle.nix)
 
 { pkgs, ... }:
 {
   imports = [
     # Python environment switchers (choose one based on preference)
-    # ../plugins/optional/python-env-switcher/whichpy.nix    # Automatic environment detection
-    # ../plugins/optional/python-env-switcher/swenv.nix      # Manual environment switching
-    
+    # ../plugins/optional/python/python-env-switcher/whichpy.nix    # Automatic environment detection
+    # ../plugins/optional/python/python-env-switcher/swenv.nix      # Manual environment switching
+
     # Python development enhancements
-    ../plugins/optional/python-import.nix      # Intelligent import management
-    ../plugins/optional/f-string-toggle.nix    # F-string conversion tools
+    ../plugins/optional/python/python-import.nix # Intelligent import management
+    ../plugins/optional/python/f-string-toggle.nix # F-string conversion tools
   ];
-  
+
   config.vim.languages.python = {
     enable = true;
     treesitter.enable = true;
-    
+
     # Enable Python language server (pyright)
     lsp = {
       enable = true;
       package = pkgs.pyright;
       server = "pyright";
     };
-    
+
     # Enable formatting with black
     format = {
       enable = true;
       type = "black";
       package = pkgs.black;
     };
-    
+
     # Enable extra diagnostics
     extraDiagnostics = {
       enable = true;
-      types = [ "flake8" "mypy" ];
+      types = [
+        "flake8"
+        "mypy"
+      ];
     };
   };
-  
+
   # Additional Python tools via extraPackages
   config.vim.extraPackages = with pkgs; [
     # Python development tools
-    black           # Code formatter
-    isort           # Import sorter
-    flake8          # Linter
-    mypy            # Type checker
-    pylint          # Additional linter
-    autopep8        # PEP 8 formatter
-    python3Packages.pep8-naming  # PEP 8 naming conventions
-    
+    black # Code formatter
+    isort # Import sorter
+    flake8 # Linter
+    mypy # Type checker
+    pylint # Additional linter
+    autopep8 # PEP 8 formatter
+    python3Packages.pep8-naming # PEP 8 naming conventions
+
     # Python environment management
-    python3Packages.virtualenv    # Virtual environment creation
-    python3Packages.pip          # Package installer
+    python3Packages.virtualenv # Virtual environment creation
+    python3Packages.pip # Package installer
   ];
-  
+
   # File type associations for Python files
   config.vim.extraConfigLua = ''
     -- Ensure Python files are properly detected
@@ -107,7 +110,7 @@
         [".*%.pyi"] = "python",  -- Type stub files
       }
     })
-    
+
     -- Python-specific settings
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "python", 
@@ -143,10 +146,10 @@
         })
       end,
     })
-    
+
     -- Python project detection and workflow
     vim.api.nvim_create_augroup("PythonProjectAutoCommands", { clear = true })
-    
+
     -- Detect Python project type and show relevant information
     vim.api.nvim_create_autocmd("VimEnter", {
       group = "PythonProjectAutoCommands",
