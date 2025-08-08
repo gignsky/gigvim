@@ -15,6 +15,54 @@
       url = "github:zaldih/themery.nvim";
       flake = false;
     };
+    nvim-bacon = {
+      url = "github:Canop/nvim-bacon";
+      flake = false;
+    };
+    beepboop-nvim = {
+      url = "github:EggbertFluffle/beepboop.nvim";
+      flake = false;
+    };
+    heirline-nvim = {
+      url = "github:rebelot/heirline.nvim";
+      flake = false;
+    };
+    lsp-lines-nvim = {
+      url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim";
+      flake = false;
+    };
+    diaglist-nvim = {
+      url = "github:onsails/diaglist.nvim";
+      flake = false;
+    };
+    wtf-nvim = {
+      url = "github:piersolenski/wtf.nvim";
+      flake = false;
+    };
+    workspace-diagnostics-nvim = {
+      url = "github:artemave/workspace-diagnostics.nvim";
+      flake = false;
+    };
+    lean-nvim = {
+      url = "github:Julian/lean.nvim";
+      flake = false;
+    };
+    whichpy-nvim = {
+      url = "github:neolooong/whichpy.nvim";
+      flake = false;
+    };
+    swenv-nvim = {
+      url = "github:AckslD/swenv.nvim";
+      flake = false;
+    };
+    python-import-nvim = {
+      url = "github:kiyoon/python-import.nvim";
+      flake = false;
+    };
+    f-string-toggle-nvim = {
+      url = "github:roobert/f-string-toggle.nvim";
+      flake = false;
+    };
   };
 
   outputs =
@@ -53,10 +101,11 @@
           packages.default = fullNvimConfig.neovim;
           packages.full = fullNvimConfig.neovim;
           packages.gigvim = fullNvimConfig.neovim;
-          formatter = pkgs.nixfmt;
+          formatter = pkgs.nixfmt-rfc-style;
           devShells.default = pkgs.mkShell {
             packages = [
-              fullNvimConfig.neovim
+              # fullNvimConfig.neovim
+              # minimalNvimConfig.neovim
               pkgs.git-lfs
             ];
           };

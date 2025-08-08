@@ -1,3 +1,37 @@
+RECURSIVE_START
+Recognize that all repositories are nix flake based and often use each other as inputs. Sometimes the options and configuration for one repository will be in another as an input which can be found in the flake.nix file of the repo that calls another as an input. 
+
+common input names as they link to repos:
+- gigdot & dotfiles refer to @gignsky/dotfiles
+- wrap, wrapd, wrapper, & tarballer refer to @gignsky/wrap
+- nufetch & neofetch refer to @gignsky/nufetch
+- gigvim refers to @gignsky/gigvim
+
+Below are rules that must ALWAYS be followed:
+1. All progression steps should be displayed as NEW comments with checkbox lists of tasks to be completed, to be checked off via a comment edit while adding a timestamp as well as legnth of time taken to progress to this point and notes about the task, including links to relevant commits, PRs, or issues, etc...
+2. Original prompt for agents should be preserved as a comment at the beginning of a PR or issue as well as in the description of the copilot's initial commit on a new PR
+3. Make every effort to make every ai agent call as effective as possible in order to preserve as many premium requests as possible
+4. ALWAYS attempt to verify that changes compile, often this is as simple as running `nix flake check` or `nix build` in the repository, if the checks fail, continue iterating until they pass
+5. Document as much as possible in markdown files either in the docs/ dir or in logical places alongside files and in files
+
+In all sessions, the order of operations is as follows:
+0. Read all of these operations and understand them before continuing
+0.a. Create a new comment in the issue or PR that reflects this order of operations with checkboxes and edit the comment marking the checkboxes as you progress
+0.a.NOTE: Refer to rule #1
+0.b. Analyze all repository's copilot-instructions looking specifically for the RECURSIVE block described in step x+4, find the diff between these versions, determine the most recent / logical state of the block and immediately replace the block in the active repos instructions with it
+1. Analyze the active repos' .github/ folder and its contents for repo specific instructions
+2. Analyze the other repo's .github/ fiolder and its contents for general ecosystem updates since last checked
+3. Analyze the @gignsky/dotfiles .github/ cortana chatbot markdown file and understand the way in which your are supposed to interact based off of that file
+4. Analyze the active repo and ALL its elements and compare and contrast with the active repo's .github/copilot-instructions.md file
+5. Based off of information gathered in the previous steps please analyze the expected and actual state of ci/cd in the current repository and make note that the ci/cd pipeline for the current repository exists within the copilot-instructions
+6. Update the instructions file to include updated information based off of data gathered in steps 1-5
+7. Step 7 (here) should be replaced with 7..x where x equals the total number of steps that cortana determines are neccary to complete the request from the all powerful lord gig minus seven. Steps continue at item x+1 below.
+x+1. Testing pipeline should start here, at a minimum a `nix flake check` needs to pass before this item can be marked completed, if this can't be done then detailed error messages should be left in the comments
+x+2. Testing pipeline continues, if changes to the repository would have an effect on the flake outputs the changed outputs themselves should be checked here in as many check boxes as is nececcary
+x+3. After flake testing in items x+1 & x+2 (which can be multiple checkboxes and steps) Repeat steps 0-6 and then continue below on step x+4
+x+4. All text between RECURSIVE_START & RECURSIVE_END should be placed at the top of each copilot-instructions.md file in every repository, at this point replace the version from step 0.b with an updated version based on all changes made before this step
+RECURSIVE_END
+
 # GigVim - Nix-based Neovim Configuration
 
 GigVim is a Nix Flake-based Neovim configuration using the nvf (NeoVim Flake) framework. It provides a highly customizable and reproducible development environment with language support, plugins, and themes configured declaratively.
@@ -34,7 +68,10 @@ Always reference these instructions first and fallback to search or bash command
 ├── full.nix           # Full feature configuration (imports minimal.nix)
 ├── minimal.nix        # Base configuration with core imports
 ├── .envrc             # direnv configuration for automatic environment loading
-└── .gitignore         # Git ignore patterns
+├── .gitignore         # Git ignore patterns
+└── resources/         # Static resources (sounds, documentation, etc.)
+    ├── sounds/        # Audio files for plugins (minecraft sounds for beepboop.nvim)
+    └── zips/          # Archive storage
 ```
 
 ### Configuration Modules
@@ -46,8 +83,12 @@ Always reference these instructions first and fallback to search or bash command
 │   ├── default.nix    # Plugin imports and core plugin settings
 │   ├── core/          # Essential plugins
 │   └── optional/      # Optional plugin configurations
+│       ├── TEMPLATE-external-plugin.nix  # Template for adding external plugins
+│       ├── themery-nvim.nix             # Theme switcher plugin
+│       └── mini.nix                     # Mini.nvim plugin configuration
 ├── lang/              # Language-specific configurations
-│   ├── default.nix    # Language imports
+│   ├── default.nix    # Language imports and global language settings
+│   ├── bash.nix       # Bash language support
 │   ├── nix.nix        # Nix language support (LSP: nil, formatter: nixfmt)
 │   ├── rust.nix       # Rust language support (LSP: rust-analyzer, formatter: rustfmt)
 │   └── nu.nix         # Nu shell support
@@ -62,15 +103,18 @@ Always reference these instructions first and fallback to search or bash command
 
 ### Default/Full Configuration (`nix build` or `nix build .#full`)
 - Complete Neovim setup with all features enabled
-- Language servers: nil (Nix), rust-analyzer (Rust)
-- Formatters: nixfmt, rustfmt
-- Plugins: telescope, blink-cmp, conform-nvim, luasnip, todo-comments, fzf-lua
-- Features: LSP, treesitter, autocomplete, formatting, debugging support
+- Language servers: nil (Nix), rust-analyzer (Rust), bash-language-server
+- Formatters: nixfmt-rfc-style, rustfmt, shfmt
+- Core plugins: telescope, blink-cmp, conform-nvim, luasnip, todo-comments, fzf-lua
+- Optional plugins: themery-nvim (theme switcher)
+- Features: LSP, treesitter, autocomplete, formatting, debugging support, theme switching
+- Includes resources: minecraft sounds for audio feedback plugins
 
 ### Minimal Configuration (`nix build .#minimal`)
 - Basic Neovim setup with essential features only
-- Includes language support and core plugins
-- Suitable for lightweight environments
+- Includes core language support and essential plugins
+- Includes mini.nvim plugin for lightweight functionality
+- Suitable for lightweight environments and development shells
 
 ## Home Manager Integration
 
@@ -128,10 +172,26 @@ This automatically:
 4. Rebuild and test: `nix build`
 
 ### Adding New Plugins
-1. Add plugin configuration to `plugins/core/` or `plugins/optional/`
-2. Import in `plugins/default.nix`
-3. Configure plugin settings using nvf plugin options
+1. For external plugins not in nixpkgs:
+   - Add the plugin source to flake.nix inputs with `flake = false`
+   - Use the TEMPLATE-external-plugin.nix as a reference
+   - Create configuration in `plugins/core/` or `plugins/optional/`
+2. For plugins already in nvf:
+   - Check the nvf options documentation at https://notashelf.github.io/nvf/options.html
+   - Create configuration using `config.vim.*` options directly
+   - Still organize in appropriate plugin category folders
+3. Import in `plugins/default.nix` or relevant configuration files
 4. Rebuild and test the configuration
+
+### Plugin Organization
+Plugins are organized by functionality:
+- `plugins/core/` - Essential plugins included in both minimal and full configurations
+- `plugins/optional/` - Optional plugins included only in full configuration
+- Consider organizing by categories like:
+  - `plugins/language/` - Language-specific plugins
+  - `plugins/ui/` - Interface and appearance plugins
+  - `plugins/workflow/` - Productivity and workflow plugins
+  - `plugins/utility/` - General utility plugins
 
 ## Validation and Testing
 
@@ -175,10 +235,13 @@ After making any changes, always perform these validation steps:
 
 The configuration automatically includes these tools:
 - `nil` - Nix language server
-- `alejandra` - Nix formatter (alternative)
+- `nixfmt-rfc-style` - Nix formatter (RFC 166 compliant)
+- `alejandra` - Alternative Nix formatter (legacy, being phased out)
 - `tree-sitter` - Syntax highlighting
 - `rust-analyzer` - Rust language server
 - `rustfmt` - Rust formatter
+- `bash-language-server` - Bash LSP support
+- `shfmt` - Shell script formatter
 
 ## Build Time Expectations
 
