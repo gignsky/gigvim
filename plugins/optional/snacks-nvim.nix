@@ -2,7 +2,7 @@
 # A collection of small QoL plugins for Neovim
 # Documentation: https://github.com/folke/snacks.nvim
 
-{ inputs, pkgs, lib, ... }:
+{ inputs, pkgs, ... }:
 let
   snacks-from-source = pkgs.vimUtils.buildVimPlugin {
     name = "snacks-nvim";
@@ -167,10 +167,10 @@ in
               },
             },
           })
-          
+
           -- Set up keymaps for core functionality
           local opts = { noremap = true, silent = true }
-          
+
           -- File operations
           vim.keymap.set("n", "<leader>ff", function() require("snacks").picker.files() end, 
             vim.tbl_extend("force", opts, { desc = "Find Files" }))
@@ -180,27 +180,27 @@ in
             vim.tbl_extend("force", opts, { desc = "Grep Files" }))
           vim.keymap.set("n", "<leader>fb", function() require("snacks").picker.buffers() end, 
             vim.tbl_extend("force", opts, { desc = "Find Buffers" }))
-          
+
           -- Explorer
           vim.keymap.set("n", "<leader>e", function() require("snacks").explorer() end, 
             vim.tbl_extend("force", opts, { desc = "Explorer" }))
-          
+
           -- Notifications
           vim.keymap.set("n", "<leader>n", function() require("snacks").notifier.show_history() end, 
             vim.tbl_extend("force", opts, { desc = "Notification History" }))
           vim.keymap.set("n", "<leader>un", function() require("snacks").notifier.hide() end, 
             vim.tbl_extend("force", opts, { desc = "Dismiss Notifications" }))
-          
+
           -- Dashboard
           vim.keymap.set("n", "<leader>d", function() require("snacks").dashboard.open() end, 
             vim.tbl_extend("force", opts, { desc = "Dashboard" }))
-          
+
           -- Word navigation (if enabled)
           vim.keymap.set("n", "]]", function() require("snacks").words.jump(vim.v.count1) end, 
             vim.tbl_extend("force", opts, { desc = "Next Reference" }))
           vim.keymap.set("n", "[[", function() require("snacks").words.jump(-vim.v.count1) end, 
             vim.tbl_extend("force", opts, { desc = "Prev Reference" }))
-          
+
           -- Set up late initialization for additional features
           vim.api.nvim_create_autocmd("User", {
             pattern = "VeryLazy",
@@ -224,3 +224,4 @@ in
     };
   };
 }
+
