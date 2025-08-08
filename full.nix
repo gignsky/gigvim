@@ -15,7 +15,9 @@ let
   # Import the wtf module with inputs passed through
   wtfModule = import ./plugins/optional/wtf-nvim.nix { inherit inputs pkgs; };
   # Import the workspace-diagnostics module with inputs passed through
-  workspaceDiagnosticsModule = import ./plugins/optional/workspace-diagnostics-nvim.nix { inherit inputs pkgs; };
+  workspaceDiagnosticsModule = import ./plugins/optional/workspace-diagnostics-nvim.nix {
+    inherit inputs pkgs;
+  };
   # Import the lean module with inputs passed through
   leanModule = import ./plugins/optional/lean-nvim.nix { inherit inputs pkgs; };
 in
@@ -32,7 +34,7 @@ in
     workspaceDiagnosticsModule
     leanModule
   ];
-  
+
   # Disable lualine in favor of heirline for the full version
   config.vim.statusline.lualine.enable = pkgs.lib.mkForce false;
 }
