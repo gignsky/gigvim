@@ -19,6 +19,10 @@
       url = "github:moyiz/git-dev.nvim";
       flake = false;
     };
+    lua-tiktoken = {
+      url = "github:gptlang/lua-tiktoken";
+      flake = false;
+    };
   };
 
   outputs =
