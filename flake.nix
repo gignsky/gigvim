@@ -19,10 +19,6 @@
       url = "github:moyiz/git-dev.nvim";
       flake = false;
     };
-    render-markdown-nvim = {
-      url = "github:MeanderingProgrammer/render-markdown.nvim";
-      flake = false;
-    };
   };
 
   outputs =
