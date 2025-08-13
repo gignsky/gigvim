@@ -2,6 +2,7 @@
 {
   imports = [
     ./core
+    ./embedded-languages.nix
   ];
 
   config.vim.clipboard.registers = "unnamedplus";
