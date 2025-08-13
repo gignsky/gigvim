@@ -7582,16 +7582,16 @@
     },
     "nixpkgs_17": {
       "locked": {
-        "lastModified": 1755090628,
-        "narHash": "sha256-U/siLcfDJOG7X0TPoLW9yLgAVU7yGrHFCv1aKKAY7IQ=",
-        "owner": "gignsky",
+        "lastModified": 1755027561,
+        "narHash": "sha256-IVft239Bc8p8Dtvf7UAACMG5P3ZV+3/aO28gXpGtMXI=",
+        "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "20d6c8181319fd74345f728536329def98593e5f",
+        "rev": "005433b926e16227259a1843015b5b2b7f7d1fc3",
         "type": "github"
       },
       "original": {
-        "owner": "gignsky",
-        "ref": "add-themery.nvim",
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
         "repo": "nixpkgs",
         "type": "github"
       }
