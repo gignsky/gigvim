@@ -77,4 +77,44 @@ in
       echo "Iteration $i"
     done
   '';
+  
+  # Test case 5: Nushell patterns
+  nuScript = ''
+    # This should be highlighted as Nushell
+    def my-command [name: string] {
+      echo $"Hello ($name)!"
+    }
+    
+    let config = {
+      name: "test",
+      enabled: true
+    }
+    
+    # Test pipe operations
+    ls | where type == file | select name size
+    
+    # Test $in variable
+    [1, 2, 3] | each { |x| $x * 2 } | $in | math sum
+  '';
+  
+  # Test case 6: Mixed languages in configuration
+  complexConfig = ''
+    # Lua configuration
+    require('plugin').setup({
+      option = true,
+      callback = function()
+        vim.notify("Plugin loaded")
+      end
+    })
+    
+    # Followed by some bash
+    echo "Setting up environment"
+    export PATH="$PATH:/custom/bin"
+    
+    # And some nushell
+    def update-config [] {
+      let new_config = { updated: true }
+      $new_config | save config.json
+    }
+  '';
 }
