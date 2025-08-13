@@ -5,14 +5,14 @@
       key = "<leader>th";
       mode = "n";
       silent = true;
-      action = ":Themery";
+      action = "<cmd>Themery<cr>";
       desc = "Open Theme Selector";
     }
     {
       key = "<leader>tt";
       mode = "n";
       silent = true;
-      action = ":ThemeryToggle";
+      action = "<cmd>ThemeryToggle<cr>";
       desc = "Toggle Theme Variant";
     }
   ];

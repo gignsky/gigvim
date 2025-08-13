@@ -32,7 +32,9 @@ Access terminal functionality through Lua:
 - `:lua Snacks.terminal.toggle()` - Toggle terminal visibility
 
 ### Keybindings
-- `<leader>t` - Toggle floating terminal
+- `<leader>tf` - Toggle floating terminal
+- `<leader>th` - Open theme selector (themery)
+- `<leader>tt` - Toggle theme variant (themery)
 
 ### Built-in Terminal Commands
 Neovim also provides built-in terminal functionality:

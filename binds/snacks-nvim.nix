@@ -1,60 +1,86 @@
 {
   config.vim.keymaps = [
+    # WhichKey group descriptions
+    {
+      key = "<leader>f";
+      mode = "n";
+      action = ""; 
+      desc = "+Find/Files";
+    }
+    {
+      key = "<leader>g";
+      mode = "n";
+      action = "";
+      desc = "+Git";
+    }
+    {
+      key = "<leader>b";
+      mode = "n";
+      action = "";
+      desc = "+Buffers";
+    }
+    {
+      key = "<leader>t";
+      mode = "n";
+      action = "";
+      desc = "+Themes/Terminal";
+    }
+    
     # Snacks.nvim keybindings
     {
       key = "<leader>gg";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.lazygit()";
+      action = "<cmd>lua Snacks.lazygit()<cr>";
       desc = "Open Lazygit";
     }
     {
       key = "<leader>e";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.explorer()";
+      action = "<cmd>lua Snacks.explorer()<cr>";
       desc = "Toggle File Explorer";
     }
     {
       key = "<leader>ff";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.picker.files()";
+      action = "<cmd>lua Snacks.picker.files()<cr>";
       desc = "Find Files";
     }
     {
       key = "<leader>fb";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.picker.buffers()";
+      action = "<cmd>lua Snacks.picker.buffers()<cr>";
       desc = "Find Buffers";
     }
     {
       key = "<leader>fg";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.picker.grep()";
+      action = "<cmd>lua Snacks.picker.grep()<cr>";
       desc = "Live Grep";
     }
     {
       key = "<leader>fr";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.picker.recent()";
+      action = "<cmd>lua Snacks.picker.recent()<cr>";
       desc = "Recent Files";
     }
     {
       key = "<leader>fs";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.picker.symbols()";
+      action = "<cmd>lua Snacks.picker.symbols()<cr>";
       desc = "Find Symbols";
     }
     {
       key = "<leader>gf";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.picker.git_files()";
+      action = "<cmd>lua Snacks.picker.git_files()<cr>";
       desc = "Git Files";
     }
 
@@ -63,28 +89,28 @@
       key = "<leader>gs";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.git.blame_line()";
+      action = "<cmd>lua Snacks.git.blame_line()<cr>";
       desc = "Git Blame Line";
     }
     {
       key = "<leader>gS";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.git.status()";
+      action = "<cmd>lua Snacks.git.status()<cr>";
       desc = "Git Status";
     }
     {
       key = "<leader>gb";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.git.branch()";
+      action = "<cmd>lua Snacks.git.branch()<cr>";
       desc = "Git Branch Info";
     }
     {
       key = "<leader>go";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.gitbrowse()";
+      action = "<cmd>lua Snacks.gitbrowse()<cr>";
       desc = "Open in Browser";
     }
 
@@ -93,31 +119,31 @@
       key = "<leader>bd";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.bufdelete()";
+      action = "<cmd>lua Snacks.bufdelete()<cr>";
       desc = "Delete Buffer";
     }
     {
       key = "<leader>ba";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.bufdelete.all()";
+      action = "<cmd>lua Snacks.bufdelete.all()<cr>";
       desc = "Delete All Buffers";
     }
     {
       key = "<leader>bo";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.bufdelete.other()";
+      action = "<cmd>lua Snacks.bufdelete.other()<cr>";
       desc = "Delete Other Buffers";
     }
 
     # Terminal
     {
-      key = "<leader>t";
+      key = "<leader>tf";
       mode = "n";
       silent = true;
-      action = ":lua Snacks.terminal()";
-      desc = "Toggle Terminal";
+      action = "<cmd>lua Snacks.terminal()<cr>";
+      desc = "Toggle Floating Terminal";
     }
   ];
 }

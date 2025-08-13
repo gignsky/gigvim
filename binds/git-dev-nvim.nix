@@ -5,42 +5,42 @@
       key = "<leader>go";
       mode = "n";
       silent = true;
-      action = ":GitDevOpen ";
+      action = "<cmd>lua require('snacks').input({prompt = 'Repository to open: '}, function(repo) if repo and repo ~= '' then vim.cmd('GitDevOpen ' .. repo) end end)<cr>";
       desc = "Open remote repository";
     }
     {
       key = "<leader>gr";
       mode = "n";
       silent = true;
-      action = ":GitDevRecents<CR>";
+      action = "<cmd>GitDevRecents<cr>";
       desc = "Browse recent repositories";
     }
     {
       key = "<leader>gc";
       mode = "n";
       silent = true;
-      action = ":GitDevClean<CR>";
+      action = "<cmd>GitDevClean<cr>";
       desc = "Clean current repository";
     }
     {
       key = "<leader>gC";
       mode = "n";
       silent = true;
-      action = ":GitDevCleanAll<CR>";
+      action = "<cmd>GitDevCleanAll<cr>";
       desc = "Clean all cached repositories";
     }
     {
       key = "<leader>gb";
       mode = "n";
       silent = true;
-      action = ":GitDevCloseBuffers<CR>";
+      action = "<cmd>GitDevCloseBuffers<cr>";
       desc = "Close all buffers for current repository";
     }
     {
       key = "<leader>gu";
       mode = "n";
       silent = true;
-      action = ":GitDevToggleUI<CR>";
+      action = "<cmd>GitDevToggleUI<cr>";
       desc = "Toggle git-dev output window";
     }
   ];

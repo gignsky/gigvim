@@ -15,6 +15,9 @@ in
       package = snacks-nvim-from-source;
       setup = ''
                require('snacks').setup({
+                 -- Set up vim.ui.input to use snacks
+                 vim.ui.input = require('snacks').input,
+                 
                  -- Core performance and usability plugins
                  bigfile = { enabled = true },
                  quickfile = { enabled = true },
@@ -65,7 +68,7 @@ in
                    scope = {
                      enabled = true,
                      priority = 10,
-                     char = "|",
+                     char = "│",
                      underline = true,
                      only_current = true,
                    },
@@ -73,6 +76,8 @@ in
                      enabled = true,
                      priority = 10,
                      only_current = true,
+                     -- Configure chunk to point to final brace
+                     hl = "SnacksIndentChunk",
                      char = {
                        corner_top = "┌",
                        corner_bottom = "└",
@@ -84,9 +89,10 @@ in
                    animate = {
                      enabled = true,
                      style = "out",
-                     easing = "linear",
+                     easing = "linear",  -- Available: linear, ease, easeIn, easeOut, easeInOut, circIn, circOut, circInOut, backIn, backOut, backInOut, bounceOut
                      duration = 50,
                    },
+                   -- Filter function: only enable indent guides for normal buffers (not terminals, help, etc.)
                    filter = function(buf)
                      return vim.g.snacks_indent ~= false
                        and vim.b[buf].snacks_indent ~= false
@@ -102,7 +108,7 @@ in
                    },
                    animate = {
                      enabled = true,
-                     easing = "outQuad",
+                     easing = "outQuad",  -- Available: linear, ease, easeIn, easeOut, easeInOut, outQuad, inQuad, etc.
                      duration = 300,
                    },
                  },
@@ -148,6 +154,12 @@ in
                  layout = { enabled = true },
                  profiler = { enabled = true },
                  
+                 -- New snacks plugins
+                 scope = { enabled = true },
+                 scroll = { enabled = true },
+                 statuscolumn = { enabled = true },
+                 words = { enabled = true },
+                 
                  -- Terminal and image support
                  terminal = { enabled = true },
                  image = { enabled = false }, -- disabled since wsl2 doesn't support it
@@ -155,4 +167,11 @@ in
       '';
     };
   };
+
+  # Required dependencies for snacks.nvim functionality
+  config.vim.extraPackages = with pkgs; [
+    ripgrep      # rg - required for grep functionality
+    fd           # fd - required for file finding (v8.4+)
+    sqlite       # sqlite3 - required for certain snacks features
+  ];
 }

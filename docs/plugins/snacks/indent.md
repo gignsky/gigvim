@@ -55,7 +55,7 @@ You can customize the indent guides with advanced options:
 For rainbow-colored indent guides (different colors for each level), you can configure highlight groups:
 
 ```lua
--- Example advanced configuration
+-- Example advanced configuration with colors
 indent = {
   enabled = true,
   scope = {
@@ -65,10 +65,12 @@ indent = {
     underline = false,
     only_scope = false,
     only_current = false,
+    hl = "SnacksIndentScope", -- Use custom highlight group
   },
   chunk = {
     enabled = true,
     priority = 200,
+    hl = "SnacksIndentChunk", -- Use custom highlight group
     char = {
       corner_top = "┌",
       corner_bottom = "└", 
@@ -92,14 +94,30 @@ You can define custom highlight groups for rainbow colors:
 
 ```vim
 " Define rainbow colors for indent guides
-highlight IndentGuidesOdd  guifg=#ff6b6b guibg=NONE
-highlight IndentGuidesEven guifg=#4ecdc4 guibg=NONE
-highlight IndentGuides1    guifg=#ff6b6b guibg=NONE
-highlight IndentGuides2    guifg=#feca57 guibg=NONE  
-highlight IndentGuides3    guifg=#48dbfb guibg=NONE
-highlight IndentGuides4    guifg=#ff9ff3 guibg=NONE
-highlight IndentGuides5    guifg=#54a0ff guibg=NONE
-highlight IndentGuides6    guifg=#5f27cd guibg=NONE
+highlight SnacksIndentScope   guifg=#ff6b6b guibg=NONE
+highlight SnacksIndentChunk   guifg=#4ecdc4 guibg=NONE
+highlight SnacksIndent1       guifg=#ff6b6b guibg=NONE
+highlight SnacksIndent2       guifg=#feca57 guibg=NONE  
+highlight SnacksIndent3       guifg=#48dbfb guibg=NONE
+highlight SnacksIndent4       guifg=#ff9ff3 guibg=NONE
+highlight SnacksIndent5       guifg=#54a0ff guibg=NONE
+highlight SnacksIndent6       guifg=#5f27cd guibg=NONE
+```
+
+### Setting up Colors in GigVim
+
+To enable colored indents in your GigVim configuration:
+
+```lua
+-- Add this to your theme configuration or after colorscheme loads
+vim.api.nvim_set_hl(0, "SnacksIndentScope", { fg = "#ff6b6b" })   -- Red for scope
+vim.api.nvim_set_hl(0, "SnacksIndentChunk", { fg = "#4ecdc4" })   -- Teal for chunks
+vim.api.nvim_set_hl(0, "SnacksIndent1", { fg = "#ff6b6b" })       -- Red
+vim.api.nvim_set_hl(0, "SnacksIndent2", { fg = "#feca57" })       -- Yellow
+vim.api.nvim_set_hl(0, "SnacksIndent3", { fg = "#48dbfb" })       -- Blue
+vim.api.nvim_set_hl(0, "SnacksIndent4", { fg = "#ff9ff3" })       -- Pink
+vim.api.nvim_set_hl(0, "SnacksIndent5", { fg = "#54a0ff" })       -- Light Blue
+vim.api.nvim_set_hl(0, "SnacksIndent6", { fg = "#5f27cd" })       -- Purple
 ```
 
 ### Customization Options:
