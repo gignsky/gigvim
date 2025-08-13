@@ -7,7 +7,7 @@
     ./lua.nix
     # ./markdown.nix
     ./nix.nix
-    ./nu.nix
+    # ./nu.nix
     # ./python.nix
     ./rust.nix
     # ./sql.nix

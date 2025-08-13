@@ -94,81 +94,7 @@
         end,
       })
 
-      -- Context-aware commenting function that respects embedded language
-      local function context_aware_comment()
-        local otter = require('otter')
-        local current_line = vim.api.nvim_get_current_line()
-        local cursor_pos = vim.api.nvim_win_get_cursor(0)
-        local col = cursor_pos[2]
-        
-        -- Try to get the language at current cursor position
-        local otter_lang = nil
-        local status = otter.get_status()
-        if status and status.languages and #status.languages > 0 then
-          -- Check current line content to determine most likely language
-          local line_content = current_line:gsub("^%s*", "")  -- trim leading whitespace
-          
-          -- More sophisticated language detection based on line content
-          if line_content:match("^%-%-") or 
-             line_content:match("require%s*%(") or 
-             line_content:match("function%s*%(") or 
-             line_content:match("vim%.") or
-             line_content:match("local%s+") then
-            otter_lang = "lua"
-          elseif line_content:match("^#!/.*sh") or
-                 line_content:match("^echo%s+") or
-                 line_content:match("^if%s+%[") or
-                 line_content:match("for%s+%w+%s+in") then
-            otter_lang = "bash"
-          else
-            -- Default to first active language if no specific pattern matches
-            otter_lang = status.languages[1]
-          end
-        end
-        
-        -- Set comment string based on detected language
-        local comment_string = "#"  -- Default for Nix
-        if otter_lang == "lua" then
-          comment_string = "--"
-        elseif otter_lang == "bash" then  
-          comment_string = "#"
-        else
-          -- Fallback: detect language from line content even without otter
-          local line_content = current_line:gsub("^%s*", "")
-          if line_content:match("%-%-") or 
-             line_content:match("require%s*%(") or 
-             line_content:match("function%s*%(") or 
-             line_content:match("vim%.") then
-            comment_string = "--"
-          end
-        end
-        
-        -- Apply commenting
-        local escaped_comment = comment_string:gsub("([%-%.%+%[%]%(%)%$%^%%%?%*])", "%%%1")
-        if current_line:match("^%s*" .. escaped_comment) then
-          -- Uncomment
-          local new_line = current_line:gsub("^(%s*)" .. escaped_comment .. "%s?", "%1")
-          vim.api.nvim_set_current_line(new_line)
-        else
-          -- Comment
-          local indent = current_line:match("^%s*")
-          local content = current_line:sub(#indent + 1)
-          if content ~= "" then
-            vim.api.nvim_set_current_line(indent .. comment_string .. " " .. content)
-          end
-        end
-      end
-      
-      -- Override default commenting with context-aware version
-      vim.keymap.set('n', 'gc', context_aware_comment, { desc = "Context-aware comment toggle" })
-      vim.keymap.set('v', 'gc', function()
-        local start_line = vim.fn.line("'<")
-        local end_line = vim.fn.line("'>")
-        for line_num = start_line, end_line do
-          vim.api.nvim_win_set_cursor(0, {line_num, 0})
-          context_aware_comment()
-        end
-      end, { desc = "Context-aware comment toggle (visual)" })
+
       
       -- Enhanced LSP evaluation for embedded code blocks
       local function evaluate_embedded_code()
@@ -199,20 +125,39 @@
         -- Try to evaluate based on detected language
         for _, lang in ipairs(status.languages) do
           if lang == "lua" then
-            -- Lua evaluation
-            local ok, result = pcall(load, code)
+            -- Lua evaluation - improved to handle both expressions and statements
+            local ok, result
+            
+            -- First try to load as is (for statements like function calls)
+            ok, result = pcall(load, code)
             if ok and result then
               local exec_ok, exec_result = pcall(result)
               if exec_ok then
                 vim.notify("Lua code executed successfully", vim.log.levels.INFO)
-                if exec_result then
+                if exec_result ~= nil then
                   print("Result:", vim.inspect(exec_result))
                 end
               else
                 vim.notify("Lua execution error: " .. tostring(exec_result), vim.log.levels.ERROR)
               end
             else
-              vim.notify("Lua syntax error: " .. tostring(result), vim.log.levels.ERROR)
+              -- If that fails, try wrapping as an expression with return
+              local wrapped_code = "return " .. code
+              ok, result = pcall(load, wrapped_code)
+              if ok and result then
+                local exec_ok, exec_result = pcall(result)
+                if exec_ok then
+                  vim.notify("Lua expression evaluated successfully", vim.log.levels.INFO)
+                  if exec_result ~= nil then
+                    print("Result:", vim.inspect(exec_result))
+                  end
+                else
+                  vim.notify("Lua expression error: " .. tostring(exec_result), vim.log.levels.ERROR)
+                end
+              else
+                -- If both fail, it's a syntax error
+                vim.notify("Lua syntax error: " .. tostring(result), vim.log.levels.ERROR)
+              end
             end
           elseif lang == "bash" then
             -- Bash validation using shellcheck if available
