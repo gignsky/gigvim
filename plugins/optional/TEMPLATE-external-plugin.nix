@@ -1,5 +1,8 @@
 # Template for adding external (non-packaged) plugins to nvf
 # 
+# ⚠️  DO NOT USE lazy.nvim! See LAZY_NVIM_ANALYSIS.md for explanation.
+# ⚠️  Use TEMPLATE-nvf-plugin-guide.nix for comprehensive guidance.
+#
 # To use this template:
 # 1. Add the plugin source to flake.nix inputs:
 #    ```nix
@@ -15,6 +18,8 @@
 # NOTE: This template requires inputs to be available in the module context.
 # The safest approach is to inline the plugin configuration in full.nix
 # as demonstrated with themery-nvim.
+# 
+# PREFERRED: Use nvf built-in modules when available (check nvf options docs)
 
 { inputs, pkgs, ... }:
 let
