@@ -5,7 +5,7 @@
     # ./css.nix
     # ./html.nix
     # ./lua.nix
-    # ./markdown.nix
+    ./markdown.nix
     ./nix.nix
     ./nu.nix
     # ./python.nix
