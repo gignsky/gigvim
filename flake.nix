@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/master";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
@@ -11,10 +11,6 @@
     };
     gigdot.url = "github:gignsky/dotfiles";
     home-manager.follows = "gigdot/home-manager";
-    themery-nvim = {
-      url = "github:zaldih/themery.nvim";
-      flake = false;
-    };
     git-dev-nvim = {
       url = "github:moyiz/git-dev.nvim";
       flake = false;
