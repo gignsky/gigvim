@@ -15,13 +15,47 @@ in
       package = snacks-nvim-from-source;
       setup = ''
         require('snacks').setup({
-          -- Basic useful plugins enabled
+          -- Core performance and usability plugins
           bigfile = { enabled = true },
+          quickfile = { enabled = true },
+          
+          -- Enhanced notification system with LSP progress
           notifier = { 
             enabled = true,
             timeout = 3000,
+            style = "fancy",
+            top_down = false,
           },
-          quickfile = { enabled = true },
+          
+          -- Git integration (prioritized as requested)
+          lazygit = { 
+            enabled = true,
+            configure = true,
+          },
+          git = { enabled = true },
+          gitbrowse = { enabled = true },
+          
+          -- UI enhancements
+          dashboard = { enabled = true },
+          indent = { enabled = true },
+          dim = { enabled = true },
+          animate = { enabled = true },
+          
+          -- Development tools
+          bufdelete = { enabled = true },
+          explorer = { enabled = true },
+          input = { enabled = true },
+          picker = { enabled = true },
+          
+          -- Additional utilities
+          debug = { enabled = true },
+          health = { enabled = true },
+          layout = { enabled = true },
+          profiler = { enabled = true },
+          
+          -- Terminal and image support
+          terminal = { enabled = true },
+          image = { enabled = true },
         })
       '';
     };
