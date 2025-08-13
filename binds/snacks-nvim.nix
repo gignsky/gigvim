@@ -25,7 +25,13 @@
       action = "";
       desc = "+Themes/Terminal";
     }
-    
+    {
+      key = "<leader>l";
+      mode = "n";
+      action = "";
+      desc = "+Linter";
+    }
+
     # Snacks.nvim keybindings
     {
       key = "<leader>gg";
