@@ -8,6 +8,7 @@ in
 {
   imports = [
     ./minimal.nix
+    ./plugins/optional/copilot.nix
     themeryModule
     gitDevModule
   ];
