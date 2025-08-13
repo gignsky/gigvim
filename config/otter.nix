@@ -17,14 +17,14 @@
         setup = ''
           -- Auto-activate otter for Nix files with embedded languages
           local otter = require('otter')
-          
+
           -- Configuration for embedded language detection
           local embedded_languages = {
             "lua",      -- Lua in plugin setup strings
             "bash",     -- Bash in writeShellScriptBin
             "sh",       -- Alternative shell detection
           }
-          
+
           -- Auto-activate otter for specific file patterns
           vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
             pattern = "*.nix",
@@ -35,7 +35,7 @@
               -- Check for embedded language patterns
               local has_embedded = false
               
-              -- Pattern 1: Lua in setup strings (extraPlugins setup = ''...'' or similar)
+              -- Pattern 1: Lua in setup strings (extraPlugins setup = or similar)
               if content:match('setup%s*=%s*[\'"`][\'"`][\'"`]') or 
                  content:match('require%s*%([\'"`][^\'"`]+[\'"`]%)') or
                  content:match('vim%.') or
@@ -60,7 +60,7 @@
               end
             end,
           })
-          
+
           -- Enhanced otter setup with better language detection
           otter.setup({
             -- Enable verbose logging for debugging
@@ -76,7 +76,7 @@
             -- Handle completion in embedded languages
             handle_leading_whitespace = true,
           })
-          
+
           -- Additional keybinding for quick activation with language selection
           vim.keymap.set('n', '<leader>lL', function()
             otter.activate(embedded_languages, true, true, nil)
@@ -87,3 +87,4 @@
     };
   };
 }
+
