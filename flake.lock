@@ -1479,7 +1479,7 @@
         "git-dev-nvim": "git-dev-nvim",
         "home-manager": [
           "gigdot",
-          "nixpkgs"
+          "home-manager"
         ],
         "nixpkgs": "nixpkgs_17",
         "nvf": "nvf",
