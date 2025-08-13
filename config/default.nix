@@ -3,6 +3,7 @@
   imports = [
     ./core
     ./embedded-languages.nix
+    ./otter.nix
   ];
 
   config.vim.clipboard.registers = "unnamedplus";

@@ -64,23 +64,24 @@
         ; Generic nushell injection for let declarations  
         (indented_string_expression
           (string_fragment) @injection.content
-          (#lua-match? @injection.content "^%s*let%s+%w+%s*=" )
+          (#lua-match? @injection.content "^%s*let%s+[%w_]+%s*=" )
           (#set! injection.language "nu"))
           
         ; Generic nushell injection for pipe operations
         (indented_string_expression
           (string_fragment) @injection.content
-          (#lua-match? @injection.content "%|%s*%w+" )
+          (#lua-match? @injection.content "|%s*[%w_]+" )
           (#set! injection.language "nu"))
           
         ; Generic nushell injection for $in variables
         (indented_string_expression
           (string_fragment) @injection.content
-          (#lua-match? @injection.content "%$in" )
+          (#lua-match? @injection.content "$in" )
           (#set! injection.language "nu"))
       ]])
 
-      -- Note: otter-nvim is already enabled in lang/default.nix, so we don't need to setup again
+      -- Note: otter-nvim is enabled in config/otter.nix
+      -- Otter keybindings are configured in config/otter.nix
 
       -- Auto-activation for Nix files with embedded languages
       -- Generic detection based on content patterns
@@ -112,8 +113,8 @@
           
           -- Generic Nushell detection
           if content:match("def%s+") or
-             content:match("let%s+%w+%s*=") or
-             content:match("|%s*%w+") or
+             content:match("let%s+[%w_]+%s*=") or
+             content:match("|%s*[%w_]+") or
              content:match("$in") or
              content:match("%.nu") then
             table.insert(languages, "nu")
@@ -128,15 +129,6 @@
         end,
       })
 
-      -- Add keybindings for otter functionality
-      vim.keymap.set('n', '<leader>lo', '<cmd>lua require("otter").activate()<cr>', { desc = "Activate Otter" })
-      vim.keymap.set('n', '<leader>ld', '<cmd>lua require("otter").deactivate()<cr>', { desc = "Deactivate Otter" })
-      vim.keymap.set('n', '<leader>lr', '<cmd>lua require("otter").ask_rename()<cr>', { desc = "Otter Rename" })
-      vim.keymap.set('n', '<leader>lf', '<cmd>lua require("otter").ask_format()<cr>', { desc = "Otter Format" })
-      
-      -- Debug helper to show active otter buffers
-      vim.keymap.set('n', '<leader>li', '<cmd>lua print(vim.inspect(require("otter").get_status()))<cr>', { desc = "Otter Info" })
-      
       -- Context-aware commenting function that respects embedded language
       local function context_aware_comment()
         local otter = require('otter')
@@ -164,9 +156,9 @@
                  line_content:match("for%s+%w+%s+in") then
             otter_lang = "bash"
           elseif line_content:match("^def%s+") or
-                 line_content:match("^let%s+%w+%s*=") or
-                 line_content:match("|%s*%w+") or
-                 line_content:match("%$in") then
+                 line_content:match("^let%s+[%w_]+%s*=") or
+                 line_content:match("|%s*[%w_]+") or
+                 line_content:match("$in") then
             otter_lang = "nu"
           else
             -- Default to first active language if no specific pattern matches
@@ -249,7 +241,7 @@
         for _, lang in ipairs(status.languages) do
           if lang == "lua" then
             -- Lua evaluation
-            local ok, result = pcall(loadstring, code)
+            local ok, result = pcall(load, code)
             if ok and result then
               local exec_ok, exec_result = pcall(result)
               if exec_ok then
