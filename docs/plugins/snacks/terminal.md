@@ -23,11 +23,23 @@ terminal = {
 
 ## Usage
 
-### Commands
-- `:Terminal` - Open floating terminal
-- `:TerminalSplit` - Open terminal in horizontal split
-- `:TerminalVsplit` - Open terminal in vertical split
-- `:TerminalTab` - Open terminal in new tab
+### Lua API
+Access terminal functionality through Lua:
+
+- `:lua Snacks.terminal()` - Open floating terminal (Keybind: `<leader>t`)
+- `:lua Snacks.terminal({ win = { position = "bottom" } })` - Open bottom terminal
+- `:lua Snacks.terminal({ win = { position = "right" } })` - Open right terminal
+- `:lua Snacks.terminal.toggle()` - Toggle terminal visibility
+
+### Keybindings
+- `<leader>t` - Toggle floating terminal
+
+### Built-in Terminal Commands
+Neovim also provides built-in terminal functionality:
+- `:terminal` - Open terminal in current window
+- `:split | terminal` - Open terminal in horizontal split
+- `:vsplit | terminal` - Open terminal in vertical split
+- `:tabnew | terminal` - Open terminal in new tab
 
 ### Navigation
 - `<C-\><C-n>` - Exit terminal mode

@@ -55,10 +55,53 @@ animate = {
 - **Disable Options**: Can be disabled for performance
 - **Smart Activation**: Only animates when beneficial
 
-## Customization
+## Testing and Verification
 
-Customize animation behavior:
-- Duration and speed
-- Easing functions
-- Which elements to animate
-- Performance settings
+To verify the animate module is working properly:
+
+### Visual Tests
+1. **Window Operations**: Open and close splits (`<C-w>s`, `<C-w>q`) - should see smooth transitions
+2. **Tab Switching**: Create multiple tabs and switch between them - should see smooth tab transitions
+3. **Buffer Switching**: Switch between buffers - should see smooth content transitions
+4. **Popup Animations**: Open completion menus or notifications - should see smooth popup animations
+
+### Specific Test Commands
+```lua
+-- Test window animations
+:split
+:close
+
+-- Test cursor animations (jump to line)
+:100
+:1
+
+-- Test scroll animations
+<C-f>  -- Page down
+<C-b>  -- Page up
+
+-- Test search animations
+/pattern<Enter>
+n  -- Next match
+```
+
+### Configuration Verification
+```lua
+-- Check if animate is loaded and configured
+:lua print(vim.inspect(require('snacks').animate))
+
+-- Verify animation settings
+:lua print(require('snacks').config.animate)
+```
+
+### Expected Behavior
+- Window opens/closes should have smooth fade or slide effects
+- Cursor jumps should be animated rather than instant
+- Scrolling should be smooth rather than jarring
+- Popups should appear with gentle transitions
+
+### Troubleshooting
+If animations aren't visible:
+1. Check if your terminal supports smooth rendering
+2. Verify configuration is loaded: `:checkhealth snacks`
+3. Try adjusting fps or duration settings
+4. Ensure terminal refresh rate is adequate

@@ -20,11 +20,20 @@ git = {
 
 ## Usage
 
-### Commands
-- `:GitStatus` - Show detailed Git status
-- `:GitBranch` - Display current branch information
-- `:GitBlame` - Show blame for current line
-- `:GitDiff` - Enhanced diff view
+### Lua API
+The git module provides functions accessible via Lua:
+
+- `:lua Snacks.git.blame_line()` - Show blame for current line (Keybind: `<leader>gs`)
+- `:lua Snacks.git.status()` - Display Git status (Keybind: `<leader>gS`)
+- `:lua Snacks.git.branch()` - Show current branch information (Keybind: `<leader>gb`)
+
+### Keybindings
+The following keybindings are configured:
+- `<leader>gs` - Git blame line
+- `<leader>gS` - Git status
+- `<leader>gb` - Git branch info
+- `<leader>gg` - Open Lazygit
+- `<leader>go` - Open in browser (GitBrowse)
 
 ### Integration
 - Statusline shows Git branch and status

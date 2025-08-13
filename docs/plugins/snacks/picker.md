@@ -23,12 +23,23 @@ picker = {
 
 ## Usage
 
-### Commands
-- `:Pick files` - Find files in current directory
-- `:Pick buffers` - Switch between open buffers
-- `:Pick git_files` - Find files tracked by Git
-- `:Pick grep` - Search text in files
-- `:Pick symbols` - Find symbols in current file
+### Lua API
+Access picker functionality through Lua:
+
+- `:lua Snacks.picker.files()` - Find files (Keybind: `<leader>ff`)
+- `:lua Snacks.picker.buffers()` - Switch between buffers (Keybind: `<leader>fb`)
+- `:lua Snacks.picker.git_files()` - Find Git files (Keybind: `<leader>gf`)
+- `:lua Snacks.picker.grep()` - Search text in files (Keybind: `<leader>fg`)
+- `:lua Snacks.picker.symbols()` - Find symbols (Keybind: `<leader>fs`)
+- `:lua Snacks.picker.recent()` - Recent files (Keybind: `<leader>fr`)
+
+### Keybindings
+- `<leader>ff` - Find files in current directory
+- `<leader>fb` - Switch between open buffers  
+- `<leader>gf` - Find files tracked by Git
+- `<leader>fg` - Search text in files (live grep)
+- `<leader>fs` - Find symbols in current file
+- `<leader>fr` - Recent files
 
 ### Navigation
 - `Ctrl-j/k` - Move up/down in results

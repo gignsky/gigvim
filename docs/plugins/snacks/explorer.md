@@ -23,10 +23,15 @@ explorer = {
 
 ## Usage
 
-### Commands
-- `:Explorer` - Toggle file explorer
-- `:ExplorerFocus` - Focus on explorer window
-- `<leader>e` - Default toggle keybinding (if configured)
+### Lua API
+Access explorer functionality through Lua:
+
+- `:lua Snacks.explorer()` - Toggle file explorer (Keybind: `<leader>e`)
+- `:lua Snacks.explorer.focus()` - Focus on explorer window
+- `:lua Snacks.explorer.open()` - Open explorer if closed
+
+### Keybindings
+- `<leader>e` - Toggle file explorer
 
 ### Navigation
 - `j/k` - Move up/down

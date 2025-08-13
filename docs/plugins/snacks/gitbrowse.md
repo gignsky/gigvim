@@ -22,14 +22,19 @@ gitbrowse = {
 
 ## Usage
 
-### Commands
-- `:GitBrowse` - Open current file in browser
-- `:GitBrowse!` - Open repository root in browser
-- `:GitBrowse commit` - Open current commit
-- `:GitBrowse blame` - Open file with blame view
+### Lua API
+Access GitBrowse functionality through Lua:
 
-### With Range
-- Select lines in visual mode and run `:GitBrowse` to open file at those lines
+- `:lua Snacks.gitbrowse()` - Open current file in browser (Keybind: `<leader>go`)
+- `:lua Snacks.gitbrowse({ type = "repo" })` - Open repository root
+- `:lua Snacks.gitbrowse({ type = "blame" })` - Open file with blame view
+- `:lua Snacks.gitbrowse({ type = "commit" })` - Open current commit
+
+### Keybindings
+- `<leader>go` - Open current file/repo in browser
+
+### Visual Mode
+- Select lines in visual mode and use `<leader>go` to open file at those lines
 - Highlights the selected range in the browser
 
 ## Supported Platforms

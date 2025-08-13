@@ -48,9 +48,64 @@ Works with all languages that have proper indentation:
 
 ## Customization
 
-You can customize:
-- Guide characters
-- Colors and highlighting
-- Scope behavior
-- Performance settings
-- Language-specific options
+You can customize the indent guides with advanced options:
+
+### Rainbow Indent Configuration
+
+For rainbow-colored indent guides (different colors for each level), you can configure highlight groups:
+
+```lua
+-- Example advanced configuration
+indent = {
+  enabled = true,
+  scope = {
+    enabled = true,
+    priority = 200,
+    char = "│",
+    underline = false,
+    only_scope = false,
+    only_current = false,
+  },
+  chunk = {
+    enabled = true,
+    priority = 200,
+    char = {
+      corner_top = "┌",
+      corner_bottom = "└", 
+      horizontal = "─",
+      vertical = "│",
+      arrow = ">",
+    },
+  },
+  animate = {
+    enabled = true,
+    style = "out",
+    easing = "linear",
+    duration = 200,
+  },
+}
+```
+
+### Custom Highlight Groups
+
+You can define custom highlight groups for rainbow colors:
+
+```vim
+" Define rainbow colors for indent guides
+highlight IndentGuidesOdd  guifg=#ff6b6b guibg=NONE
+highlight IndentGuidesEven guifg=#4ecdc4 guibg=NONE
+highlight IndentGuides1    guifg=#ff6b6b guibg=NONE
+highlight IndentGuides2    guifg=#feca57 guibg=NONE  
+highlight IndentGuides3    guifg=#48dbfb guibg=NONE
+highlight IndentGuides4    guifg=#ff9ff3 guibg=NONE
+highlight IndentGuides5    guifg=#54a0ff guibg=NONE
+highlight IndentGuides6    guifg=#5f27cd guibg=NONE
+```
+
+### Customization Options:
+- **Guide characters**: Change the visual appearance of indent lines
+- **Colors and highlighting**: Create rainbow effects or subtle monochrome
+- **Scope behavior**: Control how current scope is highlighted  
+- **Performance settings**: Optimize for large files
+- **Language-specific options**: Different settings per file type
+- **Animation**: Smooth transitions when moving between scopes
