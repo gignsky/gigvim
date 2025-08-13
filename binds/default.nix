@@ -1,4 +1,8 @@
 {
+  imports = [
+    ./otter.nix
+  ];
+  
   config.vim.keymaps = [
     {
       key = "jj";

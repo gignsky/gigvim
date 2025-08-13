@@ -68,7 +68,7 @@ in
     
     if [ -d "$HOME" ]; then
       echo "Home directory exists"
-      ${pkgs.tree}/bin/tree --version
+      tree --version 2>/dev/null || echo "tree not available"
     fi
     
     # Test variable expansion and loops
