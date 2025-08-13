@@ -13,63 +13,55 @@
     luaConfigRC.embedded-languages = ''
       -- Configure treesitter injections for Nix files
       
-      -- Enhanced injection for Lua code in setup strings
+      -- Generic treesitter injections for embedded languages in Nix
+      -- This uses more generic patterns that automatically detect common embedded code patterns
+      
+      -- Generic injection for quoted string blocks that look like Lua
       vim.treesitter.query.set("nix", "injections", [[
-        ; Lua injection for setup = ''' ... ''' (primary pattern)
-        (binding
-          attrpath: (attrpath (identifier) @_key (#eq? @_key "setup"))
-          expression: (indented_string_expression 
-            (string_fragment) @injection.content)
+        ; Generic Lua injection for setup/config strings
+        (indented_string_expression
+          (string_fragment) @injection.content
+          (#lua-match? @injection.content "^%s*require%s*%(" )
           (#set! injection.language "lua"))
           
-        ; Lua injection for nested setup in extraPlugins
-        (apply_expression
-          function: (select_expression
-            attrpath: (attrpath (identifier) @_setup (#eq? @_setup "setup")))
-          argument: (indented_string_expression 
-            (string_fragment) @injection.content)
+        ; Generic Lua injection for function/method calls
+        (indented_string_expression
+          (string_fragment) @injection.content
+          (#lua-match? @injection.content "function%s*%(" )
+          (#set! injection.language "lua"))
+          
+        ; Generic Lua injection for vim/nvim API calls
+        (indented_string_expression
+          (string_fragment) @injection.content
+          (#lua-match? @injection.content "vim%." )
           (#set! injection.language "lua"))
       ]])
       
-      -- Enhanced injection for Bash code in writeShellScriptBin
+      -- Generic injection for shell script patterns
       vim.treesitter.query.set("nix", "injections", [[
-        ; Bash injection for writeShellScriptBin "name" ''' ... '''
-        (apply_expression
-          function: (select_expression
-            expression: (variable) @_pkgs (#eq? @_pkgs "pkgs")
-            attrpath: (attrpath (identifier) @_func (#eq? @_func "writeShellScriptBin")))
-          argument: [
-            (string_expression)
-            (indented_string_expression 
-              (string_fragment) @injection.content)
-          ]
+        ; Generic bash injection for shell scripts (shebang)
+        (indented_string_expression
+          (string_fragment) @injection.content
+          (#lua-match? @injection.content "^%s*#!/.*sh" )
           (#set! injection.language "bash"))
           
-        ; Alternative pattern for writeShellScriptBin with immediate string
-        (apply_expression
-          function: (select_expression
-            expression: (variable) @_pkgs (#eq? @_pkgs "pkgs")
-            attrpath: (attrpath (identifier) @_func (#eq? @_func "writeShellScriptBin")))
-          argument: (indented_string_expression 
-            (string_fragment) @injection.content)
+        ; Generic bash injection for common shell commands
+        (indented_string_expression
+          (string_fragment) @injection.content
+          (#lua-match? @injection.content "^%s*echo%s+" )
+          (#set! injection.language "bash"))
+          
+        ; Generic bash injection for shell constructs
+        (indented_string_expression
+          (string_fragment) @injection.content
+          (#lua-match? @injection.content "if%s+%[" )
           (#set! injection.language "bash"))
       ]])
 
-      -- Configure otter-nvim for multi-language support
-      require('otter').setup({
-        lsp = {
-          hover = {
-            border = "rounded",
-          },
-        },
-        buffers = {
-          set_filetype = true,
-        },
-        handle_leading_whitespace = true,
-      })
+      -- Note: otter-nvim is already enabled in lang/default.nix, so we don't need to setup again
 
       -- Auto-activation for Nix files with embedded languages
-      -- This provides a fallback even if treesitter injections don't work perfectly
+      -- Generic detection based on content patterns
       vim.api.nvim_create_autocmd({"BufEnter", "BufWritePost"}, {
         pattern = {"*.nix"},
         callback = function()
@@ -78,15 +70,21 @@
           
           local languages = {}
           
-          -- Check for Lua setup strings (multiple patterns)
-          if content:match("setup%s*=%s*''''") or 
-             content:match("%.setup%s*''''") or
-             content:match("setup%s*=%s*[\"']") then
+          -- Generic Lua detection (more patterns)
+          if content:match("require%s*%(") or 
+             content:match("function%s*%(") or 
+             content:match("vim%.") or
+             content:match("local%s+%w+") or
+             content:match("setup%s*=") then
             table.insert(languages, "lua")
           end
           
-          -- Check for Bash writeShellScriptBin
-          if content:match("writeShellScriptBin") then
+          -- Generic Bash detection (more patterns)  
+          if content:match("#!/.*sh") or
+             content:match("echo%s+") or
+             content:match("if%s+%[") or
+             content:match("writeShellScript") or
+             content:match("for%s+%w+%s+in") then
             table.insert(languages, "bash")
           end
           
