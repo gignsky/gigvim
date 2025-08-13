@@ -51,7 +51,7 @@ in
             -- Auto-close window after repository was opened.
             auto_close = true,
             -- Delay window closing.
-            close_after_ms = 3000,
+            close_after_ms = 30000,
             -- Window mode.
             mode = "floating",
             -- Window configuration for floating mode.
@@ -88,3 +88,4 @@ in
     };
   };
 }
+
