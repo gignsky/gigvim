@@ -3,6 +3,7 @@
   imports = [
     ./core
     ./otter.nix
+    ./treesitter-injections.nix
   ];
 
   config.vim.clipboard.registers = "unnamedplus";

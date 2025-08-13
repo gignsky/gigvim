@@ -30,5 +30,11 @@
       action = "<cmd>lua print(vim.inspect(require('otter').get_status()))<cr>";
       desc = "Otter Info";
     }
+    {
+      key = "<leader>le";
+      mode = "n";
+      action = "<cmd>lua require('otter').ask_hover()<cr>";
+      desc = "Otter Hover/Eval";
+    }
   ];
 }
