@@ -6,6 +6,7 @@ let
   snacks-nvim-from-source = pkgs.vimUtils.buildVimPlugin {
     name = "snacks-nvim";
     src = inputs.snacks-nvim; # Must match the input name in flake.nix
+    doCheck = false; # Disable require check due to optional dependencies
   };
 in
 {
