@@ -64,15 +64,15 @@ in
                    enabled = true,
                    scope = {
                      enabled = true,
-                     priority = 200,
-                     char = "│",
-                     underline = false,
-                     only_scope = false,
-                     only_current = false,
+                     priority = 10,
+                     char = "|",
+                     underline = true,
+                     only_current = true,
                    },
                    chunk = {
                      enabled = true,
-                     priority = 200,
+                     priority = 10,
+                     only_current = true,
                      char = {
                        corner_top = "┌",
                        corner_bottom = "└",
@@ -85,7 +85,7 @@ in
                      enabled = true,
                      style = "out",
                      easing = "linear",
-                     duration = 200,
+                     duration = 50,
                    },
                    filter = function(buf)
                      return vim.g.snacks_indent ~= false
