@@ -1,20 +1,5 @@
-# Template for adding external (non-packaged) plugins to nvf
-#
-# To use this template:
-# 1. Add the plugin source to flake.nix inputs:
-#    ```nix
-#    your-plugin = {
-#      url = "github:user/plugin.nvim";
-#      flake = false;
-#    };
-#    ```
-# 2. Copy this file and modify it for your plugin
-# 3. Import it in full.nix or minimal.nix as needed
-# 4. Ensure the importing module has access to inputs parameter
-#
-# NOTE: This template requires inputs to be available in the module context.
-# The safest approach is to inline the plugin configuration in full.nix
-# as demonstrated with themery-nvim.
+# Snacks.nvim - A collection of small QoL plugins for Neovim
+# https://github.com/folke/snacks.nvim
 
 { inputs, pkgs, ... }:
 let
@@ -28,8 +13,14 @@ in
     snacks-nvim = {
       package = snacks-nvim-from-source;
       setup = ''
-        require('your-plugin').setup({
-          -- Your plugin configuration here
+        require('snacks').setup({
+          -- Basic useful plugins enabled
+          bigfile = { enabled = true },
+          notifier = { 
+            enabled = true,
+            timeout = 3000,
+          },
+          quickfile = { enabled = true },
         })
       '';
     };
