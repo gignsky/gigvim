@@ -27,7 +27,7 @@ in
             top_down = true,
           },
           
-          -- Git integration (prioritized as requested)
+          -- Git integration
           lazygit = { 
             enabled = true,
             configure = true,
