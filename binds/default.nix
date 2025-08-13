@@ -1,8 +1,8 @@
 {
   imports = [
+    ./otter.nix
     ./git-dev-nvim.nix
   ];
-
   config.vim.keymaps = [
     {
       key = "jj";

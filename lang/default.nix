@@ -4,7 +4,7 @@
     ./bash.nix
     # ./css.nix
     # ./html.nix
-    # ./lua.nix
+    ./lua.nix
     # ./markdown.nix
     ./nix.nix
     ./nu.nix
@@ -27,7 +27,6 @@
       nvim-docs-view.enable = true;
       lightbulb.enable = true;
       trouble.enable = true;
-      otter-nvim.enable = true;
     };
 
     debugger.nvim-dap = {

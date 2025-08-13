@@ -2,6 +2,7 @@
 {
   imports = [
     ./core
+    ./otter.nix
   ];
 
   config.vim.clipboard.registers = "unnamedplus";
