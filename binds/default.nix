@@ -1,6 +1,7 @@
 {
   imports = [
     ./git-dev-nvim.nix
+    ./snacks-nvim.nix
   ];
 
   config.vim.keymaps = [

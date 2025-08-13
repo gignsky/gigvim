@@ -19,6 +19,10 @@
       url = "github:moyiz/git-dev.nvim";
       flake = false;
     };
+    snacks-nvim = {
+      url = "github:folke/snacks.nvim";
+      flake = false;
+    };
   };
 
   outputs =
