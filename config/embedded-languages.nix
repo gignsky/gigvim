@@ -58,25 +58,25 @@
         ; Generic nushell injection for def functions
         (indented_string_expression
           (string_fragment) @injection.content
-          (#lua-match? @injection.content "^%s*def%s+" )
+          (#lua-match? @injection.content "def%s+")
           (#set! injection.language "nu"))
           
         ; Generic nushell injection for let declarations  
         (indented_string_expression
           (string_fragment) @injection.content
-          (#lua-match? @injection.content "^%s*let%s+[%w_]+%s*=" )
+          (#lua-match? @injection.content "let%s+%w+%s*=")
           (#set! injection.language "nu"))
           
         ; Generic nushell injection for pipe operations
         (indented_string_expression
           (string_fragment) @injection.content
-          (#lua-match? @injection.content "|%s*[%w_]+" )
+          (#lua-match? @injection.content "%|%s*%w+")
           (#set! injection.language "nu"))
           
         ; Generic nushell injection for $in variables
         (indented_string_expression
           (string_fragment) @injection.content
-          (#lua-match? @injection.content "$in" )
+          (#lua-match? @injection.content "%$in")
           (#set! injection.language "nu"))
       ]])
 
@@ -113,8 +113,8 @@
           
           -- Generic Nushell detection
           if content:match("def%s+") or
-             content:match("let%s+[%w_]+%s*=") or
-             content:match("|%s*[%w_]+") or
+             content:match("let%s+%w+%s*=") or
+             content:match("|%s*%w+") or
              content:match("$in") or
              content:match("%.nu") then
             table.insert(languages, "nu")
@@ -156,8 +156,8 @@
                  line_content:match("for%s+%w+%s+in") then
             otter_lang = "bash"
           elseif line_content:match("^def%s+") or
-                 line_content:match("^let%s+[%w_]+%s*=") or
-                 line_content:match("|%s*[%w_]+") or
+                 line_content:match("^let%s+%w+%s*=") or
+                 line_content:match("|%s*%w+") or
                  line_content:match("$in") then
             otter_lang = "nu"
           else
@@ -186,9 +186,10 @@
         end
         
         -- Apply commenting
-        if current_line:match("^%s*" .. vim.pesc(comment_string)) then
+        local escaped_comment = comment_string:gsub("([%-%.%+%[%]%(%)%$%^%%%?%*])", "%%%1")
+        if current_line:match("^%s*" .. escaped_comment) then
           -- Uncomment
-          local new_line = current_line:gsub("^(%s*)" .. vim.pesc(comment_string) .. "%s?", "%1")
+          local new_line = current_line:gsub("^(%s*)" .. escaped_comment .. "%s?", "%1")
           vim.api.nvim_set_current_line(new_line)
         else
           -- Comment
