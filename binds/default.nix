@@ -1,4 +1,8 @@
 {
+  imports = [
+    ./git-dev-nvim.nix
+  ];
+
   config.vim.keymaps = [
     {
       key = "jj";
