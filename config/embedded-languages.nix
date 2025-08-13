@@ -4,11 +4,6 @@
 { pkgs, ... }:
 {
   config.vim = {
-    # Configure treesitter injections for embedded languages in Nix files
-    treesitter = {
-      grammars = pkgs.vimPlugins.nvim-treesitter.allGrammars;
-    };
-
     # Custom Lua configuration for treesitter injections and otter-nvim
     luaConfigRC.embedded-languages = ''
       -- Configure treesitter injections for Nix files

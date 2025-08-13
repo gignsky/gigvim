@@ -14,8 +14,8 @@ in
     test-setup = {
       package = test-plugin;
       setup = ''
+        -- This should be highlighted as Lua with generic detection
         require('test').setup({
-          -- This should be highlighted as Lua
           option = "value",
           nested = {
             key = true,
@@ -23,7 +23,12 @@ in
           }
         })
         
-        -- Test function call
+        -- Test function definitions
+        local function myFunc()
+          print("Hello from embedded Lua!")
+        end
+        
+        -- Test vim API calls
         vim.keymap.set('n', '<leader>t', function()
           print("Hello from embedded Lua!")
         end)
@@ -31,13 +36,19 @@ in
     };
   };
   
-  # Test case 2: Bash in writeShellScriptBin (example pattern)
-  # Note: This would typically be in a packages.nix or similar file
-}
-
-# Separate test for writeShellScriptBin pattern
-# (This represents the pattern from the dotfiles repo)
-rec {
+  # Test case 2: More generic Lua patterns
+  someConfig = ''
+    local config = {
+      enabled = true,
+      options = {}
+    }
+    
+    function setup()
+      vim.notify("Setup complete")
+    end
+  '';
+  
+  # Test case 3: Bash in writeShellScriptBin
   test-script = pkgs.writeShellScriptBin "test-script" ''
     #!/bin/bash
     # This should be highlighted as Bash
@@ -48,9 +59,22 @@ rec {
       ${pkgs.tree}/bin/tree --version
     fi
     
-    # Test variable expansion
+    # Test variable expansion and loops
     for file in *.nix; do
       echo "Processing $file"
+    done
+  '';
+  
+  # Test case 4: More generic bash patterns
+  otherScript = ''
+    echo "Generic bash detection test"
+    
+    if [ "$1" = "test" ]; then
+      echo "Test mode"
+    fi
+    
+    for i in {1..5}; do
+      echo "Iteration $i"
     done
   '';
 }
