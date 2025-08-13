@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:gignsky/nixpkgs/add-themery.nvim";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
