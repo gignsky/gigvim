@@ -4,7 +4,7 @@
     {
       key = "<leader>f";
       mode = "n";
-      action = ""; 
+      action = "";
       desc = "+Find/Files";
     }
     {
@@ -97,27 +97,6 @@
       silent = true;
       action = "<cmd>lua Snacks.git.blame_line()<cr>";
       desc = "Git Blame Line";
-    }
-    {
-      key = "<leader>gS";
-      mode = "n";
-      silent = true;
-      action = "<cmd>lua Snacks.git.status()<cr>";
-      desc = "Git Status";
-    }
-    {
-      key = "<leader>gb";
-      mode = "n";
-      silent = true;
-      action = "<cmd>lua Snacks.git.branch()<cr>";
-      desc = "Git Branch Info";
-    }
-    {
-      key = "<leader>go";
-      mode = "n";
-      silent = true;
-      action = "<cmd>lua Snacks.gitbrowse()<cr>";
-      desc = "Open in Browser";
     }
 
     # Buffer management

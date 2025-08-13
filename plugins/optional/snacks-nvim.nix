@@ -22,7 +22,7 @@ in
                  -- Enhanced notification system with LSP progress
                  notifier = { 
                    enabled = true,
-                   timeout = 3000,
+                   timeout = 30000,
                    style = "fancy",
                    top_down = true,
                  },
@@ -86,7 +86,7 @@ in
                    animate = {
                      enabled = true,
                      style = "out",
-                     easing = "linear",  -- Available: linear, ease, easeIn, easeOut, easeInOut, circIn, circOut, circInOut, backIn, backOut, backInOut, bounceOut
+                     easing = "linear", -- only linear is available
                      duration = 50,
                    },
                    -- Filter function: only enable indent guides for normal buffers (not terminals, help, etc.)
@@ -140,7 +140,7 @@ in
                    enabled = true,
                    win = {
                      keys = {
-                       i_esc = { "<esc>", "cmp_close", "cancel" },
+                       -- i_esc = { "<esc>", "cmp_close", "cancel" },
                        i_cr = { "<cr>", { "cmp_accept", "confirm" } },
                        i_tab = { "<tab>", { "cmp_select_next", "cmp_fallback" } },
                      },
@@ -190,11 +190,12 @@ in
 
   # Required dependencies for snacks.nvim functionality
   config.vim.extraPackages = with pkgs; [
-    ripgrep      # rg - required for grep functionality
-    fd           # fd - required for file finding (v8.4+)
-    sqlite       # sqlite3 - required for certain snacks features
-    gscan2pdf      # gs - required for image support
-    tectonic     # tectonic - required for LaTeX support
+    ripgrep # rg - required for grep functionality
+    fd # fd - required for file finding (v8.4+)
+    sqlite # sqlite3 - required for certain snacks features
+    gscan2pdf # gs - required for image support
+    tectonic # tectonic - required for LaTeX support
+    git # its git bitch
     # latex     # pdflatex - required for LaTeX support
     # mmdc         # mmdc - required for Markdown support
   ];
