@@ -1,3 +1,5 @@
+# TODO FIXME - make it so that using these commands opens up the pretty picker in PR [#11](https://github.com/gignsky/gigvim/pull/11)
+
 # git-dev.nvim - Remote Git Repository Integration
 
 Open remote Git repositories inside Neovim by managing ephemeral shallow clones automatically. Provides a GitHub.dev-like experience directly within Neovim.
