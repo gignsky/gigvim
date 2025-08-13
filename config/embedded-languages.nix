@@ -52,33 +52,7 @@
           (#lua-match? @injection.content "if%s+%[" )
           (#set! injection.language "bash"))
       ]])
-      
-      -- Generic injection for nushell patterns
-      vim.treesitter.query.set("nix", "injections", [[
-        ; Generic nushell injection for def functions
-        (indented_string_expression
-          (string_fragment) @injection.content
-          (#lua-match? @injection.content "def%s+")
-          (#set! injection.language "nu"))
-          
-        ; Generic nushell injection for let declarations  
-        (indented_string_expression
-          (string_fragment) @injection.content
-          (#lua-match? @injection.content "let%s+%w+%s*=")
-          (#set! injection.language "nu"))
-          
-        ; Generic nushell injection for pipe operations
-        (indented_string_expression
-          (string_fragment) @injection.content
-          (#lua-match? @injection.content "%|%s*%w+")
-          (#set! injection.language "nu"))
-          
-        ; Generic nushell injection for $in variables
-        (indented_string_expression
-          (string_fragment) @injection.content
-          (#lua-match? @injection.content "%$in")
-          (#set! injection.language "nu"))
-      ]])
+
 
       -- Note: otter-nvim is enabled in config/otter.nix
       -- Otter keybindings are configured in config/otter.nix
@@ -109,15 +83,6 @@
              content:match("writeShellScript") or
              content:match("for%s+%w+%s+in") then
             table.insert(languages, "bash")
-          end
-          
-          -- Generic Nushell detection
-          if content:match("def%s+") or
-             content:match("let%s+%w+%s*=") or
-             content:match("|%s*%w+") or
-             content:match("$in") or
-             content:match("%.nu") then
-            table.insert(languages, "nu")
           end
           
           -- Activate otter if we found embedded languages
@@ -155,11 +120,6 @@
                  line_content:match("^if%s+%[") or
                  line_content:match("for%s+%w+%s+in") then
             otter_lang = "bash"
-          elseif line_content:match("^def%s+") or
-                 line_content:match("^let%s+%w+%s*=") or
-                 line_content:match("|%s*%w+") or
-                 line_content:match("$in") then
-            otter_lang = "nu"
           else
             -- Default to first active language if no specific pattern matches
             otter_lang = status.languages[1]
@@ -171,8 +131,6 @@
         if otter_lang == "lua" then
           comment_string = "--"
         elseif otter_lang == "bash" then  
-          comment_string = "#"
-        elseif otter_lang == "nu" then
           comment_string = "#"
         else
           -- Fallback: detect language from line content even without otter
@@ -283,9 +241,6 @@
                 end
               end
             })
-          elseif lang == "nu" then
-            -- Nushell validation (basic syntax check)
-            vim.notify("Nushell syntax validation not yet implemented", vim.log.levels.INFO)
           end
         end
       end

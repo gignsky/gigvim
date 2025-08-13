@@ -4,14 +4,12 @@
 # New features in this PR:
 # 1. Context-aware commenting: Use 'gc' in normal/visual mode
 #    - Lua code gets '--' comments
-#    - Bash/Nushell code gets '#' comments  
+#    - Bash code gets '#' comments  
 #    - Nix code gets '#' comments
 # 2. Inline evaluation: Use '<leader>le' to evaluate code
 #    - Lua: Direct execution with error reporting
 #    - Bash: Shellcheck validation
-#    - Nushell: Basic syntax validation
-# 3. Nushell support: Auto-detection of embedded nushell code
-# 4. Enhanced language detection with generic patterns
+# 3. Enhanced language detection with generic patterns
 
 { inputs, pkgs, ... }:
 let
@@ -90,25 +88,6 @@ in
     done
   '';
   
-  # Test case 5: Nushell patterns
-  nuScript = ''
-    # This should be highlighted as Nushell
-    def my-command [name: string] {
-      echo $"Hello ($name)!"
-    }
-    
-    let config = {
-      name: "test",
-      enabled: true
-    }
-    
-    # Test pipe operations
-    ls | where type == file | select name size
-    
-    # Test $in variable
-    [1, 2, 3] | each { |x| $x * 2 } | $in | math sum
-  '';
-  
   # Test case 6: Mixed languages in configuration
   complexConfig = ''
     # Lua configuration
@@ -122,11 +101,5 @@ in
     # Followed by some bash
     echo "Setting up environment"
     export PATH="$PATH:/custom/bin"
-    
-    # And some nushell
-    def update-config [] {
-      let new_config = { updated: true }
-      $new_config | save config.json
-    }
   '';
 }
