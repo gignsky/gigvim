@@ -2,7 +2,6 @@
 {
   imports = [
     ./core
-    ./embedded-languages.nix
     ./otter.nix
   ];
 
