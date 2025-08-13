@@ -10,7 +10,7 @@
       # inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
     };
     gigdot.url = "github:gignsky/dotfiles";
-    home-manager.follows = "gigdot/nixpkgs";
+    home-manager.follows = "gigdot/home-manager";
     themery-nvim = {
       url = "github:zaldih/themery.nvim";
       flake = false;
