@@ -11,10 +11,6 @@
     };
     gigdot.url = "github:gignsky/dotfiles";
     home-manager.follows = "gigdot/home-manager";
-    themery-nvim = {
-      url = "github:zaldih/themery.nvim";
-      flake = false;
-    };
     git-dev-nvim = {
       url = "github:moyiz/git-dev.nvim";
       flake = false;
