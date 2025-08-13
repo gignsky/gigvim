@@ -24,7 +24,7 @@ in
             enabled = true,
             timeout = 3000,
             style = "fancy",
-            top_down = false,
+            top_down = true,
           },
           
           -- Git integration (prioritized as requested)
