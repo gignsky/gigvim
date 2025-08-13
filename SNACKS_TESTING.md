@@ -19,9 +19,9 @@ require('snacks').setup({
 
 ### Enabled Plugins
 
-1. **bigfile**: Improves performance when opening large files
-2. **notifier**: Enhanced notification system with 3-second timeout
-3. **quickfile**: Faster file opening when using `nvim somefile.txt`
+1. **bigfile**: Improves performance when opening large files (>1.5MB) by disabling expensive features like treesitter, LSP, and syntax highlighting
+2. **notifier**: Enhanced notification system with 3-second timeout and better styling
+3. **quickfile**: Faster file opening when using `nvim somefile.txt` by skipping unnecessary startup hooks
 
 ## Testing Instructions
 
@@ -31,17 +31,17 @@ Due to SSL certificate issues in the CI environment when downloading Rust depend
 1. Build the full configuration: `nix build .#full`
 2. Run the built Neovim: `./result/bin/nvim`
 3. Verify snacks.nvim is loaded:
-   - `:lua print(require('snacks'))`
-   - Open a large file to test bigfile functionality
+   - `:lua print(require('snacks'))` (should return "table: 0x...")
+   - `:lua print(vim.inspect(require('snacks').config))` (shows configuration)
    - Generate notifications to test notifier: `:lua vim.notify("Test", vim.log.levels.INFO)`
    - Test quickfile by opening files from command line
 
 ### Verification Steps
 1. Check if the plugin is loaded: `:lua print(vim.inspect(require('snacks').config))`
 2. Verify enabled modules are working:
-   - Bigfile: Open a file > 1.5MB
-   - Notifier: Run `:lua vim.notify("Hello from Snacks!", vim.log.levels.INFO)`
-   - Quickfile: Start nvim with a file argument
+   - **Bigfile**: Create a test file: `:!head -c 2M /dev/zero > large_test.txt` then open it with `nvim large_test.txt`. You should see "Bigfile detected" message and reduced functionality for better performance.
+   - **Notifier**: Run `:lua vim.notify("Hello from Snacks!", vim.log.levels.INFO)` - should show enhanced notification
+   - **Quickfile**: Start nvim with a file argument: `nvim flake.nix` should open faster
 
 ### Configuration Details
 - The plugin is imported in `full.nix` but not in `minimal.nix`
