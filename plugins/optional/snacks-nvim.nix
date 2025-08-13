@@ -101,6 +101,8 @@ in
                  },
                  dim = { 
                    enabled = true,
+                   -- Enable automatic dimming
+                   auto = true,
                    scope = {
                      min_size = 5,
                      max_size = 20,
@@ -116,6 +118,16 @@ in
                    enabled = true,
                    fps = 60,
                    easing = "outQuad",
+                   -- Enable window resize animations
+                   resize = {
+                     enabled = true,
+                     duration = 200,
+                   },
+                   -- Enable window movement animations  
+                   move = {
+                     enabled = true,
+                     duration = 200,
+                   },
                  },
                  
                  -- Development tools
@@ -149,10 +161,18 @@ in
                  },
                  
                  -- Additional utilities
-                 debug = { enabled = true },
+                 debug = { 
+                   enabled = true,
+                   -- Enable debug logging
+                   log_level = "info",
+                 },
                  health = { enabled = true },
                  layout = { enabled = true },
-                 profiler = { enabled = true },
+                 profiler = { 
+                   enabled = true,
+                   -- Auto start profiling on startup
+                   auto_start = false,
+                 },
                  
                  -- New snacks plugins
                  scope = { enabled = true },
