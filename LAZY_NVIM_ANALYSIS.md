@@ -122,11 +122,21 @@ Create reusable modules for complex plugins (see `plugins/optional/themery-nvim.
 2. **Use extraPlugins** for plugins not yet supported by nvf
 3. **Contribute to nvf** to add missing plugin modules
 4. **Don't use lazy.nvim** - it conflicts with nvf's design
+5. **Upstream plugins to nixpkgs** to avoid flake input dependencies
 
 ### For Plugin Development:
 1. **Create nvf modules** instead of lazy.nvim specifications
 2. **Follow the template** in `plugins/optional/TEMPLATE-external-plugin.nix`
 3. **Submit upstream** plugin modules to nvf project
+
+### Related Documentation
+
+For guidance on removing external plugin dependencies (like the themery.nvim flake input), see:
+
+- **[QUICK-REFERENCE.md](./QUICK-REFERENCE.md)** - Immediate steps to upstream themery.nvim
+- **[UPSTREAMING-STRATEGY.md](./UPSTREAMING-STRATEGY.md)** - Complete strategy for removing flake dependencies
+- **[UPSTREAM-THEMERY-TO-NIXPKGS.md](./UPSTREAM-THEMERY-TO-NIXPKGS.md)** - Detailed nixpkgs submission guide
+- **[UPSTREAM-THEMERY-TO-NVF.md](./UPSTREAM-THEMERY-TO-NVF.md)** - Alternative nvf module approach
 
 ## Conclusion
 
