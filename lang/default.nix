@@ -8,7 +8,7 @@
     ./markdown.nix
     ./nix.nix
     ./nu.nix
-    # ./python.nix
+    ./python.nix
     ./rust.nix
     # ./sql.nix
     # ./svelte.nix
@@ -31,7 +31,7 @@
     };
 
     debugger.nvim-dap = {
-      enable = false;
+      enable = true;
       ui = {
         enable = true;
         autoStart = true;
