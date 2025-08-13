@@ -52,15 +52,12 @@ in
                 { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
                 { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
                 { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})" },
-                { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-                { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = false },
                 { icon = " ", key = "q", desc = "Quit", action = ":qa" },
               },
             },
             sections = {
               { section = "header" },
               { section = "keys", gap = 1, padding = 1 },
-              { section = "startup" },
             },
           },
           indent = { 
@@ -153,7 +150,7 @@ in
           
           -- Terminal and image support
           terminal = { enabled = true },
-          image = { enabled = true },
+          image = { enabled = false }, # disabled since wsl2 doesn't support it
         })
       '';
     };
