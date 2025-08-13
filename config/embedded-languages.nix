@@ -148,16 +148,29 @@
         local otter_lang = nil
         local status = otter.get_status()
         if status and status.languages and #status.languages > 0 then
-          -- Check if we're in an embedded language region
-          local ts_utils = require('nvim-treesitter.ts_utils')
-          local node = ts_utils.get_node_at_cursor()
-          if node then
-            local start_row, start_col, end_row, end_col = node:range()
-            -- Simple heuristic: if we're in a string that otter is managing, use embedded language
-            for _, lang in ipairs(status.languages) do
-              otter_lang = lang
-              break
-            end
+          -- Check current line content to determine most likely language
+          local line_content = current_line:gsub("^%s*", "")  -- trim leading whitespace
+          
+          -- More sophisticated language detection based on line content
+          if line_content:match("^%-%-") or 
+             line_content:match("require%s*%(") or 
+             line_content:match("function%s*%(") or 
+             line_content:match("vim%.") or
+             line_content:match("local%s+") then
+            otter_lang = "lua"
+          elseif line_content:match("^#!/.*sh") or
+                 line_content:match("^echo%s+") or
+                 line_content:match("^if%s+%[") or
+                 line_content:match("for%s+%w+%s+in") then
+            otter_lang = "bash"
+          elseif line_content:match("^def%s+") or
+                 line_content:match("^let%s+%w+%s*=") or
+                 line_content:match("|%s*%w+") or
+                 line_content:match("%$in") then
+            otter_lang = "nu"
+          else
+            -- Default to first active language if no specific pattern matches
+            otter_lang = status.languages[1]
           end
         end
         
@@ -169,6 +182,15 @@
           comment_string = "#"
         elseif otter_lang == "nu" then
           comment_string = "#"
+        else
+          -- Fallback: detect language from line content even without otter
+          local line_content = current_line:gsub("^%s*", "")
+          if line_content:match("%-%-") or 
+             line_content:match("require%s*%(") or 
+             line_content:match("function%s*%(") or 
+             line_content:match("vim%.") then
+            comment_string = "--"
+          end
         end
         
         -- Apply commenting

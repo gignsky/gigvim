@@ -1,5 +1,17 @@
 # Manual Test File for Embedded Language Support
 # This file contains examples of the patterns we want to support
+#
+# New features in this PR:
+# 1. Context-aware commenting: Use 'gc' in normal/visual mode
+#    - Lua code gets '--' comments
+#    - Bash/Nushell code gets '#' comments  
+#    - Nix code gets '#' comments
+# 2. Inline evaluation: Use '<leader>le' to evaluate code
+#    - Lua: Direct execution with error reporting
+#    - Bash: Shellcheck validation
+#    - Nushell: Basic syntax validation
+# 3. Nushell support: Auto-detection of embedded nushell code
+# 4. Enhanced language detection with generic patterns
 
 { inputs, pkgs, ... }:
 let
