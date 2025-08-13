@@ -26,6 +26,12 @@
       desc = "+Themes/Terminal";
     }
     {
+      key = "<leader>n";
+      mode = "n";
+      action = "";
+      desc = "+Notifications";
+    }
+    {
       key = "<leader>l";
       mode = "n";
       action = "";
@@ -83,6 +89,20 @@
       desc = "Find Symbols";
     }
     {
+      key = "<leader>fk";
+      mode = "n";
+      silent = true;
+      action = "<cmd>Telescope keymaps<cr>";
+      desc = "Find Keymaps";
+    }
+    {
+      key = "<leader>fc";
+      mode = "n";
+      silent = true;
+      action = "<cmd>Telescope commands<cr>";
+      desc = "Find Commands";
+    }
+    {
       key = "<leader>gf";
       mode = "n";
       silent = true;
@@ -129,6 +149,31 @@
       silent = true;
       action = "<cmd>lua Snacks.terminal()<cr>";
       desc = "Toggle Floating Terminal";
+    }
+
+    # Notifications
+    {
+      key = "<leader>nh";
+      mode = "n";
+      silent = true;
+      action = "<cmd>lua Snacks.notifier.show_history()<cr>";
+      desc = "Notification History";
+    }
+    {
+      key = "<leader>nd";
+      mode = "n";
+      silent = true;
+      action = "<cmd>lua Snacks.notifier.hide()<cr>";
+      desc = "Dismiss Notifications";
+    }
+
+    # Dashboard
+    {
+      key = "<leader>d";
+      mode = "n";
+      silent = true;
+      action = "<cmd>lua Snacks.dashboard()<cr>";
+      desc = "Return to Dashboard";
     }
   ];
 }

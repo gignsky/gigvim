@@ -31,6 +31,17 @@ in
                  lazygit = { 
                    enabled = true,
                    configure = true,
+                   theme = {
+                     activeBorderColor = { "#a6da95", "bold" },
+                     inactiveBorderColor = { "#494d64" },
+                     optionsTextColor = { "#8bd5ca" },
+                     selectedLineBgColor = { "#363a4f" },
+                     selectedRangeBgColor = { "#363a4f" },
+                     cherryPickedCommitBgColor = { "#494d64" },
+                     cherryPickedCommitFgColor = { "#a6da95" },
+                     unstagedChangesColor = { "#ed8796" },
+                     defaultFgColor = { "#cad3f5" },
+                   },
                  },
                  git = { enabled = true },
                  gitbrowse = { enabled = true },
@@ -51,7 +62,10 @@ in
                        { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
                        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
                        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
-                       { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})" },
+                       { icon = " ", key = "e", desc = "Toggle Explorer", action = ":lua Snacks.explorer()" },
+                       { icon = " ", key = "h", desc = "Help Cheatsheet", action = ":lua require('gigvim.cheatsheet').show()" },
+                       { icon = " ", key = "c", desc = "Check Health", action = ":lua require('gigvim.checkhealth').menu()" },
+                       { icon = " ", key = "d", desc = "Dashboard", action = ":lua Snacks.dashboard()" },
                        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
                      },
                    },
@@ -171,14 +185,48 @@ in
                    auto_start = false,
                  },
                  
-                 -- New snacks plugins
-                 scope = { enabled = true },
-                 scroll = { enabled = true },
-                 statuscolumn = { enabled = true },
-                 words = { enabled = true },
+                 -- Enhanced UI features
+                 scope = { 
+                   enabled = true,
+                   priority = 200,
+                   animate = {
+                     enabled = true,
+                     duration = 200,
+                   },
+                 },
+                 scroll = { 
+                   enabled = true,
+                   animate = {
+                     duration = 250,
+                     easing = "outQuad",
+                   },
+                   spamming = 10,
+                 },
+                 statuscolumn = { 
+                   enabled = true,
+                   left = { "mark", "sign" },
+                   right = { "fold", "git" },
+                   folds = {
+                     open = false,
+                     git_hl = false,
+                   },
+                 },
+                 words = { 
+                   enabled = true,
+                   debounce = 200,
+                   notify_jump = false,
+                   notify_end = true,
+                 },
                  
                  -- Terminal and image support
-                 terminal = { enabled = true },
+                 terminal = { 
+                  enabled = true,
+                  win = {
+                    position = "float",
+                    height = 0.8,
+                    width = 0.8,
+                  },
+                },
                  image = { enabled = false }, -- disabled since wsl2 doesn't support it
                })
                

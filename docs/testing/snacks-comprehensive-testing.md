@@ -57,12 +57,15 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 **Git Operations:**
 - `<leader>gg` - Lazygit (requires lazygit installed)
 - `<leader>gs` - Git blame line
-- `<leader>gS` - Git status
-- `<leader>gb` - Git branch info
-- `<leader>go` - Open in browser
+- `<leader>gf` - Git files picker
 
 **Git-dev Integration:**
-- `<leader>go` - Should open snacks input dialog for repo
+- `<leader>gdo` - Open remote repository (snacks input dialog)
+- `<leader>gdr` - Browse recent repositories  
+- `<leader>gdc` - Clean current repository
+- `<leader>gdC` - Clean all cached repositories
+- `<leader>gdb` - Close all buffers for current repository
+- `<leader>gdu` - Toggle git-dev output window
 - `<leader>gr` - Browse recent repositories
 
 **Expected Behavior:** Seamless git workflow integration
