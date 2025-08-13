@@ -16,7 +16,7 @@
       flake = false;
     };
     git-dev-nvim = {
-      url = "github:moyiz/git-dev.nvim/f8894349d04b2d922f2d170c5d66db729236d86f";
+      url = "github:moyiz/git-dev.nvim";
       flake = false;
     };
   };

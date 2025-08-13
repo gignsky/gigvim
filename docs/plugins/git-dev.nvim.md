@@ -49,6 +49,17 @@ require('git-dev').setup({
 - `:GitDevRecents` - Browse recent repositories with Telescope
 - `:GitDevToggleUI` - Toggle the git-dev output window
 
+### Key Bindings
+
+GigVim provides the following key bindings for git-dev commands:
+
+- `<leader>go` - Open remote repository (`:GitDevOpen `)
+- `<leader>gr` - Browse recent repositories (`:GitDevRecents`)
+- `<leader>gc` - Clean current repository (`:GitDevClean`)
+- `<leader>gC` - Clean all cached repositories (`:GitDevCleanAll`)
+- `<leader>gb` - Close all buffers for current repository (`:GitDevCloseBuffers`)
+- `<leader>gu` - Toggle git-dev output window (`:GitDevToggleUI`)
+
 ### Examples
 
 #### Basic Repository Opening

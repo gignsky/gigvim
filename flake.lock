@@ -581,7 +581,6 @@
       "original": {
         "owner": "moyiz",
         "repo": "git-dev.nvim",
-        "rev": "f8894349d04b2d922f2d170c5d66db729236d86f",
         "type": "github"
       }
     },
