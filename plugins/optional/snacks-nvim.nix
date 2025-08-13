@@ -15,9 +15,6 @@ in
       package = snacks-nvim-from-source;
       setup = ''
                require('snacks').setup({
-                 -- Set up vim.ui.input to use snacks
-                 vim.ui.input = require('snacks').input,
-                 
                  -- Core performance and usability plugins
                  bigfile = { enabled = true },
                  quickfile = { enabled = true },
@@ -184,6 +181,9 @@ in
                  terminal = { enabled = true },
                  image = { enabled = false }, -- disabled since wsl2 doesn't support it
                })
+               
+               -- Set up vim.ui.input to use snacks after setup
+               vim.ui.input = require('snacks').input
       '';
     };
   };
@@ -193,5 +193,9 @@ in
     ripgrep      # rg - required for grep functionality
     fd           # fd - required for file finding (v8.4+)
     sqlite       # sqlite3 - required for certain snacks features
+    gscan2pdf      # gs - required for image support
+    tectonic     # tectonic - required for LaTeX support
+    # latex     # pdflatex - required for LaTeX support
+    # mmdc         # mmdc - required for Markdown support
   ];
 }
