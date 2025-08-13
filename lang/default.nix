@@ -4,7 +4,7 @@
     ./bash.nix
     # ./css.nix
     # ./html.nix
-    # ./lua.nix
+    ./lua.nix
     # ./markdown.nix
     ./nix.nix
     ./nu.nix
