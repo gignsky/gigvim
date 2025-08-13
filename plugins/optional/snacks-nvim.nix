@@ -63,9 +63,6 @@ in
                        { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
                        { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
                        { icon = " ", key = "e", desc = "Toggle Explorer", action = ":lua Snacks.explorer()" },
-                       { icon = " ", key = "h", desc = "Help Cheatsheet", action = ":lua require('gigvim.cheatsheet').show()" },
-                       { icon = " ", key = "c", desc = "Check Health", action = ":lua require('gigvim.checkhealth').menu()" },
-                       { icon = " ", key = "d", desc = "Dashboard", action = ":lua Snacks.dashboard()" },
                        { icon = " ", key = "q", desc = "Quit", action = ":qa" },
                      },
                    },
@@ -207,14 +204,14 @@ in
                    left = { "mark", "sign" },
                    right = { "fold", "git" },
                    folds = {
-                     open = false,
-                     git_hl = false,
+                     open = true,
+                     git_hl = true,
                    },
                  },
                  words = { 
                    enabled = true,
                    debounce = 200,
-                   notify_jump = false,
+                   notify_jump = true,
                    notify_end = true,
                  },
                  
