@@ -2,7 +2,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
