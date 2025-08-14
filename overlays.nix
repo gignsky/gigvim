@@ -21,9 +21,9 @@
   master-packages = final: prev: {
     master = import inputs.nixpkgs-master {
       inherit (prev) system;
-      config = {
-        allowUnfree = true;
-      };
+      # config = {
+      #   allowUnfree = true;
+      # };
       overlays = [ ];
     };
   };

@@ -44,7 +44,6 @@
           pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = [ overlays.master-packages ];
-            config.allowUnfree = true;
           };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
