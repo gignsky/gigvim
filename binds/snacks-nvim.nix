@@ -37,6 +37,18 @@
       action = "";
       desc = "+Linter";
     }
+    {
+      key = "<leader>d";
+      mode = "n";
+      action = "";
+      desc = "+Debug Options";
+    }
+    {
+      key = "<leader>r";
+      mode = "n";
+      action = "";
+      desc = "+Return to Dashboad";
+    }
 
     # Snacks.nvim keybindings
     {
@@ -169,7 +181,7 @@
 
     # Dashboard
     {
-      key = "<leader>d";
+      key = "<leader>rd";
       mode = "n";
       silent = true;
       action = "<cmd>lua Snacks.dashboard()<cr>";
