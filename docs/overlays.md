@@ -1,6 +1,6 @@
 # Overlays Documentation
 
-## Namespaced Overlay Pattern (Option 2)
+## Namespaced Overlay Pattern
 
 GigVim uses a namespaced overlay pattern to provide access to packages from different nixpkgs branches without overriding top-level package attributes.
 
