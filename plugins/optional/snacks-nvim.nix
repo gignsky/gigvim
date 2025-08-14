@@ -83,7 +83,7 @@ in
                      
                      -- Show notification that bigfile optimization is active
                      if require('snacks').notifier then
-                     local ok, notifier = pcall(function() return require('snacks').notifier end),
+                     local ok, notifier = pcall(function() return require('snacks').notifier end)
                      if ok and notifier and type(notifier.notify) == "function" then
                        notifier.notify("Bigfile detected - Performance optimizations active", {
                          level = "info", 
