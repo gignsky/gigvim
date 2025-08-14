@@ -1,11 +1,12 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    # nixpkgs.url = "github:NixOS/nixpkgs/master";
+    # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    flake-parts.follows = "nvf/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
       # # Optionally, you can also override individual plugins
       # # for example:
       # inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
@@ -24,7 +25,6 @@
 
   outputs =
     {
-      self,
       flake-parts,
       nvf,
       ...
@@ -38,13 +38,8 @@
       ];
 
       perSystem =
-        { system, ... }:
+        { pkgs, ... }:
         let
-          overlays = import ./overlays.nix { inherit inputs; };
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            overlays = [ overlays.master-packages ];
-          };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {

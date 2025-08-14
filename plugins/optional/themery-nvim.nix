@@ -1,13 +1,18 @@
 # Themery.nvim Plugin Configuration for nvf
 # Theme switcher plugin for Neovim
 
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
+# let
+#   masterPkgs = import inputs.nixpkgs-master {
+#     inherit (pkgs) system;
+#   };
+# in
 {
   imports = [ ../../themes ];
   config.vim = {
     extraPlugins = {
       themery = {
-        package = pkgs.master.vimPlugins.themery-nvim;
+        package = pkgs.vimPlugins.themery-nvim;
         setup = ''
           require('themery').setup({
             themes = {
