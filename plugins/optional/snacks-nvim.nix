@@ -18,7 +18,7 @@ in
           -- Core performance and usability plugins
           bigfile = { 
             enabled = true,
-            line_length = 40, -- Average line length for minified files
+            line_length = 40, -- Threshold for determining large files based on average line length
           },
 
           quickfile = { enabled = true },
