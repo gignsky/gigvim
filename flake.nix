@@ -1,12 +1,12 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     # nixpkgs.url = "github:NixOS/nixpkgs/master";
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     flake-parts.follows = "nvf/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
       # # Optionally, you can also override individual plugins
       # # for example:
       # inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
