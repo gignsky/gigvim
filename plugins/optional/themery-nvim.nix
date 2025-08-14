@@ -7,7 +7,7 @@
   config.vim = {
     extraPlugins = {
       themery = {
-        package = pkgs.local.vimPlugins.themery-nvim;
+        package = pkgs.master.vimPlugins.themery-nvim;
         setup = ''
           require('themery').setup({
             themes = {
