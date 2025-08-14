@@ -1,3 +1,5 @@
+[![Packaging status](https://repology.org/badge/vertical-allrepos/vim%3Athemery.nvim.svg)](https://repology.org/project/vim%3Athemery.nvim/versions)
+
 # Themery.nvim - Theme Management Plugin
 
 Themery.nvim is a theme management plugin that provides a simple interface for switching between different Neovim colorschemes and managing theme configurations.
