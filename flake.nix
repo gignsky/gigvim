@@ -38,14 +38,19 @@
       ];
 
       perSystem =
-        { self, pkgs, ... }:
+        { system, ... }:
         let
-          inherit (self) outputs;
+          overlays = import ./overlays.nix { inherit inputs; };
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ overlays.master-packages ];
+            config.allowUnfree = true;
+          };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ fullConfigModule ];
-            inherit outputs pkgs;
+            inherit pkgs;
             extraSpecialArgs = { inherit inputs; };
           };
           minimalNvimConfig = nvf.lib.neovimConfiguration {
