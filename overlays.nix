@@ -25,4 +25,11 @@
     };
   };
 
+  # be accessible through 'pkgs.local'
+  local-packages = final: _prev: {
+    local = import inputs.nixpkgs-local {
+      inherit (final) system;
+      config.allowUnfree = true;
+    };
+  };
 }
