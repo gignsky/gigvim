@@ -2,11 +2,6 @@
 # Theme switcher plugin for Neovim
 
 { pkgs, inputs, ... }:
-# let
-#   masterPkgs = import inputs.nixpkgs-master {
-#     inherit (pkgs) system;
-#   };
-# in
 {
   imports = [ ../../themes ];
   config.vim = {
