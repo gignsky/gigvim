@@ -26,10 +26,10 @@ in
                      -- Disable parentheses matching
                      if vim.fn.exists(":NoMatchParen") ~= 0 then
                        vim.cmd([[NoMatchParen]])
-                     end
+                     pcall(vim.cmd, 'NoMatchParen')
                      
                      -- Set window options for better performance
-                     require('snacks').util.wo(0, { 
+                     require('snacks').util.wo(ctx.win, { 
                        foldmethod = "manual", 
                        statuscolumn = "", 
                        conceallevel = 0 
@@ -70,7 +70,7 @@ in
                            vim.lsp.buf_detach_client(ctx.buf, client.id)
                          end
                          -- Disable LSP auto-attach for this buffer
-                         vim.b[ctx.buf].lsp_attach = false
+                         -- Removed custom flag; rely on standard LSP detachment
                        end
                      end)
                      
@@ -83,7 +83,9 @@ in
                      
                      -- Show notification that bigfile optimization is active
                      if require('snacks').notifier then
-                       require('snacks').notifier.notify("Bigfile detected - Performance optimizations active", {
+                     local ok, notifier = pcall(function() return require('snacks').notifier end)
+                     if ok and notifier and type(notifier.notify) == "function" then
+                       notifier.notify("Bigfile detected - Performance optimizations active", {
                          level = "info", 
                          title = "GigVim BigFile",
                          timeout = 3000
