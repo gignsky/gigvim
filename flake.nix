@@ -1,8 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    # nixpkgs.url = "github:NixOS/nixpkgs/master";
-    # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     flake-parts.follows = "nvf/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
@@ -38,8 +37,13 @@
       ];
 
       perSystem =
-        { pkgs, ... }:
+        { system, ... }:
         let
+          overlays = import ./overlays.nix { inherit inputs; };
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ overlays.master-packages ];
+          };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {

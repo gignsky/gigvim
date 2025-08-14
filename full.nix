@@ -15,5 +15,6 @@ in
     gitDevModule
     snacksModule
     # themeryModule
+    ./plugins/optional/themery-nvim.nix
   ];
 }
