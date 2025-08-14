@@ -16,13 +16,27 @@
   #   # });
   # };
 
-  # When applied, the unstable nixpkgs set (declared in the flake inputs) will
+  # When applied, the master nixpkgs set (declared in the flake inputs) will
   # be accessible through 'pkgs.master'
-  master-packages = final: _prev: {
+  master-packages = final: prev: {
     master = import inputs.nixpkgs-master {
-      inherit (final) system;
-      config.allowUnfree = true;
+      inherit (prev) system;
+      # config = {
+      #   allowUnfree = true;
+      # };
+      overlays = [ ];
     };
   };
 
+  # When applied, the local nixpkgs set (declared in the flake inputs) will
+  # be accessible through 'pkgs.local'
+  local-packages = final: prev: {
+    local = import inputs.nixpkgs-local {
+      inherit (prev) system;
+      # config = {
+      #   allowUnfree = true;
+      # };
+      overlays = [ ];
+    };
+  };
 }
