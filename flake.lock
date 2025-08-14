@@ -19310,6 +19310,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-local": {
+      "locked": {
+        "lastModified": 1755156180,
+        "narHash": "sha256-eLEFR3E2tMT8IXXJOYjrfuN9mfdvZV551ywYVEEq0AU=",
+        "ref": "refs/heads/release-25.05",
+        "rev": "483bf4e40050d14dbf2c0332ae45d3d89f3c9653",
+        "revCount": 808235,
+        "type": "git",
+        "url": "file:///home/gig/local_repos/nixpkgs"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/gig/local_repos/nixpkgs"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1755172727,
@@ -28254,6 +28269,7 @@
           "home-manager"
         ],
         "nixpkgs": "nixpkgs_299",
+        "nixpkgs-local": "nixpkgs-local",
         "nixpkgs-master": "nixpkgs-master",
         "nvf": "nvf_10",
         "snacks-nvim": "snacks-nvim_3"
