@@ -1,13 +1,22 @@
 # Themery.nvim Plugin Configuration for nvf
 # Theme switcher plugin for Neovim
 
-{ pkgs, ... }:
+{ outputs, pkgs, ... }:
+let
+  nixpkgs = {
+    # You can add overlays here
+    overlays = [
+      # outputs.overlays.modifications
+      outputs.overlays.unstable-packages
+    ];
+  };
+in
 {
   imports = [ ../../themes ];
   config.vim = {
     extraPlugins = {
       themery = {
-        package = pkgs.vimPlugins.themery-nvim;
+        package = pkgs.unstable.vimPlugins.themery-nvim;
         setup = ''
           require('themery').setup({
             themes = {

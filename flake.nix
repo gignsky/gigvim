@@ -1,6 +1,7 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
@@ -97,6 +98,9 @@
 
         # Alias for convenience
         homeManagerModules.gigvim = inputs.self.homeManagerModules.default;
+
+        # Custom modifications/overrides to upstream packages.
+        overlays = import ./overlays.nix { inherit inputs; };
       };
     };
 }
