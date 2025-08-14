@@ -2,6 +2,7 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     flake-parts.follows = "nvf/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
@@ -42,7 +43,10 @@
           overlays = import ./overlays.nix { inherit inputs; };
           pkgs = import inputs.nixpkgs {
             inherit system;
-            overlays = [ overlays.master-packages ];
+            overlays = [
+              overlays.master-packages
+              overlays.local-packages
+            ];
           };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };

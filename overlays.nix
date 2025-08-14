@@ -28,4 +28,15 @@
     };
   };
 
+  # When applied, the local nixpkgs set (declared in the flake inputs) will
+  # be accessible through 'pkgs.local'
+  local-packages = final: prev: {
+    local = import inputs.nixpkgs-local {
+      inherit (prev) system;
+      # config = {
+      #   allowUnfree = true;
+      # };
+      overlays = [ ];
+    };
+  };
 }
