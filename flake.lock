@@ -13076,6 +13076,21 @@
         "type": "github"
       }
     },
+    "nixpkgs-local": {
+      "locked": {
+        "lastModified": 1755157554,
+        "narHash": "sha256-pllEhUf41K4pwFcWO+l4EVXpmY5ldssUh3IIFfBz+Ro=",
+        "ref": "refs/heads/gignsky/backport-themery-nvim",
+        "rev": "8966cc11dcac16767eca0c1dd5301f02be46e77f",
+        "revCount": 808236,
+        "type": "git",
+        "url": "file:///home/gig/local_repos/nixpkgs"
+      },
+      "original": {
+        "type": "git",
+        "url": "file:///home/gig/local_repos/nixpkgs"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1755152271,
@@ -19188,6 +19203,7 @@
           "home-manager"
         ],
         "nixpkgs": "nixpkgs_205",
+        "nixpkgs-local": "nixpkgs-local",
         "nixpkgs-master": "nixpkgs-master",
         "nvf": "nvf_7",
         "snacks-nvim": "snacks-nvim_2"
