@@ -1,7 +1,7 @@
 # Themery.nvim Plugin Configuration for nvf
 # Theme switcher plugin for Neovim
 
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 {
   imports = [ ../../themes ];
   config.vim = {
