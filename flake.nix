@@ -1,7 +1,9 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs-master.url = "github:NixOS/nixpkgs/master";
+    nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
+    flake-parts.follows = "nvf/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,8 +38,16 @@
       ];
 
       perSystem =
-        { pkgs, ... }:
+        { system, ... }:
         let
+          overlays = import ./overlays.nix { inherit inputs; };
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [
+              overlays.master-packages
+              overlays.local-packages
+            ];
+          };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {
@@ -97,6 +107,9 @@
 
         # Alias for convenience
         homeManagerModules.gigvim = inputs.self.homeManagerModules.default;
+
+        # Custom modifications/overrides to upstream packages.
+        overlays = import ./overlays.nix { inherit inputs; };
       };
     };
 }

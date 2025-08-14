@@ -1,6 +1,10 @@
+[![Packaging status](https://repology.org/badge/vertical-allrepos/vim%3Athemery.nvim.svg)](https://repology.org/project/vim%3Athemery.nvim/versions)
+
 # Themery.nvim - Theme Management Plugin
 
-Themery.nvim is a theme management plugin that provides a simple interface for switching between different Neovim colorschemes and managing theme configurations.
+Themery.nvim is a theme management plugin that provides a simple interface for
+switching between different Neovim colorschemes and managing theme
+configurations.
 
 ## Features
 
@@ -12,7 +16,8 @@ Themery.nvim is a theme management plugin that provides a simple interface for s
 
 ## Installation Status
 
-Themery.nvim is available as an optional plugin in GigVim and can be enabled in the configuration.
+Themery.nvim is available as an optional plugin in GigVim and can be enabled in
+the configuration.
 
 ## Configuration
 
@@ -46,6 +51,7 @@ themery = {
 ### Theme Selection Interface
 
 When you run `:Themery`, you'll see an interactive interface with:
+
 - List of available themes
 - Preview of each theme
 - Current theme indicator
@@ -99,6 +105,7 @@ require('themery').setup({
 ### Theme Persistence
 
 Themery can remember your theme choice:
+
 - Saves theme preference to file
 - Restores theme on startup
 - Syncs across Neovim instances
@@ -106,6 +113,7 @@ Themery can remember your theme choice:
 ## Integration with GigVim
 
 In GigVim, themery works alongside:
+
 - **Catppuccin themes**: Multiple variants available
 - **nvf theme system**: Integrates with nvf's theme management
 - **LSP integration**: Themes work with all LSP highlighting
@@ -134,6 +142,7 @@ Suggested keybindings for themery:
 ## Available Themes in GigVim
 
 GigVim comes with several pre-configured themes:
+
 - **Catppuccin variants**: Mocha, Macchiato, Frappe, Latte
 - **Additional themes**: Can be added through plugin configuration
 
@@ -176,7 +185,7 @@ require('themery').setup({
 
 - **Productivity**: Quick theme switching for different lighting conditions
 - **Personalization**: Easy customization of your Neovim appearance
-- **Organization**: Manage multiple themes efficiently  
+- **Organization**: Manage multiple themes efficiently
 - **Consistency**: Maintain theme preferences across sessions
 - **Exploration**: Easily try new themes without commitment
 
@@ -192,7 +201,9 @@ Common issues and solutions:
 ## Performance
 
 Themery is lightweight and has minimal impact on startup time:
+
 - Lazy loading of theme files
 - Efficient theme caching
 - Fast theme switching
 - Low memory footprint
+
