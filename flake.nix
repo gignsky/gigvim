@@ -1,8 +1,8 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nixpkgs-master.url = "github:NixOS/nixpkgs/master";
-    flake-parts.url = "github:hercules-ci/flake-parts";
+    flake-parts.follows = "nvf/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -24,7 +24,6 @@
 
   outputs =
     {
-      self,
       flake-parts,
       nvf,
       ...
@@ -44,7 +43,6 @@
           pkgs = import inputs.nixpkgs {
             inherit system;
             overlays = [ overlays.master-packages ];
-            config.allowUnfree = true;
           };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };

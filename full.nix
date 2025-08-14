@@ -11,8 +11,8 @@ in
 {
   imports = [
     ./minimal.nix
-    ./plugins/optional/themery-nvim.nix
     gitDevModule
     snacksModule
+    ./plugins/optional/themery-nvim.nix
   ];
 }
