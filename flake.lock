@@ -19312,11 +19312,11 @@
     },
     "nixpkgs-local": {
       "locked": {
-        "lastModified": 1755156180,
-        "narHash": "sha256-eLEFR3E2tMT8IXXJOYjrfuN9mfdvZV551ywYVEEq0AU=",
-        "ref": "refs/heads/release-25.05",
-        "rev": "483bf4e40050d14dbf2c0332ae45d3d89f3c9653",
-        "revCount": 808235,
+        "lastModified": 1755157554,
+        "narHash": "sha256-pllEhUf41K4pwFcWO+l4EVXpmY5ldssUh3IIFfBz+Ro=",
+        "ref": "refs/heads/gignsky/backport-themery-nvim",
+        "rev": "8966cc11dcac16767eca0c1dd5301f02be46e77f",
+        "revCount": 808236,
         "type": "git",
         "url": "file:///home/gig/local_repos/nixpkgs"
       },
