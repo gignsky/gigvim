@@ -63,6 +63,7 @@ in
                                               ]],
               keys = {
                 { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.picker.files()" },
+                { icon = " ", key = "l", desc = "Open LazyGit", action = "<cmd>lua Snacks.lazygit()<cr>" },
                 { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
                 { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
                 { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
