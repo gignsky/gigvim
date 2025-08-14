@@ -24,6 +24,7 @@
 
   outputs =
     {
+      self,
       flake-parts,
       nvf,
       ...
@@ -37,13 +38,14 @@
       ];
 
       perSystem =
-        { pkgs, ... }:
+        { self, pkgs, ... }:
         let
+          inherit (self) outputs;
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ fullConfigModule ];
-            inherit pkgs;
+            inherit outputs pkgs;
             extraSpecialArgs = { inherit inputs; };
           };
           minimalNvimConfig = nvf.lib.neovimConfiguration {
