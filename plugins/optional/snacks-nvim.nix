@@ -124,7 +124,7 @@ in
                  },
                  animate = { 
                    enabled = true,
-                   fps = 60,
+                   fps = 120,
                    easing = "outQuad",
                    -- Enable window resize animations
                    resize = {
@@ -194,7 +194,7 @@ in
                  scroll = { 
                    enabled = true,
                    animate = {
-                     duration = 250,
+                     duration = 7,
                      easing = "outQuad",
                    },
                    spamming = 10,
