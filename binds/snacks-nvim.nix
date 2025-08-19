@@ -47,7 +47,7 @@
       key = "<leader>r";
       mode = "n";
       action = "";
-      desc = "+Return to Dashboad";
+      desc = "+Return to Dashboard";
     }
 
     # Snacks.nvim keybindings
