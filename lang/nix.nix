@@ -1,10 +1,11 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config.vim.languages.nix = {
     enable = true;
     format = {
       enable = true;
       type = "nixfmt";
-      package = pkgs.nixfmt;
+      package = pkgs.nixfmt-rfc-style;
     };
     lsp = {
       enable = true;
