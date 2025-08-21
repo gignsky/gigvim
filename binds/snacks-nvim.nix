@@ -23,7 +23,7 @@
       key = "<leader>t";
       mode = "n";
       action = "";
-      desc = "+Themes/Terminal";
+      desc = "+Themes/Todo";
     }
     {
       key = "<leader>n";
@@ -42,12 +42,6 @@
       mode = "n";
       action = "";
       desc = "+Debug Options";
-    }
-    {
-      key = "<leader>r";
-      mode = "n";
-      action = "";
-      desc = "+Return to Dashboard";
     }
 
     # Snacks.nvim keybindings
@@ -156,7 +150,7 @@
 
     # Terminal
     {
-      key = "<leader>tf";
+      key = "<leader>h";
       mode = "n";
       silent = true;
       action = "<cmd>lua Snacks.terminal()<cr>";
@@ -181,7 +175,7 @@
 
     # Dashboard
     {
-      key = "<leader>rd";
+      key = "<leader>r";
       mode = "n";
       silent = true;
       action = "<cmd>lua Snacks.dashboard()<cr>";

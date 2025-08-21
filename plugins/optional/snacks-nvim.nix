@@ -225,9 +225,10 @@ in
            enabled = true,
            win = {
              position = "float",
-             height = 0.8,
-             width = 0.8,
+             height = 0.9,
+             width = 0.9,
            },
+           shell = "nu",
          },
           image = { enabled = false }, -- disabled since wsl2 doesn't support it
         })

@@ -1,12 +1,14 @@
 # Comprehensive Snacks.nvim Testing Guide
 
-This guide provides detailed testing instructions for all snacks.nvim plugins integrated into GigVim.
+This guide provides detailed testing instructions for all snacks.nvim plugins
+integrated into GigVim.
 
 ## Core Functionality Tests
 
 ### 1. Dashboard (`snacks.dashboard`)
 
 **Test Steps:**
+
 1. Start Neovim without opening a file: `nvim`
 2. Verify GIGVIM ASCII header appears
 3. Test shortcuts:
@@ -22,6 +24,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 2. Notifications (`snacks.notifier`)
 
 **Test Steps:**
+
 ```vim
 :lua require('snacks').notifier.show("Test notification")
 :lua require('snacks').notifier.show("Error test", "error")
@@ -33,6 +36,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 3. File Explorer (`snacks.explorer`)
 
 **Test Steps:**
+
 1. Press `<leader>e` to toggle explorer
 2. Navigate directories using arrow keys
 3. Press Enter to open files
@@ -43,8 +47,9 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 4. Picker System (`snacks.picker`)
 
 **Test Each Picker:**
+
 - `<leader>ff` - File finder
-- `<leader>fb` - Buffer list  
+- `<leader>fb` - Buffer list
 - `<leader>fg` - Live grep
 - `<leader>fr` - Recent files
 - `<leader>fs` - Symbols search
@@ -55,13 +60,15 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 5. Git Integration
 
 **Git Operations:**
+
 - `<leader>gg` - Lazygit (requires lazygit installed)
 - `<leader>gs` - Git blame line
 - `<leader>gf` - Git files picker
 
 **Git-dev Integration:**
+
 - `<leader>gdo` - Open remote repository (snacks input dialog)
-- `<leader>gdr` - Browse recent repositories  
+- `<leader>gdr` - Browse recent repositories
 - `<leader>gdc` - Clean current repository
 - `<leader>gdC` - Clean all cached repositories
 - `<leader>gdb` - Close all buffers for current repository
@@ -75,12 +82,14 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 6. Indent Guides (`snacks.indent`)
 
 **Test Steps:**
+
 1. Open a code file with nested blocks (e.g., Nix, Python, JavaScript)
 2. Move cursor through different scopes
 3. Verify indent lines appear
 4. Check chunk highlighting on scope selection
 
-**Expected Behavior:** 
+**Expected Behavior:**
+
 - Vertical guides show indentation
 - Current scope highlighted with chunks
 - Smooth animations when moving between scopes
@@ -88,6 +97,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 7. Dim Plugin (`snacks.dim`)
 
 **Test Steps:**
+
 1. Open a file with functions/classes
 2. Place cursor inside a function
 3. Observe dimming of code outside current scope
@@ -96,6 +106,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 **Expected Behavior:** Code outside current scope appears dimmed
 
 **Troubleshooting:** If not working, check treesitter support:
+
 ```vim
 :TSInstallInfo
 :lua require('snacks').dim.enable()
@@ -104,6 +115,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 8. Scope Highlighting (`snacks.scope`)
 
 **Test Steps:**
+
 1. Navigate through nested code blocks
 2. Verify current scope is visually distinct
 3. Test with different file types
@@ -115,6 +127,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 9. Smooth Scrolling (`snacks.scroll`)
 
 **Test Steps:**
+
 1. Open a long file
 2. Use `Ctrl+D`, `Ctrl+U`, `PageDown`, `PageUp`
 3. Observe smooth scrolling animations
@@ -124,6 +137,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 10. Window Animations (`snacks.animate`)
 
 **Test Steps:**
+
 1. Split windows: `:split`, `:vsplit`
 2. Resize windows with mouse or keybindings
 3. Move between windows
@@ -135,6 +149,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 11. Buffer Management (`snacks.bufdelete`)
 
 **Test Buffer Operations:**
+
 - `<leader>bd` - Delete current buffer
 - `<leader>ba` - Delete all buffers
 - `<leader>bo` - Delete other buffers
@@ -144,15 +159,17 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 12. Terminal (`snacks.terminal`)
 
 **Test Steps:**
-1. Press `<leader>tf` to open floating terminal
+
+1. Press `<leader>h` to open floating terminal
 2. Run commands in terminal
-3. Press `<leader>tf` again to toggle
+3. Press `<leader>h` again to toggle
 
 **Expected Behavior:** Floating terminal overlay
 
 ### 13. Status Column (`snacks.statuscolumn`)
 
 **Test Steps:**
+
 1. Open files with line numbers
 2. Verify custom status column appears
 3. Test with git changes (if in git repo)
@@ -162,6 +179,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 14. Word Highlighting (`snacks.words`)
 
 **Test Steps:**
+
 1. Place cursor on a word
 2. Wait for highlighting to activate
 3. Move to different words
@@ -173,6 +191,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 15. Input System (`snacks.input`)
 
 **Test Steps:**
+
 1. Use `<leader>go` (git-dev with snacks input)
 2. Test autocomplete in input field
 3. Test escape to cancel
@@ -182,6 +201,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 16. Layout Management (`snacks.layout`)
 
 **Test Steps:**
+
 1. Create complex window layouts
 2. Save and restore layouts
 3. Test predefined layouts
@@ -191,6 +211,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 17. Performance Profiler (`snacks.profiler`)
 
 **Test Steps:**
+
 ```vim
 :lua require('snacks').profiler.start()
 " Perform some operations
@@ -202,6 +223,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 18. Debug Tools (`snacks.debug`)
 
 **Test Steps:**
+
 ```vim
 :lua require('snacks').debug.inspect({test = "data"})
 :lua require('snacks').debug.log("Debug message")
@@ -214,6 +236,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 19. Large File Handling (`snacks.bigfile`)
 
 **Test Steps:**
+
 1. Open a large file (>100MB if available)
 2. Verify performance optimizations kick in
 3. Check that features are disabled appropriately
@@ -223,6 +246,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 20. Quick File Loading (`snacks.quickfile`)
 
 **Test Steps:**
+
 1. Open multiple files rapidly
 2. Test file switching performance
 
@@ -233,6 +257,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 21. Complete Health Check
 
 **Run Full Diagnostic:**
+
 ```vim
 :checkhealth snacks
 ```
@@ -246,6 +271,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 22. Theme Compatibility
 
 **Test Steps:**
+
 1. Switch themes using `<leader>th`
 2. Verify snacks elements adapt to new theme
 3. Test with different Catppuccin variants
@@ -257,6 +283,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 23. Cross-Plugin Functionality
 
 **Test Combinations:**
+
 1. Use picker to find files, then use explorer to navigate
 2. Open terminal, then use git commands
 3. Use notifications with different snacks operations
@@ -268,6 +295,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 24. Error Conditions
 
 **Test Error Cases:**
+
 1. Try to open non-existent files via picker
 2. Use git operations outside git repository
 3. Test with corrupted/binary files
@@ -279,6 +307,7 @@ This guide provides detailed testing instructions for all snacks.nvim plugins in
 ### 25. Startup Time
 
 **Measure Impact:**
+
 ```bash
 nvim --startuptime startup.log +quit
 grep snacks startup.log
@@ -291,6 +320,7 @@ grep snacks startup.log
 ### 26. All Keybinding Verification
 
 **Test Each Binding:**
+
 - Verify no conflicts exist
 - Test in different modes (normal, insert)
 - Verify WhichKey descriptions appear
@@ -302,6 +332,7 @@ grep snacks startup.log
 ### 27. Complete Workflow Test
 
 **Real-world Scenario:**
+
 1. Start Neovim (dashboard appears)
 2. Find and open a project file
 3. Use git integration to check changes
@@ -315,9 +346,11 @@ grep snacks startup.log
 ## Reporting Issues
 
 When reporting issues, include:
+
 1. Steps to reproduce
 2. Expected vs actual behavior
 3. Output of `:checkhealth snacks`
 4. Output of `:messages`
 5. Neovim version and OS
 6. GigVim configuration variant (minimal/full)
+

@@ -25714,6 +25714,22 @@
         "url": "file:///home/gig/local_repos/nixpkgs"
       }
     },
+    "nixpkgs-local_2": {
+      "locked": {
+        "lastModified": 1755764851,
+        "narHash": "sha256-2eH6LhbbymtkMOc2htK54iGZDugMgnmDDQFn3W8dpwM=",
+        "owner": "gignsky",
+        "repo": "nixpkgs",
+        "rev": "db393f2a5c31f7bc625d7fbd0d67502a6f25bb9a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "gignsky",
+        "ref": "gignsky/add-commasemi-nvim",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1755172727,
@@ -37517,6 +37533,7 @@
           "home-manager"
         ],
         "nixpkgs": "nixpkgs_393",
+        "nixpkgs-local": "nixpkgs-local_2",
         "nixpkgs-master": "nixpkgs-master_2",
         "nvf": "nvf_13",
         "snacks-nvim": "snacks-nvim_4"

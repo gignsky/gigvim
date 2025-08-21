@@ -1,10 +1,10 @@
-# Enhanced Input - Better Input Dialogs
+# Enhanced Input - Better Input dialogues
 
-Improved input dialogs and prompts with better UX and functionality.
+Improved input dialogues and prompts with better UX and functionality.
 
 ## Features
 
-- **Better Styling**: Enhanced visual appearance for input dialogs
+- **Better Styling**: Enhanced visual appearance for input dialogues
 - **Input Validation**: Real-time validation of user input
 - **History Support**: Access to previous inputs
 - **Completion**: Auto-completion for common inputs
@@ -23,13 +23,15 @@ input = {
 
 ## Features
 
-### Enhanced Dialogs
+### Enhanced dialogues
+
 - File rename operations
 - Search and replace prompts
 - Custom command inputs
-- Plugin configuration dialogs
+- Plugin configuration dialogues
 
 ### Input Types
+
 - **Single Line**: Standard text input
 - **Multi-line**: Text areas for longer content
 - **Passwords**: Hidden character input
@@ -37,6 +39,7 @@ input = {
 - **Selections**: Dropdown-style selections
 
 ### Validation
+
 - Real-time input checking
 - Error highlighting
 - Helpful error messages
@@ -45,13 +48,15 @@ input = {
 ## Usage
 
 The enhanced input automatically replaces standard Neovim input prompts:
+
 - Rename files in explorer
 - Search/replace operations
 - Command palette inputs
 - Plugin configuration prompts
 
 ### Example Interactions
-- File operations show better-styled dialogs
+
+- File operations show better-styled dialogues
 - LSP rename operations use enhanced prompts
 - Search operations have improved UX
 - Configuration changes use better input forms
@@ -67,8 +72,10 @@ The enhanced input automatically replaces standard Neovim input prompts:
 ## Integration
 
 Works seamlessly with:
+
 - File managers and explorers
 - LSP operations (rename, etc.)
 - Search and replace functions
 - Custom commands and plugins
 - Configuration interfaces
+
