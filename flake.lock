@@ -25714,21 +25714,6 @@
         "url": "file:///home/gig/local_repos/nixpkgs"
       }
     },
-    "nixpkgs-local_2": {
-      "locked": {
-        "lastModified": 1755250040,
-        "narHash": "sha256-FeNex1uyf5liAlANrA9bWY55ut+72MNnRp9U6Mo4g9I=",
-        "ref": "refs/heads/gignsky/backport-carapace-and-nushell",
-        "rev": "4bc779e98bc51b4cf016d1e9f41e5bdc4fee2650",
-        "revCount": 808284,
-        "type": "git",
-        "url": "file:///home/gig/local_repos/nixpkgs"
-      },
-      "original": {
-        "type": "git",
-        "url": "file:///home/gig/local_repos/nixpkgs"
-      }
-    },
     "nixpkgs-master": {
       "locked": {
         "lastModified": 1755172727,
@@ -37532,7 +37517,6 @@
           "home-manager"
         ],
         "nixpkgs": "nixpkgs_393",
-        "nixpkgs-local": "nixpkgs-local_2",
         "nixpkgs-master": "nixpkgs-master_2",
         "nvf": "nvf_13",
         "snacks-nvim": "snacks-nvim_4"

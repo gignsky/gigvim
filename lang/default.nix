@@ -2,7 +2,7 @@
 {
   imports = [
     ./bash.nix
-    # ./css.nix
+    ./css.nix
     # ./html.nix
     # ./lua.nix
     ./markdown.nix
