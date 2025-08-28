@@ -39,4 +39,16 @@
       overlays = [ ];
     };
   };
+
+  # When applied, the local nixpkgs set (declared in the flake inputs) will
+  # be accessible through 'pkgs.local'
+  tectonic-packages = final: prev: {
+    tectonic = import inputs.nixpkgs-tectonic {
+      inherit (prev) system;
+      # config = {
+      #   allowUnfree = true;
+      # };
+      overlays = [ ];
+    };
+  };
 }

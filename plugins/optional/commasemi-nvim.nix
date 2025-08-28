@@ -7,7 +7,7 @@
   config.vim = {
     extraPlugins = {
       commasemi = {
-        package = pkgs.local.vimPlugins.commasemi-nvim;
+        package = pkgs.vimPlugins.commasemi-nvim;
         setup = ''
           require('commasemi').setup({
             lazy = false,

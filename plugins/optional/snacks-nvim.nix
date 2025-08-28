@@ -245,7 +245,7 @@ in
     fd # fd - required for file finding (v8.4+)
     sqlite # sqlite3 - required for certain snacks features
     gscan2pdf # gs - required for image support
-    tectonic # tectonic - required for LaTeX support
+    tectonic.tectonic # tectonic - required for LaTeX support
     git # its git bitch
     # latex     # pdflatex - required for LaTeX support
     # mmdc         # mmdc - required for Markdown support
