@@ -11,7 +11,7 @@ _: {
     setupOpts.fuzzy.implementation = "prefer_rust_with_warning";
     sourcePlugins = {
       emoji.enable = true;
-      spell.enable = true;
+      spell.enable = false;
     };
   };
 }

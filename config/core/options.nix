@@ -5,7 +5,7 @@
     showbreak = "+++";
     textwidth = 100;
     showmatch = true;
-    spell = true;
+    spell = false;
     errorbells = true;
 
     hlsearch = true;
