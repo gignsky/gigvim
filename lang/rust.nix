@@ -11,6 +11,7 @@
       enable = true;
       type = "rustfmt";
     };
+    dap.enable = true;
     lsp = {
       enable = true;
       package = pkgs.rust-analyzer;
@@ -25,6 +26,7 @@
               enable = true,
             },
             targetDir = true,
+            -- sysroot = ${pkgs.rustc},
           },
           checkOnSave = true,
           check = {
@@ -74,7 +76,7 @@
           inlayHints = {
             bindingModeHints = {enable = true},
             closingBraceHints = {
-              minLines = 2,
+              minLines = 0,
             },
             closureCaptureHints = {enable = true},
             closureReturnTypeHints = {enable = true},
@@ -84,6 +86,14 @@
               type = {enable = true},
             },
             implicitDrops = {enable = true},
+            lifetimeElisionHints = {useParameterNames = true},
+            maxLength = 80,
+            rangeExclusiveHints = {enable = true},
+            typeHints = {
+              hideClosureInitialization = false,
+              hideClosureParameter = false,
+              hideNamedConstructor = false,
+            },
           },
           interpret = {tests = true},
           lens = {
