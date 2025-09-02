@@ -3,7 +3,6 @@
 
 { pkgs, ... }:
 {
-  imports = [ ../../themes ];
   config.vim = {
     extraPlugins = {
       commasemi = {
