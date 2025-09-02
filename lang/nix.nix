@@ -11,6 +11,19 @@
       enable = true;
       package = pkgs.nil;
       server = "nil";
+      options = {
+        "nil" = {
+          "formatting" = {
+            "command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+          };
+          "nix" = {
+            "flake" = {
+              "autoArchive" = true;
+              "autoEvalInputs" = true;
+            };
+          };
+        };
+      };
     };
     treesitter.enable = true;
   };
