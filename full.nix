@@ -16,5 +16,6 @@ in
     ./plugins/optional/themery-nvim.nix
     ./plugins/optional/commasemi-nvim.nix
     ./config/optional/notes.nix
+    ./config/optional/copilot.nix
   ];
 }
