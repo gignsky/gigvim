@@ -14,6 +14,15 @@
             changedelete = { text = "~"; };
             untracked = { text = "┆"; };
           };
+          signs_staged = {
+            add = { text = "▎"; };
+            change = { text = "▎"; };
+            delete = { text = "_"; };
+            topdelete = { text = "‾"; };
+            changedelete = { text = "~"; };
+            untracked = { text = "┆"; };
+          };
+          signs_staged_enable = true;
           signcolumn = true;
           numhl = false;
           linehl = false;
@@ -29,6 +38,8 @@
             delay = 1000;
             ignore_whitespace = false;
           };
+          # Compare against the base branch (main/master) instead of just index
+          base = "HEAD~1"; # This compares against the previous commit, can be changed to origin/main
           sign_priority = 6;
           update_debounce = 100;
           status_formatter = null;

@@ -1,60 +1,69 @@
 {
   config.vim.keymaps = [
+    # Folding heading for which-key
     {
-      key = "zf";
+      key = "<leader>z";
       mode = "n";
-      action = "<cmd>fold<cr>";
+      action = "";
+      silent = true;
+      desc = "+Folding";
+    }
+    # Leader-based folding keybindings for better which-key integration
+    {
+      key = "<leader>zf";
+      mode = "n";
+      action = "zf";
       silent = true;
       desc = "Create fold";
     }
     {
-      key = "zo";
+      key = "<leader>zo";
       mode = "n";
-      action = "<cmd>foldopen<cr>";
+      action = "zo";
       silent = true;
       desc = "Open fold";
     }
     {
-      key = "zc";
+      key = "<leader>zc";
       mode = "n";
-      action = "<cmd>foldclose<cr>";
+      action = "zc";
       silent = true;
       desc = "Close fold";
     }
     {
-      key = "za";
+      key = "<leader>za";
       mode = "n";
-      action = "<cmd>foldopen<cr>";
+      action = "za";
       silent = true;
       desc = "Toggle fold";
     }
     {
-      key = "zR";
+      key = "<leader>zR";
       mode = "n";
-      action = "<cmd>normal! zR<cr>";
+      action = "zR";
       silent = true;
       desc = "Open all folds";
     }
     {
-      key = "zM";
+      key = "<leader>zM";
       mode = "n";
-      action = "<cmd>normal! zM<cr>";
+      action = "zM";
       silent = true;
       desc = "Close all folds";
     }
     {
-      key = "<leader>zf";
+      key = "<leader>zd";
       mode = "n";
-      action = "<cmd>FoldCreate<cr>";
+      action = "zd";
       silent = true;
-      desc = "Create fold with range";
+      desc = "Delete fold";
     }
     {
-      key = "<leader>zo";
+      key = "<leader>zE";
       mode = "n";
-      action = "<cmd>FoldOpen<cr>";
+      action = "zE";
       silent = true;
-      desc = "Open fold at cursor";
+      desc = "Delete all folds";
     }
   ];
 }

@@ -32,21 +32,24 @@ GigVim's full configuration now provides comprehensive gutter information that d
 
 ## Gutter Layout
 
-The gutter is organized into distinct sections for optimal readability:
+The gutter now provides a comprehensive information display with enhanced git staging support:
 
 ```
-[marks] [signs/diagnostics] │ [line numbers] │ [git diff] [folds]
+[marks] [diagnostics] │ [staged signs] [line numbers] [git diff] │ [folds]
 ```
 
 ### Left Side (Priority Information)
 - **Marks**: User-defined marks and bookmarks
 - **Signs**: LSP diagnostic signs (errors, warnings, info, hints)
 
+### Center Left
+- **Staged Signs**: Git staged changes indicators (left of line numbers)
+
 ### Center
 - **Line Numbers**: Clear line numbering
 
 ### Right Side (Contextual Information)  
-- **Git Diff**: Git change indicators (additions, modifications, deletions)
+- **Git Diff**: Git working tree change indicators (right of line numbers)
 - **Folds**: Code folding indicators
 
 ## Visual Indicators
@@ -57,6 +60,12 @@ The gutter is organized into distinct sections for optimal readability:
 - `-` - Deleted lines (removed content)
 - `‾` - Deleted lines at top of file
 - `┆` - Untracked lines
+
+### Git Staged Signs (Left Gutter)
+- `▎` - Staged additions and changes (left bar indicator)
+- `_` - Staged deletions
+- `‾` - Staged top deletions
+- `~` - Staged change deletions
 
 ### LSP Diagnostic Signs
 - `󰅚` - Errors (syntax errors, type errors, etc.)
@@ -70,19 +79,22 @@ The gutter is organized into distinct sections for optimal readability:
 
 ## Folding Keybindings
 
-The configuration includes comprehensive folding keybindings for better code navigation:
+The configuration includes comprehensive leader-based folding keybindings for better which-key integration:
 
-### Standard Fold Operations
-- `zf` - Create fold
-- `zo` - Open fold at cursor
-- `zc` - Close fold at cursor
-- `za` - Toggle fold at cursor
-- `zR` - Open all folds in buffer
-- `zM` - Close all folds in buffer
+### Leader-Based Fold Operations
+All folding operations are accessed via `<leader>z` followed by a specific key:
 
-### Enhanced Fold Operations
-- `<leader>zf` - Create fold with range selection
-- `<leader>zo` - Open fold at cursor with leader key
+- `<leader>zf` - Create fold
+- `<leader>zo` - Open fold at cursor
+- `<leader>zc` - Close fold at cursor
+- `<leader>za` - Toggle fold at cursor
+- `<leader>zR` - Open all folds in buffer
+- `<leader>zM` - Close all folds in buffer
+- `<leader>zd` - Delete fold at cursor
+- `<leader>zE` - Delete all folds in buffer
+
+### Which-Key Integration
+The `<leader>z` prefix appears in which-key as "+Folding" to help discover folding operations.
 
 ## Configuration Details
 
@@ -102,6 +114,16 @@ vim.git = {
         changedelete = { text = "~" };
         untracked = { text = "┆" };
       };
+      signs_staged = {
+        add = { text = "▎" };
+        change = { text = "▎" };
+        delete = { text = "_" };
+        topdelete = { text = "‾" };
+        changedelete = { text = "~" };
+        untracked = { text = "┆" };
+      };
+      signs_staged_enable = true;
+      base = "HEAD~1"; # Compare against base commit/branch
       signcolumn = true;
       sign_priority = 6;
       # ... additional configuration
