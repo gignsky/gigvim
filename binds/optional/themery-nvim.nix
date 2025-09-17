@@ -14,12 +14,12 @@
       action = "<cmd>Themery<cr>";
       desc = "Open Theme Selector";
     }
-    {
-      key = "<leader>tt";
-      mode = "n";
-      silent = true;
-      action = "<cmd>ThemeryToggle<cr>";
-      desc = "Toggle Theme Variant";
-    }
+    # {
+    #   key = "<leader>tt";
+    #   mode = "n";
+    #   silent = true;
+    #   action = "<cmd>ThemeryToggle<cr>";
+    #   desc = "Toggle Theme Variant";
+    # }
   ];
 }
