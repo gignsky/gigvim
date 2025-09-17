@@ -206,11 +206,18 @@ in
           },
           statuscolumn = { 
             enabled = true,
+            -- Organize gutter information for maximum clarity
+            -- Left side: marks and diagnostic/LSP signs
             left = { "mark", "sign" },
-            right = { "fold", "git" },
+            -- Right side: git information and folds
+            right = { "git", "fold" },
             folds = {
               open = true,
               git_hl = true,
+            },
+            -- Enhanced git highlighting in status column
+            git = {
+              enabled = true,
             },
           },
           words = { 

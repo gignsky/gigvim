@@ -25,7 +25,7 @@
       lspkind.enable = true;
       null-ls.enable = true;
       nvim-docs-view.enable = true;
-      lightbulb.enable = true;
+      lightbulb.enable = false;
       trouble.enable = true;
       otter-nvim.enable = true;
     };
