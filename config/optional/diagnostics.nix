@@ -6,10 +6,10 @@
       config = {
         signs = {
           text = {
-            ERROR = "";
-            WARN = "";
-            INFO = "";
-            HINT = "";
+            ERROR = "󰅚";
+            WARN = "⚠";
+            INFO = "󰋽";
+            HINT = "󰌶";
           };
           numhl = {
             ERROR = "DiagnosticSignError";
@@ -31,7 +31,7 @@
         virtual_text = {
           spacing = 4;
           source = "if_many";
-          prefix = "●";
+          prefix = "📎";
         };
         update_in_insert = false;
       };

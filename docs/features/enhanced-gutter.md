@@ -52,18 +52,37 @@ The gutter is organized into distinct sections for optimal readability:
 ## Visual Indicators
 
 ### Git Diff Signs
-- `│` - Modified lines (changed content)
-- `┃` - Added lines (new content)
-- `▌` - Deleted lines (removed content above/below)
+- `+` - Added lines (new content)
+- `~` - Modified lines (changed content)
+- `-` - Deleted lines (removed content)
+- `‾` - Deleted lines at top of file
+- `┆` - Untracked lines
 
 ### LSP Diagnostic Signs
-- `` - Errors (syntax errors, type errors, etc.)
-- `` - Warnings (deprecated usage, potential issues)
-- `` - Information (helpful information, documentation)
-- `` - Hints (optimization suggestions, refactoring hints)
+- `󰅚` - Errors (syntax errors, type errors, etc.)
+- `⚠` - Warnings (deprecated usage, potential issues)
+- `󰋽` - Information (helpful information, documentation)
+- `󰌶` - Hints (optimization suggestions, refactoring hints)
 
 ### Todo Comment Icons
 - Various colored highlights for TODO, FIXME, NOTE, WARNING, HACK comments
+- Virtual text indicators use 📎 (clippy) for diagnostic context
+
+## Folding Keybindings
+
+The configuration includes comprehensive folding keybindings for better code navigation:
+
+### Standard Fold Operations
+- `zf` - Create fold
+- `zo` - Open fold at cursor
+- `zc` - Close fold at cursor
+- `za` - Toggle fold at cursor
+- `zR` - Open all folds in buffer
+- `zM` - Close all folds in buffer
+
+### Enhanced Fold Operations
+- `<leader>zf` - Create fold with range selection
+- `<leader>zo` - Open fold at cursor with leader key
 
 ## Configuration Details
 
@@ -74,6 +93,19 @@ vim.git = {
   gitsigns = {
     enable = true;
     codeActions.enable = true;
+    setupOpts = {
+      signs = {
+        add = { text = "+" };
+        change = { text = "~" };
+        delete = { text = "-" };
+        topdelete = { text = "‾" };
+        changedelete = { text = "~" };
+        untracked = { text = "┆" };
+      };
+      signcolumn = true;
+      sign_priority = 6;
+      # ... additional configuration
+    };
   };
 };
 ```
@@ -85,10 +117,10 @@ vim.diagnostics = {
   config = {
     signs = {
       text = {
-        ERROR = "";
-        WARN = "";
-        INFO = "";
-        HINT = "";
+        ERROR = "󰅚";
+        WARN = "⚠";
+        INFO = "󰋽";
+        HINT = "󰌶";
       };
       # ... additional configuration
     };
@@ -96,7 +128,7 @@ vim.diagnostics = {
     virtual_text = {
       spacing = 4;
       source = "if_many";
-      prefix = "●";
+      prefix = "📎";
     };
   };
 };
