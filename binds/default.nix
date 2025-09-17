@@ -3,7 +3,6 @@
     ./git-dev-nvim.nix
     ./themery-nvim.nix
     ./snacks-nvim.nix
-    ./optional
   ];
 
   config.vim.keymaps = [
