@@ -3,7 +3,10 @@
 
 { pkgs, ... }:
 {
-  imports = [ ../../themes ];
+  imports = [
+    ../../themes
+    ../../binds/optional/themery-nvim.nix
+  ];
   config.vim = {
     extraPlugins = {
       themery = {
