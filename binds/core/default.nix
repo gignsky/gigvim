@@ -1,11 +1,10 @@
+{ lib, ... }:
 {
   imports = [
     ./git-dev-nvim.nix
-    ./themery-nvim.nix
-    ./snacks-nvim.nix
   ];
 
-  config.vim.keymaps = [
+  config.vim.keymaps = lib.mkDefault [
     {
       key = "jj";
       mode = "i";
@@ -25,6 +24,12 @@
       action = "";
       silent = true;
       desc = "+Todo Options";
+    }
+    {
+      key = "<leader>t";
+      mode = "n";
+      action = "";
+      desc = "+Todo";
     }
   ];
 }

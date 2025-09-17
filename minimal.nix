@@ -3,7 +3,7 @@
     ./lang
     ./config
     ./plugins
-    ./binds
+    ./binds/core
     ./plugins/optional/mini.nix
   ];
 

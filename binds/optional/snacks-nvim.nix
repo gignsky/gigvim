@@ -20,12 +20,6 @@
       desc = "+Buffers";
     }
     {
-      key = "<leader>t";
-      mode = "n";
-      action = "";
-      desc = "+Themes/Todo";
-    }
-    {
       key = "<leader>n";
       mode = "n";
       action = "";

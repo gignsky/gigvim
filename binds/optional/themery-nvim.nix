@@ -1,6 +1,13 @@
+{ lib, ... }:
 {
-  config.vim.keymaps = [
+  config.vim.keymaps = lib.mkForce [
     # Themery keybindings
+    {
+      key = "<leader>t";
+      mode = "n";
+      action = "";
+      desc = "+Themes/Todo";
+    }
     {
       key = "<leader>th";
       mode = "n";
