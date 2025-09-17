@@ -1,6 +1,5 @@
-{ lib, ... }:
 {
-  config.vim.keymaps = lib.mkForce [
+  config.vim.keymaps = [
     # Themery keybindings
     {
       key = "<leader>t";

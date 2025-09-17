@@ -1,10 +1,9 @@
-{ lib, ... }:
 {
   imports = [
     ./git-dev-nvim.nix
   ];
 
-  config.vim.keymaps = lib.mkDefault [
+  config.vim.keymaps = [
     {
       key = "jj";
       mode = "i";
