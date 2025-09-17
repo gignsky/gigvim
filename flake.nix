@@ -53,8 +53,14 @@
           };
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
+          gigvimConfigModule = import ./gigvim.nix { inherit inputs pkgs; };
           fullNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ fullConfigModule ];
+            inherit pkgs;
+            extraSpecialArgs = { inherit inputs; };
+          };
+          gigvimConfig = nvf.lib.neovimConfiguration {
+            modules = [ gigvimConfigModule ];
             inherit pkgs;
             extraSpecialArgs = { inherit inputs; };
           };
@@ -65,12 +71,34 @@
           };
         in
         {
+          # --------------- PACKAGES -----------------
+          # --------------- MINI -----------------
           packages.minimal = minimalNvimConfig.neovim;
           packages.mini = minimalNvimConfig.neovim;
-          packages.default = fullNvimConfig.neovim;
+          # ------------- GIGVIM ---------------
+          packages.default = gigvimConfig.neovim;
+          packages.gigvim = gigvimConfig.neovim;
+          # ----------- FULL ----------------
           packages.full = fullNvimConfig.neovim;
-          packages.gigvim = fullNvimConfig.neovim;
+          packages.max = fullNvimConfig.neovim;
+          # ---------------------------------
+
           formatter = pkgs.nixfmt;
+          devShells.gigvim = pkgs.mkShell {
+            packages = [
+              gigvimConfig.neovim
+            ];
+          };
+          devShells.mini = pkgs.mkShell {
+            packages = [
+              minimalNvimConfig.neovim
+            ];
+          };
+          devShells.full = pkgs.mkShell {
+            packages = [
+              fullNvimConfig.neovim
+            ];
+          };
           devShells.default = pkgs.mkShell {
             packages = [
               fullNvimConfig.neovim
