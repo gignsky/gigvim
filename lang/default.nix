@@ -27,7 +27,7 @@
       nvim-docs-view.enable = true;
       lightbulb.enable = false;
       trouble.enable = true;
-      otter-nvim.enable = true;
+      otter-nvim.enable = false;
     };
 
     debugger.nvim-dap = {
