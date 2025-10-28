@@ -11,7 +11,7 @@
     ./python.nix
     ./rust.nix
     # ./sql.nix
-    # ./svelte.nix
+    ./svelte.nix
     # ./tailwind.nix
     # ./typescript.nix
     # ./typst.nix
