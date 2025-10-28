@@ -14,12 +14,12 @@
       setupOpts.draw.animation = lib.generators.mkLuaInline ''require("mini.indentscope").gen_animation.none()'';
     };
     jump2d = {
-      enable = false;
+      enable = true;
       setupOpts = {
         labels = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
         mappings.start_jumping = "<leader>j";
-        view.dim = false;
-        silent = false;
+        view.dim = true;
+        silent = true;
       };
     };
     move.enable = false;
