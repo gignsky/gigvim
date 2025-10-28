@@ -30,7 +30,7 @@
     starter.enable = false;
     statusline.enable = false;
     surround.enable = true;
-    tabline.enable = false;
+    tabline.enable = true;
     trailspace.enable = false;
   };
 }
