@@ -13,7 +13,6 @@
     gdefault = true;
     ignorecase = true;
     incsearch = true;
-    inccommand = "split"; # Enable live preview for substitute commands
 
     autoindent = true;
     expandtab = true;
