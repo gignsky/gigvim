@@ -13,7 +13,6 @@
     gdefault = true;
     ignorecase = true;
     incsearch = true;
-    inccommand = "split"; #Adds splitting ability for complex find and replace with exclusions
 
     autoindent = true;
     expandtab = true;
