@@ -13,6 +13,7 @@
     gdefault = true;
     ignorecase = true;
     incsearch = true;
+    inccommand = "split";
 
     autoindent = true;
     expandtab = true;
