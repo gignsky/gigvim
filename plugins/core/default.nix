@@ -1,6 +1,6 @@
 {
   imports = [
     ./blink-cmp.nix
-    ./traces-vim.nix
+    ./live-command-nvim.nix
   ];
 }
