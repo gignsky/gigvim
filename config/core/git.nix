@@ -3,7 +3,7 @@
     git = {
       enable = true;
       gitsigns = {
-        enable = false;
+        enable = true;
         codeActions.enable = true;
         setupOpts = {
           signs = {
