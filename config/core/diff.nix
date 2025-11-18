@@ -9,16 +9,16 @@
       # Options: "skip" (default) | "prompt" | "try"
       diff_binaries = "skip";
 
-      # 2. File Panel Configuration
-      file_panel = {
-        # Sets the initial width of the file panel that lists the changed files.
-        # A width of 30 is a reasonable default for visibility.
-        width = 30;
-
-        # Determines if the file panel should be automatically focused when opening Diffview.
-        # Setting this to false allows the diff windows to be focused immediately.
-        win_on_top = false;
-      };
+      # # 2. File Panel Configuration - DEPRECATED
+      # file_panel = {
+      #   # Sets the initial width of the file panel that lists the changed files.
+      #   # A width of 30 is a reasonable default for visibility.
+      #   width = 30;
+      #
+      #   # Determines if the file panel should be automatically focused when opening Diffview.
+      #   # Setting this to false allows the diff windows to be focused immediately.
+      #   win_on_top = false;
+      # };
 
       # 3. View Layout Configuration
       view = {
