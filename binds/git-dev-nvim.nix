@@ -2,7 +2,7 @@
   config.vim.keymaps = [
     # WhichKey group description for git-dev
     {
-      key = "<leader>gd";
+      key = "<leader>gv";
       mode = "n";
       action = "";
       desc = "+Git Dev";
@@ -10,42 +10,42 @@
 
     # git-dev.nvim keybinds
     {
-      key = "<leader>gdo";
+      key = "<leader>gvo";
       mode = "n";
       silent = true;
       action = "<cmd>lua vim.ui.input({prompt = 'Repository to open: '}, function(repo) if repo and repo ~= '' then vim.cmd('GitDevOpen ' .. repo) end end)<cr>";
       desc = "Open remote repository";
     }
     {
-      key = "<leader>gdr";
+      key = "<leader>gvr";
       mode = "n";
       silent = true;
       action = "<cmd>GitDevRecents<cr>";
       desc = "Browse recent repositories";
     }
     {
-      key = "<leader>gdc";
+      key = "<leader>gvc";
       mode = "n";
       silent = true;
       action = "<cmd>GitDevClean<cr>";
       desc = "Clean current repository";
     }
     {
-      key = "<leader>gdC";
+      key = "<leader>gvC";
       mode = "n";
       silent = true;
       action = "<cmd>GitDevCleanAll<cr>";
       desc = "Clean all cached repositories";
     }
     {
-      key = "<leader>gdb";
+      key = "<leader>gvb";
       mode = "n";
       silent = true;
       action = "<cmd>GitDevCloseBuffers<cr>";
       desc = "Close all buffers for current repository";
     }
     {
-      key = "<leader>gdu";
+      key = "<leader>gvu";
       mode = "n";
       silent = true;
       action = "<cmd>GitDevToggleUI<cr>";
