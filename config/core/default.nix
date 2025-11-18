@@ -5,5 +5,6 @@
     ./line.nix
     ./theme.nix
     ./git.nix
+    ./diff.nix
   ];
 }
