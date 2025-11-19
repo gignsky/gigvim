@@ -24,6 +24,7 @@
       inlayHints.enable = true;
       lspkind.enable = true;
       null-ls.enable = true;
+      null-ls.enable = false;
       nvim-docs-view.enable = true;
       lightbulb.enable = true;
       trouble.enable = true;
