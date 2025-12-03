@@ -10,7 +10,7 @@
 
   config.vim = {
     theme = {
-      name = lib.mkForce "slate";
+      name = lib.mkForce "nord";
     };
     keymaps = [
       {

@@ -6,13 +6,11 @@
     ./plugins
     ./binds
     ./plugins/optional/mini.nix
-    ./themes/kanagawa.nix
   ];
 
   config.vim = {
     theme = {
-      name = lib.mkForce "kanagawa";
-      style = lib.mkForce "lotus";
+      name = lib.mkForce "nord";
     };
     viAlias = true;
     vimAlias = true;
