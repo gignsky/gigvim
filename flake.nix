@@ -51,25 +51,48 @@
               overlays.tectonic-packages
             ];
           };
+
+          # config modules
           minimalConfigModule = import ./minimal.nix;
           fullConfigModule = import ./full.nix { inherit inputs pkgs; };
+          markingConfigModule = import ./marking.nix;
+          differConfigModule = import ./differ.nix;
+
+          # nvim configs
           fullNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ fullConfigModule ];
             inherit pkgs;
             extraSpecialArgs = { inherit inputs; };
           };
+
           minimalNvimConfig = nvf.lib.neovimConfiguration {
             modules = [ minimalConfigModule ];
             inherit pkgs;
             extraSpecialArgs = { inherit inputs; };
           };
+
+          markingNvimConfig = nvf.lib.neovimConfiguration {
+            modules = [ markingConfigModule ];
+            inherit pkgs;
+            extraSpecialArgs = { inherit inputs; };
+          };
+
+          differNvimConfig = nvf.lib.neovimConfiguration {
+            modules = [ differConfigModule ];
+            inherit pkgs;
+            extraSpecialArgs = { inherit inputs; };
+          };
         in
         {
-          packages.minimal = minimalNvimConfig.neovim;
-          packages.mini = minimalNvimConfig.neovim;
-          packages.default = fullNvimConfig.neovim;
-          packages.full = fullNvimConfig.neovim;
-          packages.gigvim = fullNvimConfig.neovim;
+          packages = {
+            minimal = minimalNvimConfig.neovim;
+            mini = minimalNvimConfig.neovim;
+            default = fullNvimConfig.neovim;
+            full = fullNvimConfig.neovim;
+            gigvim = fullNvimConfig.neovim;
+            marking = markingNvimConfig.neovim;
+            differ = differNvimConfig.neovim;
+          };
           formatter = pkgs.nixfmt;
           devShells.default = pkgs.mkShell {
             packages = [
