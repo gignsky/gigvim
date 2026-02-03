@@ -68,6 +68,7 @@
     #     ];
     #   };
     # };
-    theme = "gruvbox";
+    # theme = "gruvbox";
+    theme = "catppuccin";
   };
 }
