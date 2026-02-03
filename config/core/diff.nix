@@ -7,7 +7,26 @@
       # 1. Diffing Behavior
       # Configuration for how binary files should be handled.
       # Options: "skip" (default) | "prompt" | "try"
-      diff_binaries = "skip";
+      diff_binaries = "prompt";
+
+      enhanced_diff_hl = false; # See |diffview-config-enhanced_diff_hl|
+      git_cmd = [ "git" ]; # The git executable followed by default args.
+      # hg_cmd = { "hg" };        # The hg executable followed by default args.
+      use_icons = true; # Requires nvim-web-devicons
+      show_help_hints = true; # Show hints for how to open the help panel
+      watch_index = true; # Update views and index buffers when the git index changes.
+
+      icons = {
+        # Only applies when use_icons is true.
+        folder_closed = "";
+        folder_open = "";
+      };
+
+      signs = {
+        fold_closed = "";
+        fold_open = "";
+        done = "✓";
+      };
 
       # # 2. File Panel Configuration - DEPRECATED
       # file_panel = {
@@ -25,7 +44,8 @@
         # Defines the default layout for diff views that compare two revisions
         # (e.g., when running :DiffviewOpen HEAD~1).
         # Common options: "diff2_vertical" (side-by-side) or "diff2_horizontal" (top-and-bottom).
-        default_file_history_view = "diff2_vertical";
+        default_file_history_view = "diff3_mixed";
+        # default_file_history_view = "diff4_mixed";
 
         # Allows the use of the mouse to resize the diff windows, providing
         # a more convenient interface.
