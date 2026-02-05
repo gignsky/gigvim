@@ -10,6 +10,14 @@
       desc = "Toggle Diffview (Working Tree)";
     }
 
+    {
+      key = "<leader>c";
+      mode = "n";
+      action = "";
+      silent = true;
+      desc = "Diff Choose Options";
+    }
+
     # <leader>gdh: Open the history view for the file in the current buffer.
     # This allows you to trace the lineage of the current file.
     {
