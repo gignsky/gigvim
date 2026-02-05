@@ -15,7 +15,7 @@
       mode = "n";
       action = "";
       silent = true;
-      desc = "Diff Choose Options";
+      desc = "+Diff Choose Options";
     }
 
     # <leader>gdh: Open the history view for the file in the current buffer.
