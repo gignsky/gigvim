@@ -1,10 +1,10 @@
-{inputs, pkgs,...}:
+{ inputs, pkgs, ... }:
 let
   themery = import ../plugins/optional/themery-nvim.nix { inherit inputs pkgs; };
-in  
+in
 {
   imports = [
     themery
     ../binds/module/themery-nvim.nix
-  ]
+  ];
 }

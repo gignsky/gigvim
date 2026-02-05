@@ -1,10 +1,10 @@
-{inputs, pkgs,...}:
+{ inputs, pkgs, ... }:
 let
   snacksModule = import ../plugins/optional/snacks-nvim.nix { inherit inputs pkgs; };
-in  
+in
 {
   imports = [
     snacksModule
     ../binds/module/snacks-nvim.nix
-  ]
+  ];
 }
