@@ -5,6 +5,6 @@ in
 {
   imports = [
     spectre
-    # ../binds/module/nvim-spectre.nix
+    ../binds/module/nvim-spectre.nix
   ];
 }
