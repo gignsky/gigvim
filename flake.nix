@@ -1,7 +1,6 @@
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-tectonic.url = "github:NixOS/nixpkgs/c3fc1fe6d8765d99c8614c6f82d611dc56b9ae37";
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     # nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     # nixpkgs-local.url = "github:gignsky/nixpkgs/gignsky/add-commasemi-nvim";
@@ -48,7 +47,6 @@
             overlays = [
               overlays.master-packages
               overlays.local-packages
-              overlays.tectonic-packages
             ];
           };
           minimalConfigModule = import ./minimal.nix;
