@@ -4,7 +4,6 @@
     enable = true;
     crates = {
       enable = true;
-      codeActions = true;
     };
     # dap.enable = false;
     format = {
