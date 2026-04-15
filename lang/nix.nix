@@ -4,35 +4,32 @@
     enable = true;
     format = {
       enable = true;
-      type = "nixfmt";
-      package = pkgs.nixfmt-rfc-style;
-    };
-    lsp = {
-      enable = true;
-      package = pkgs.nil;
-      server = "nil";
-      options = {
-        "nil" = {
-          "formatting" = {
-            "command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
-          };
-          "nix" = {
-            "flake" = {
-              "autoArchive" = true;
-              "autoEvalInputs" = true;
-            };
-          };
-        };
-      };
+      type = [ "nixfmt" ];
+      # package = pkgs.nixfmt-rfc-style;
     };
     treesitter.enable = true;
   };
 
   config.vim.lsp.servers.nil = {
+    enable = true;
+    package = pkgs.nil;
+    server = "nil";
+    options = {
+      "nil" = {
+        "formatting" = {
+          "command" = [ "${pkgs.nixfmt}/bin/nixfmt" ];
+        };
+        "nix" = {
+          "flake" = {
+            "autoArchive" = true;
+            "autoEvalInputs" = true;
+          };
+        };
+      };
+    };
     settings.nixos-options = {
       expr = "builtins.getFlake(toString ./.);";
     };
-    enable = true;
   };
 
   config.vim.snippets.luasnip = {
