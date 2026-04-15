@@ -5,7 +5,7 @@
     format = {
       enable = true;
       type = "nixfmt";
-      package = pkgs.nixfmt-rfc-style;
+      # package = pkgs.nixfmt-rfc-style;
     };
     lsp = {
       enable = true;
