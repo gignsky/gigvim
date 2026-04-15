@@ -12,6 +12,7 @@
     ./rust.nix
     # ./sql.nix
     ./svelte.nix
+    ./yaml.nix
     # ./tailwind.nix
     # ./typescript.nix
     # ./typst.nix
