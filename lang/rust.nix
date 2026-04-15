@@ -2,13 +2,13 @@
 {
   config.vim.languages.rust = {
     enable = true;
-    crates = {
+    extensions.crates-nvim = {
       enable = true;
     };
     # dap.enable = false;
     format = {
       enable = true;
-      type = "rustfmt";
+      type = [ "rustfmt" ];
     };
     dap.enable = true;
     lsp = {

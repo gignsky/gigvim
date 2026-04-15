@@ -4,7 +4,7 @@
     enable = true;
     format = {
       enable = true;
-      type = "nixfmt";
+      type = [ "nixfmt" ];
       # package = pkgs.nixfmt-rfc-style;
     };
     treesitter.enable = true;
@@ -17,7 +17,7 @@
     options = {
       "nil" = {
         "formatting" = {
-          "command" = [ "${pkgs.nixfmt-rfc-style}/bin/nixfmt" ];
+          "command" = [ "${pkgs.nixfmt}/bin/nixfmt" ];
         };
         "nix" = {
           "flake" = {
