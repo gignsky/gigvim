@@ -719,22 +719,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-tectonic_2": {
-      "locked": {
-        "lastModified": 1755706679,
-        "narHash": "sha256-WJ6eaSiN6xtz3vyH2bTYLQ3+ct0W8ai/BkYaq1n1jP8=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c3fc1fe6d8765d99c8614c6f82d611dc56b9ae37",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "c3fc1fe6d8765d99c8614c6f82d611dc56b9ae37",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1775710090,
@@ -977,7 +961,6 @@
           "home-manager"
         ],
         "nixpkgs": "nixpkgs_7",
-        "nixpkgs-tectonic": "nixpkgs-tectonic_2",
         "nvf": "nvf_2",
         "snacks-nvim": "snacks-nvim_2"
       }
