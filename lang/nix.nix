@@ -5,7 +5,6 @@
     format = {
       enable = true;
       type = [ "nixfmt" ];
-      # package = pkgs.nixfmt-rfc-style;
     };
     treesitter.enable = true;
   };
