@@ -13,8 +13,7 @@
       # # for example:
       # inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
     };
-    gigdot.url = "github:gignsky/dotfiles";
-    home-manager.follows = "gigdot/home-manager";
+    home-manager.follows = "gigpkgs/home-manager";
     git-dev-nvim = {
       url = "github:moyiz/git-dev.nvim";
       flake = false;
