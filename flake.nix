@@ -1,6 +1,7 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    gigpkgs.url = "github:gignsky/gigpkgs";
+    nixpkgs.follows = "gigpkgs/nixpkgs-unstable";
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     # nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     # nixpkgs-local.url = "github:gignsky/nixpkgs/gignsky/add-commasemi-nvim";
@@ -12,8 +13,7 @@
       # # for example:
       # inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
     };
-    gigdot.url = "github:gignsky/dotfiles";
-    home-manager.follows = "gigdot/home-manager";
+    home-manager.follows = "gigpkgs/home-manager";
     git-dev-nvim = {
       url = "github:moyiz/git-dev.nvim";
       flake = false;
