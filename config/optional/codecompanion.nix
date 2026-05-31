@@ -1,16 +1,9 @@
 { lib, ... }:
 {
   config.vim = {
-    # Ensure CodeCompanion loads on command invocation (lazy loading fix)
-    lazy.plugins.codecompanion-nvim = {
-      cmd = [
-        "CodeCompanion"
-        "CodeCompanionChat"
-        "CodeCompanionActions"
-        "CodeCompanionInline"
-        "CodeCompanionCmd"
-      ];
-    };
+    # Remove event trigger from codecompanion lazy loading - only load on :CodeCompanion* commands
+    # The event trigger (VeryLazy/InsertEnter) interferes with proper setup in headless/batch mode.
+    lazy.plugins.codecompanion-nvim.event = lib.mkForce [];
 
     # GitHub Copilot for inline completions and auth infrastructure
     assistant.copilot = {
@@ -41,7 +34,7 @@
         # Use GitHub Copilot as the LLM provider
         adapters = lib.generators.mkLuaInline ''
           {
-            copilot = require("codecompanion.adapters.copilot"),
+            copilot = require("codecompanion.adapters.http.copilot"),
           }
         '';
 
