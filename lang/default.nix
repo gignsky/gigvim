@@ -10,8 +10,10 @@
     ./nu.nix
     ./python.nix
     ./rust.nix
+    ./json.nix
     # ./sql.nix
     ./svelte.nix
+    ./yaml.nix
     # ./tailwind.nix
     # ./typescript.nix
     # ./typst.nix
