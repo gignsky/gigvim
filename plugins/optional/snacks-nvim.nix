@@ -68,6 +68,7 @@ in
                 { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
                 { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
                 { icon = " ", key = "e", desc = "Toggle Explorer", action = ":lua Snacks.explorer()" },
+                { icon = " ", key = "c", desc = "Copilot Chat", action = "<cmd>CodeCompanionChat<cr>" },
                 { icon = " ", key = "q", desc = "Quit", action = ":qa" },
               },
             },
