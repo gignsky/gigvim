@@ -13,6 +13,7 @@
     ./json.nix
     # ./sql.nix
     ./svelte.nix
+    ./tex.nix
     ./yaml.nix
     # ./tailwind.nix
     # ./typescript.nix
