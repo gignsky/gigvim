@@ -1,0 +1,1046 @@
+% council-handbook.tex
+% =====================================================================
+% A LaTeX recreation of "Council -- The Handbook (Review Edition)".
+%
+% This is the example document for gigvim's TeX/LaTeX support. It is a
+% faithful, self-contained rebuild of the reviewed Council rulebook:
+% dark title bands, cream "proposal" sidebars marked with a decision
+% flag, small-caps tracked headers, pull-quotes and card grids -- the
+% kind of layout that shows off what LaTeX can typeset, and gives
+% texlab (LSP) and tex-fmt (formatter) real material to work on.
+%
+% Build (either works; tectonic needs no bibtex/latexmk dance):
+%   tectonic council-handbook.tex
+%   latexmk -pdf council-handbook.tex
+%
+% In gigvim: open the file and save -- tex-fmt reformats on write
+% (formatOnSave is on globally); :LspInfo shows texlab attached.
+%
+% Compiles with pdflatex/tectonic. Fonts are stock Latin Modern for
+% portability; swap in ebgaramond/libertinus for a closer match.
+% =====================================================================
+
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[a4paper,margin=22mm,bottom=24mm]{geometry}
+\usepackage{microtype}          % \textls letterspacing, better justification
+\usepackage[most]{tcolorbox}    % boxes, cards, rasters, skins
+\usepackage{pifont}             % \ding dingbats (flag/star stand-ins)
+\usepackage{amssymb}            % \circlearrowleft
+\usepackage[normalem]{ulem}     % \sout / \uline for review marks
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\usepackage[hidelinks]{hyperref}
+
+% ---------------------------------------------------------------------
+% Palette (sampled from the reviewed edition)
+% ---------------------------------------------------------------------
+\definecolor{navy}{HTML}{16293B}
+\definecolor{cream}{HTML}{ECE3CC}
+\definecolor{gold}{HTML}{C39A46}
+\definecolor{teal}{HTML}{4E7E86}
+\definecolor{inkgreen}{HTML}{2E7D4F}
+\definecolor{inkred}{HTML}{B23A3A}
+\definecolor{stone}{HTML}{6B7480}
+
+% ---------------------------------------------------------------------
+% Glyph stand-ins (portable under pdflatex)
+% ---------------------------------------------------------------------
+\newcommand{\flag}{\textcolor{gold}{\ding{110}}}      % decision marker
+\newcommand{\deco}{\textcolor{gold}{\ding{72}}}       % ornament
+\newcommand{\reloop}{$\circlearrowleft$}
+
+% Review marks: struck (removed) text and added text.
+\newcommand{\cut}[1]{\textcolor{inkred}{\sout{#1}}}
+\newcommand{\add}[1]{\textcolor{inkgreen}{\uline{#1}}}
+\newcommand{\hlt}[1]{\colorbox{gold!22}{#1}}
+
+% ---------------------------------------------------------------------
+% Typographic helpers
+% ---------------------------------------------------------------------
+\newcommand{\eyebrow}[1]{{\sffamily\footnotesize\bfseries\textcolor{teal}%
+    {\textls[140]{\MakeUppercase{#1}}}}}
+
+% Section header, e.g. \sect{0.3 The Turn of the Tide --- The Core Loop}
+\newcommand{\sect}[1]{%
+  \par\addvspace{1.15\baselineskip}\needspace{4\baselineskip}%
+  \noindent{\sffamily\bfseries\small\textcolor{gold}%
+    {\textls[110]{\S\ \MakeUppercase{#1}}}}%
+  \par\addvspace{0.35\baselineskip}\nobreak}
+
+% Card head: small tracked label over a serif title
+\newcommand{\cardhead}[2]{\leavevmode{\sffamily\scriptsize\textls[120]{\MakeUppercase{#1}}}\\[1mm]{\large #2}\par\vspace{0.6mm}}
+
+% ---------------------------------------------------------------------
+% Book title band (dark navy full-width)
+% ---------------------------------------------------------------------
+% \booktitle{eyebrow}{TITLE}{book the ...}{italic tagline}
+\newcommand{\booktitle}[4]{%
+  \begin{tcolorbox}[enhanced,sharp corners,boxrule=0pt,colback=navy,
+      colframe=navy,coltext=cream,left=8mm,right=8mm,top=11mm,bottom=9mm,
+      before skip=4mm,after skip=8mm]
+    \centering
+    {\sffamily\scriptsize\textls[240]{\MakeUppercase{#1}}}\\[4mm]
+    {\fontsize{40}{44}\selectfont\textls[40]{#2}}\\[2.5mm]
+    {\sffamily\footnotesize\textls[240]{\MakeUppercase{#3}}}\\[3.5mm]
+    {\itshape\color{cream!88}#4}
+  \end{tcolorbox}}
+
+% ---------------------------------------------------------------------
+% Pull-quote (teal left rule, italic)
+% ---------------------------------------------------------------------
+\newenvironment{pullquote}
+  {\par\addvspace{0.7\baselineskip}%
+   \begin{tcolorbox}[blanker,borderline west={2.5pt}{0pt}{teal},
+       left=5mm,top=0.5mm,bottom=0.5mm,before skip=2mm,after skip=2mm]%
+   \itshape\large}
+  {\end{tcolorbox}\par\addvspace{0.5\baselineskip}}
+
+% ---------------------------------------------------------------------
+% Proposal sidebar (cream, gold left rule) + its header line
+% ---------------------------------------------------------------------
+\newtcolorbox{proposalbox}{enhanced,breakable,sharp corners,colback=cream,
+  colframe=cream,coltext=black,boxrule=0pt,
+  borderline west={2.5pt}{0pt}{gold},
+  left=5mm,right=5mm,top=3.5mm,bottom=3.5mm,before skip=3.5mm,after skip=3.5mm}
+
+\newcommand{\prophead}[1]{%
+  \noindent{\sffamily\bfseries\footnotesize\textcolor{gold!75!black}%
+    {\flag\ \textls[60]{\MakeUppercase{#1}}}}%
+  \nobreak\hfill{\sffamily\itshape\scriptsize\textcolor{stone}{for your sign-off}}%
+  \par\vspace{2mm}}
+
+% Highlighted "aside" panel (a plain cream note without the flag)
+\newtcolorbox{notebox}{enhanced,breakable,sharp corners,colback=cream,
+  colframe=cream,coltext=black,boxrule=0pt,
+  left=5mm,right=5mm,top=3.5mm,bottom=3.5mm,before skip=3.5mm,after skip=3.5mm}
+
+% ---------------------------------------------------------------------
+% Running foot
+% ---------------------------------------------------------------------
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\sffamily\scriptsize\textcolor{stone}%
+  {\textls[120]{COUNCIL · THE HANDBOOK · REVIEW EDITION}}}
+\fancyfoot[R]{\sffamily\scriptsize\textcolor{stone}{\thepage}}
+
+\setlength{\parskip}{0.55\baselineskip}
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+% =====================================================================
+% FRONT MATTER -- how to give notes
+% =====================================================================
+\thispagestyle{fancy}
+
+{\sffamily\scriptsize\textls[220]{\MakeUppercase{Council · Review Edition}}}\par
+\vspace{1mm}
+{\fontsize{34}{38}\selectfont The Handbook}\par
+\vspace{1mm}
+{\itshape\large\color{stone}Proposed revisions \& open proposals --- marked for your review}\par
+\vspace{1mm}
+{\color{gold}\rule{34mm}{1.2pt}}\par
+\vspace{3mm}
+
+\begin{tcolorbox}[enhanced,sharp corners,colback=navy,colframe=navy,
+    coltext=cream,boxrule=0pt,borderline west={2.5pt}{0pt}{gold},
+    left=5mm,right=5mm,top=4mm,bottom=4mm]
+  {\sffamily\bfseries\footnotesize\textcolor{gold}%
+    {\textls[120]{HOW TO GIVE ME NOTES YOU'VE HANDWRITTEN}}}\par\vspace{2mm}
+  This whole document was rebuilt from notes you wrote by hand. Here's how to
+  make the next batch read cleanly:
+  \begin{enumerate}[leftmargin=7mm,itemsep=1.2mm,topsep=1.5mm]
+    \item \textbf{Use pen, and use colour.} Blue, red, green --- any non-black
+      ink. Colour lets me lift your marks cleanly off the black print. Pencil
+      works but is fainter; a coloured pen is best.
+    \item \textbf{Point before you talk.} Circle or box the exact word/line you
+      mean, then draw a short line out to your note in the margin. That tells me
+      \emph{what} the note is about, not just \emph{that} there is one.
+    \item \textbf{One mark, one meaning.} Highlight = ``this matters.''
+      Strike-through = ``cut this.'' Caret (\textasciicircum) with a word =
+      ``insert here.'' A question in the margin = ``decide this with me.''
+    \item \textbf{Export as PDF, not a photo.} Annotating and exporting a PDF
+      keeps your ink as crisp vector strokes --- those extract perfectly. A
+      phone photo of paper works too, just less sharp.
+    \item \textbf{Big decisions in words.} For the \flag\ proposals, a margin
+      ``yes,'' ``no,'' or ``option (a)'' is enough --- or dictate them to me
+      like you did this round, which worked great.
+  \end{enumerate}
+  \vspace{1mm}
+  {\itshape\color{cream!85}Then just upload the marked-up PDF and say ``read my
+  notes.'' I'll pull every mark, apply the settled ones, and bring the open
+  ones back to you.}
+\end{tcolorbox}
+
+\vspace{2mm}
+{\sffamily\scriptsize\textcolor{stone}{\textls[120]{TAP THE CONTENTS OR ANY \S\ TO JUMP · \flag\ MARKS A DECISION FOR YOU}}}
+
+% =====================================================================
+% COVER
+% =====================================================================
+\clearpage
+\booktitle{A roleplaying game · played with words, not dice}{COUNCIL}%
+  {A Player's Handbook · Printed Edition · One Voyage, One Volume}%
+  {strive and pay, or be given --- but keep hope, whatever the weather}
+
+\vspace{4mm}
+\begin{center}\deco\end{center}
+
+% =====================================================================
+% CONTENTS
+% =====================================================================
+\clearpage
+\eyebrow{\deco\ Contents \deco}\par
+\vspace{1mm}
+{\fontsize{26}{30}\selectfont Where to find things}\par
+\vspace{3mm}
+
+{\large How to Play}\quad{\sffamily\scriptsize\textcolor{stone}{\textls[120]{FIVE MINUTES · READ THIS FIRST}}}
+
+\newcommand{\bookrow}[3]{%
+  \vspace{2mm}{\large\textcolor{gold}{#1}\ \ #2}\par
+  {\sffamily\footnotesize\textcolor{stone}{#3}}\par}
+
+\bookrow{I}{Foundations}{\S0.1 The Thesis \quad \S0.2 Who Sails Under It \quad \S0.3 The Core Loop \quad \S0.4 The Eight Timbers \quad \S0.5 Keel \& Rigging}
+\bookrow{II}{The Resolution Core}{\S2.1 The Two Answers \quad \S2.2 Grace \quad \S2.3 Price \quad \S2.4 The Seals \quad \S2.5 The Roads \quad \S2.6 The Reward of Cleverness}
+\bookrow{III}{Works \& the Tide}{\S3.1 Declaring a Work \quad \S3.2 The Tide \quad \S3.3 The Ledger \quad \S3.4 Squalls \quad \S3.5 Forcing a Work \quad \S3.6 Completion \& Work Orders \quad \S3.7 The Divine Work}
+\bookrow{IV}{Governance}{\S4.1 The Council \quad \S4.2 Who Sits \quad \S4.3 Deputies \quad \S4.4 Interrupts \quad \S4.5 The Override \quad \S4.6 Absence Beyond Reach}
+\bookrow{V}{Teach \& Ship}{\S5.1 Session Zero \quad \S5.2 Writing Seals \quad \S5.3 Giving Grace \quad \S5.4 The Signed Squall \quad \S5.5 Hope \& Harm \quad \S5.6 What to Print}
+
+% =====================================================================
+% PROPOSALS INDEX + HOW TO PLAY
+% =====================================================================
+\clearpage
+\begin{proposalbox}
+  \prophead{Proposals awaiting sign-off}
+  {\sffamily\footnotesize\textcolor{teal}{%
+    1 · Turning the watch \quad 2 · Ledger meat \quad 3 · Landis' gifts \quad
+    4 · Sealed favor \quad 5 · Between-session play \quad 6 · Trigger Points \quad
+    7 · Three tiers \quad 8 · Dependent Works \quad 9 · The Fasces \quad
+    10 · The Minute \quad 11 · Reversion \quad 12 · Absence rewrite \quad
+    13 · The creed \quad 14 · Clue sourcing}}
+\end{proposalbox}
+
+\begin{tcolorbox}[enhanced,sharp corners,colback=navy,colframe=navy,
+    coltext=cream,boxrule=0pt,left=6mm,right=6mm,top=6mm,bottom=6mm]
+  \centering
+  {\sffamily\scriptsize\textls[200]{HOW TO PLAY · A GUIDE FOR THE CREW · FIVE MINUTES}}\\[2mm]
+  {\fontsize{30}{34}\selectfont Before You Sit Down}
+\end{tcolorbox}
+
+\begin{pullquote}
+  There are no dice here, and no character sheets. There is only the story we
+  tell together --- and a handful of promises about how it answers back.
+\end{pullquote}
+
+\begin{enumerate}[leftmargin=8mm,itemsep=1.5mm]
+  \item \emph{You live a scene.} You speak and act as your character, and the
+    keeper plays the world around you. Most of the time, that is all there is
+    --- and it is enough.
+  \item \emph{A need arises the table can't just wish away.} A locked door. A
+    hidden truth. A thing that must be built or found. Under dice you'd roll.
+    Here, you don't guess the magic question --- you simply \emph{reach} for the
+    answer, and the world provides it by one of two ways below.
+  \item \emph{What comes back changes the next scene.} And the tale sails on.
+    That wheel --- scene, answer, scene --- is the whole of the game.
+\end{enumerate}
+
+\begin{tcolorbox}[blanker,before skip=3mm,after skip=3mm]
+\begin{tcbraster}[raster columns=2,raster equal height=rows,
+    raster column skip=4mm,sharp corners,boxrule=0pt,
+    colback=navy,colframe=gold,coltext=cream,toprule=1.4pt,
+    left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem \cardhead{}{By Price} What you \emph{pay for}. You may seize an
+    answer by spending something of your own --- a truth confessed, a new
+    trouble taken on, a little time lost. Price is yours to demand. It always
+    costs the self, and it is always true.
+  \tcbitem \cardhead{}{By Grace} What you are \emph{given}. The keeper may hand
+    you an answer freely --- unearned, unasked, because you are stuck and the
+    story loves you. Grace cannot be bought or demanded. It falls where it
+    falls, and it falls most on those who keep trying and keep hoping.
+\end{tcbraster}
+\end{tcolorbox}
+
+\begin{center}\itshape Strive and pay, or be given. Most tales are told in the
+weather between the two.\end{center}
+
+% ---- You cannot be truly stuck ----
+\clearpage
+\begin{notebox}
+  {\sffamily\bfseries\footnotesize\textcolor{gold!75!black}%
+    {\textls[100]{YOU CANNOT BE TRULY STUCK}}}\par\vspace{1.5mm}
+  Behind every real obstacle the keeper has already written three clues --- a
+  gentle \emph{nudge}, a plain \emph{bearing}, and, at the last, the
+  \emph{answer} itself. They are never improvised and never withheld forever.
+  However you reach for help --- by cleverness, by price, by grace --- one of
+  these comes. No riddle in Council is a locked room with no key. That is a
+  promise.
+\end{notebox}
+
+\sect{The One Thing Worth Keeping}
+Council is built to reward \emph{hope}. The world bends kinder to a crew that
+believes it can be made better, and grace runs toward them like water downhill.
+The game can wound you --- it can cost you dearly, and grieve you truly --- but
+it only truly breaks the one who has stopped hoping. Keep hope, and you are
+never past saving.
+
+\begin{pullquote}Despair is the only door that locks from the inside.\end{pullquote}
+
+\sect{One Stranger You Should Know}
+There is a madman named \emph{Landis}, who is real only in water. Find still
+water in any world --- a sea, a cistern, a cup --- look in, and ask him with
+grace, and he will sell you a true answer at a steep and personal price. He is
+not the main road, and you will not need him often. But he is always there, in
+every water, and every answer he gives is true. More of him waits in the pages
+that follow.
+
+% =====================================================================
+% BOOK I -- FOUNDATIONS
+% =====================================================================
+\clearpage
+\booktitle{Council · A Player's Handbook}{FOUNDATIONS}{Book the First}%
+  {being the whole of the game, set down plain, that any hand aboard may read it}
+
+\sect{0.1 The Thesis}
+\begin{pullquote}Council is for tables who left the dice behind --- and found
+they had left something else behind with them.\end{pullquote}
+When a crew stops rolling and starts telling, the story runs warmer and the
+arithmetic goes quiet --- and then, one night, a locked door appears that no one
+at the table happens to be clever enough to open. Under dice, a character
+\emph{rolled to know things their player did not.} Take the dice away and that
+quiet gift goes with them: now a player can learn only what they personally
+thought to ask, and the keeper is left dangling hints, praying someone guesses
+the shape of the answer.
+
+\textbf{Council exists to hand that gift back without handing the dice back.} It
+is a game of insight, consequence, and shared command that runs entirely on
+words. One question steers every rule in this handbook: \emph{how does a soul
+come to know a thing without guessing the exact right way to ask?} All that
+follows is an answer.
+
+\begin{pullquote}You will not roll to see if you succeed. You will decide what
+you are willing to pay to find out. --- the first principle\end{pullquote}
+
+\sect{0.2 Who Sails Under It}
+\begin{tcbraster}[raster columns=2,raster equal height=rows,raster column skip=4mm,
+    sharp corners,boxrule=0pt,colback=cream,colframe=cream,coltext=black,
+    left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem \emph{Crews who have already drifted.} Long campaigns that quietly
+    abandoned sheets and initiative and now live on narration and trust. Council
+    names what they are already doing and gives it teeth.
+  \tcbitem \emph{Keepers weary of dangling hints.} Game masters who love the
+    shared story but keep striking the reef where a puzzle stalls because no one
+    has yet said the magic thing.
+\end{tcbraster}
+
+\sect{0.3 The Turn of the Tide --- The Core Loop}
+Play turns through three stations. A \emph{Scene} raises a need the table cannot
+simply declare true. The world answers by one of two roads --- \emph{the Water}
+(buy insight now, at a price) or \emph{the Tide} (commit the work, let time
+carry it) --- and whatever comes back walks into the next Scene, changed. That
+is the entire machine. All else is rigging hung upon it.
+
+\begin{tcbraster}[raster columns=3,raster equal height=rows,raster column skip=3mm,
+    sharp corners,boxrule=0pt,colback=cream,colframe=cream,coltext=black,
+    toprule=1.4pt,colupper=black,
+    left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem[colframe=gold] \cardhead{Station One}{The Scene} A need arises the
+    table cannot just wish true.
+  \tcbitem[colframe=gold] \cardhead{Road A}{The Water} A truth, a trouble, a
+    scene, for a real answer.
+  \tcbitem[colframe=teal] \cardhead{Road B}{The Tide} Commit a Work; the world
+    moves it a watch at a time.
+\end{tcbraster}
+\begin{center}\small\textcolor{stone}{\reloop\ \ and whatever the world returns
+walks back into the next Scene, changed\ \ \reloop}\end{center}
+
+\sect{0.4 The Eight Timbers}
+The fixed vocabulary of the game --- the timbers of the hull. These words mean
+the same at every Council table; a keeper may re-rig the world above, but not
+rename the timbers below.
+
+\begin{tcolorbox}[enhanced,sharp corners,colback=cream,colframe=cream,
+    coltext=black,boxrule=0pt,left=4mm,right=4mm,top=3mm,bottom=3mm]
+\begin{description}[leftmargin=13mm,style=nextline,itemsep=1.2mm,font=\normalfont]
+  \item[\textcolor{gold}{\bfseries I}\ \ The Water] Landis, real only in water,
+    who sells true answers at a price.
+  \item[\textcolor{gold}{\bfseries II}\ \ The Council] Shared command with a
+    final say; every vote and dissent minuted.
+  \item[\textcolor{gold}{\bfseries III}\ \ Works] What a crew sets in motion
+    between scenes: an aim, the hands, the stakes.
+  \item[\textcolor{gold}{\bfseries IV}\ \ The Tide] Time itself. \cut{Every
+    session advances every open Work one watch.} \add{The keeper turns the
+    watch; a session may pass one, or several.}
+  \item[\textcolor{gold}{\bfseries V}\ \ The Ledger] What a Work spends: Hands,
+    Power, Standing. Nothing pinned twice.
+  \item[\textcolor{gold}{\bfseries VI}\ \ Squalls] Sealed complications carried
+    by the larger Works, breaking when the weave turns against you.
+  \item[\textcolor{gold}{\bfseries VII}\ \ The Seals] Pre-written clues ---
+    Nudge, Bearing, Answer --- sealed and shown, in order.
+  \item[\textcolor{gold}{\bfseries VIII}\ \ Price \& Grace] The two ways an
+    answer comes: seized with a piece of self, or given freely.
+\end{description}
+\end{tcolorbox}
+
+\sect{0.5 The Keel \& the Rigging}
+Council is a keel, not a world. A table brings its own fiction --- a drowned
+empire, a generation ship, a haunted county --- and rigs it to the timbers
+below. But one timber is not the table's to swap. \emph{Landis is fixed.} The
+madman on the sea, real only in water, who sells true answers at a price, stands
+in every Council game that has been or will be run.
+
+\begin{tcbraster}[raster columns=2,raster equal height=rows,raster column skip=4mm,
+    sharp corners,boxrule=0pt,left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem[colback=navy,colframe=gold,coltext=cream,toprule=1.4pt]
+    \cardhead{The Keel --- Fixed}{} Landis \& the Water. The eight timbers and
+    their names. The turn of the tide. Price and grace. The Seals. Mercy.
+  \tcbitem[colback=cream,colframe=teal,coltext=black,toprule=1.4pt]
+    \cardhead{The Rigging --- Yours}{} The world, its peoples, what Power and
+    Standing are made of, what the riddles guard.
+\end{tcbraster}
+\begin{pullquote}Change everything you like. Leave me the water. --- L.F.\end{pullquote}
+
+% =====================================================================
+% BOOK II -- THE RESOLUTION CORE
+% =====================================================================
+\clearpage
+\booktitle{Council · A Player's Handbook}{THE RESOLUTION CORE}{Book the Second}%
+  {how the game answers, when there is no die to throw}
+
+\begin{pullquote}A die answered a question the table could not: what is true,
+and what do you learn? Council keeps the question and throws away the die. In
+its place stand two hands --- one that takes, and one that gives. Learn these
+two and you have learned the game.\end{pullquote}
+
+\sect{2.1 The Two Answers}
+When a scene raises a need the table cannot simply declare true, the world
+answers in one of two ways, and only two. An answer is either \emph{seized} ---
+bought with something of your own --- or it is \emph{given}, freely, by the hand
+that made this world. The first is \emph{price}. The second is \emph{grace}.
+
+\begin{tcbraster}[raster columns=2,raster equal height=rows,raster column skip=4mm,
+    sharp corners,boxrule=0pt,colback=navy,colframe=gold,coltext=cream,
+    toprule=1.4pt,left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem[colframe=gold] \cardhead{}{Price} You pay, and you may demand. It
+    costs the self and is always true.
+  \tcbitem[colframe=teal] \cardhead{}{Grace} You are given, and may not demand.
+    It costs you nothing and cannot be earned.
+\end{tcbraster}
+
+\sect{2.2 Grace --- The Given Answer}
+The keeper is the god of this small creation --- not a tyrant, but a maker, who
+set its laws and largely lets them run. \emph{Grace is the maker's one free
+hand:} the single thing in the game not bound by the world's own rules. An
+answer given as grace is unearned and unpriced.
+
+Grace \emph{cannot be bought, banked, or demanded.} A good-faith struggle
+\emph{invites} it, and hope draws it near --- but nothing compels it. It may
+fall on the crew who tried hardest; it may fall, just as well, on the one who
+tried least and needed it most. It falls where it will.
+
+Grace is \emph{not counted.} There is no pool, no token, no tally at the table's
+edge. It has exactly one law that binds it: \emph{mercy}. If a crew is truly
+aground, grace comes, because the maker will not let the story drown.
+
+And grace comes \emph{quietly}. It is a nudge slid across the table,
+unremarked. The keeper need not announce it, and mostly should not. The crew
+will feel they were lucky. Let them.
+
+\begin{pullquote}Grace is not the keeper being kind against the rules. It is the
+one rule that kindness was allowed to keep.\end{pullquote}
+
+\sect{2.3 Price --- The Seized Answer}
+Where grace is given, price is \emph{taken} --- by you, from you. When you must
+know a thing now and are willing to bleed for it, you may seize the answer and
+pay in the only coin the game accepts: something of your own self.
+
+The dearest altar of price is \emph{the Water} --- Landis, real only in water,
+who trades true answers for pieces of the one who asks. But mark this well:
+\emph{the Water is a rare road, not a daily one.} When you do go down to the
+water, the price climbs with each answer of a single visit:
+
+\begin{tcolorbox}[enhanced,sharp corners,colback=cream,colframe=cream,
+    coltext=black,boxrule=0pt,left=4mm,right=4mm,top=3mm,bottom=3mm]
+\begin{description}[leftmargin=18mm,style=nextline,itemsep=1.2mm,font=\sffamily\footnotesize\bfseries\color{gold!75!black}]
+  \item[FIRST] \emph{A truth.} Confess a secret, or commit a new fact about
+    yourself, aloud. Canon the moment it is spoken.
+  \item[SECOND] \emph{A trouble.} The answer is true, and arrives lashed to a
+    fresh complication.
+  \item[THIRD] \emph{The madness bleeds.} You glimpse a thing the keeper knows
+    and you should not, and cannot say why.
+  \item[ALWAYS] \emph{A scene.} To sit with Landis costs time; the weave moves
+    on while you do.
+\end{description}
+\end{tcolorbox}
+
+\sect{2.4 The Seals --- What Both Hands Reach For}
+Price and grace do not invent their answers on the spot. \emph{Behind any
+obstacle worth being stuck on lie three clues,} set face-down on the table, in
+order.
+
+\begin{tcbraster}[raster columns=3,raster equal height=rows,raster column skip=3mm,
+    sharp corners,boxrule=0pt,colback=cream,colframe=navy,coltext=black,
+    toprule=1.4pt,left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem \cardhead{The First}{The Nudge} A single honest word or image.
+  \tcbitem \cardhead{The Second}{The Bearing} What to do next --- never why.
+  \tcbitem \cardhead{The Third}{The Answer} Plain as porridge.
+\end{tcbraster}
+They open \emph{in order}, one at a time. Price opens the next by paying for it.
+Grace opens the next by giving it --- \hlt{most often the Nudge, for nothing.}
+
+\sect{2.5 The Roads to a Clue}
+A crew that means to pay has more than one road to the next seal --- the Water,
+being dearest, is the one they should walk least:
+
+\begin{tcolorbox}[enhanced,sharp corners,colback=cream,colframe=cream,
+    coltext=black,boxrule=0pt,left=4mm,right=4mm,top=3mm,bottom=3mm]
+\begin{description}[leftmargin=24mm,style=sameline,itemsep=1.4mm,font=\normalfont\bfseries]
+  \item[Honest search] Dig, read, question, pry. Paid in effort and a scene's
+    time. \add{--- call it wit by another name.}
+  \item[A Work] Let the Tide carry it (Book III). Slow, priced only in watches.
+  \item[A letter] Ask one who is absent but would know. \cut{Slow as the post.}
+    \add{Slow as the post --- and those who carry it may read what it says,
+    unless it is sealed.}
+  \item[The Water] Landis, and his \hlt{climbing price}. Walk it least.
+\end{description}
+\end{tcolorbox}
+
+\begin{tcolorbox}[enhanced,sharp corners,colback=navy,colframe=navy,
+    coltext=cream,boxrule=0pt,left=4mm,right=4mm,top=3mm,bottom=3mm]
+  \textbf{The rule that binds every road:} it opens \emph{the next Seal in
+  order} --- never a later one, never two at once.
+\end{tcolorbox}
+
+\sect{2.6 The Reward of Cleverness}
+Sometimes a crew closes out a whole labour --- a Work, a mission, an obstacle
+worth being stuck on --- with its Seals never broken: no price paid, no grace
+needed. Each Seal left closed is banked as \emph{Slack}: a due at the Water. The
+next time the crew comes to Landis, that much of his usual price is simply
+\emph{waived} --- one price forgiven for every Seal they earned --- and he
+throws in something past the ordinary menu besides, a thing he judges cool
+enough for the doing, never named in advance. Slack is spent only there, only
+with him, and does not linger forever unspent.
+
+\begin{pullquote}Solve it yourself, and the madman remembers you the next time
+you're wet.\end{pullquote}
+
+\begin{proposalbox}
+  \prophead{Proposal 3 --- What Landis Throws In --- Gifts Past the Menu}
+  \emph{Your margin: what kind of thing could Landis give when Slack is due?}
+  Slack already waives price; the `something extra' should be a thing
+  money/price can't buy --- strange, true, and never named in advance. A
+  keeper's stock to draw from:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item \emph{A name not yet earned} --- the true name of a person, ship, or
+      thing the crew hasn't met.
+    \item \emph{A glimpse down the tide} --- one honest image of a Work's next
+      squall before it breaks.
+    \item \emph{A ward} --- a one-time `this once, the water lies for you': a
+      single future price refunded.
+    \item \emph{A door} --- the location of still water somewhere it shouldn't
+      be (behind enemy lines, aboard a ship).
+    \item \emph{A dead man's sentence} --- the last true thing someone said
+      before the crew could ask.
+  \end{itemize}
+  \vspace{0.5mm}
+  Rule of thumb: the gift is \emph{knowledge or leverage}, never raw Power ---
+  Landis deals in truth, not drones.
+\end{proposalbox}
+
+% =====================================================================
+% BOOK III -- WORKS & THE TIDE
+% =====================================================================
+\clearpage
+\booktitle{Council · A Player's Handbook}{WORKS \& THE TIDE}{Book the Third}%
+  {how the world keeps moving even while the table sleeps}
+
+\begin{pullquote}A scene is what the crew does with their hands. A Work is what
+they set in motion and must then wait upon. Everything in this book is bought
+with the one coin the game keeps honest for everyone at once --- time.\end{pullquote}
+
+\sect{3.1 Declaring a Work}
+A Work is any labour too large for a single scene --- a bomb built, a treaty
+struck, a ruin excavated, a wound healed. It is written on a card the whole
+table can see, and it carries three lines and no more:
+\begin{itemize}[leftmargin=6mm,label=\textcolor{gold}{\ding{119}},itemsep=1mm,topsep=1mm]
+  \item \textbf{THE AIM} --- the plain thing wanted, stated so plainly that its
+    finishing cannot be argued.
+  \item \textbf{THE HANDS} --- who does it: a person, a department, a people.
+  \item \textbf{THE STAKES} --- what is pledged from the Ledger to make it possible.
+\end{itemize}
+
+\sect{3.2 The Tide --- Watches}
+Time in Council comes in like a tide, on its own, needing no one's permission.
+\cut{Every session, every open Work advances one watch --- whether the crew
+touched it or not.} \add{A watch is a unit of fictional time, not a unit of
+table time. When the keeper turns the watch, every open Work advances one ---
+whether the crew touched it or not. A session may pass one watch, or several; a
+night's sleep passes a watch, and a long journey may pass more.} Spend a whole
+scene labouring at a Work, and it takes \emph{one watch more}. The counts are
+public.
+
+\begin{tcbraster}[raster columns=3,raster equal height=rows,raster column skip=3mm,
+    sharp corners,boxrule=1pt,colback=white,colframe=navy,coltext=black,
+    left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem \cardhead{Small Work}{} 1 watch
+  \tcbitem \cardhead{A Work}{} 3 watches
+  \tcbitem \cardhead{Great Work}{} 5 watches
+\end{tcbraster}
+
+\begin{proposalbox}
+  \prophead{Proposal 1 --- Turning the Watch --- Keeper Guidance}
+  You decided a watch is fictional time, not table time. Open question from your
+  margin (p.12): \emph{how many watches does a session pass?} My recommendation
+  --- don't hard-quantify it; give the keeper three anchors and let fiction do
+  the rest:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item \emph{Sleep = 1 watch.} A night's rest always turns one.
+    \item \emph{Travel by distance.} A hop across the city = 0. A trip off-world
+      and back = 1. A long expedition = 2--3, keeper's call.
+    \item \emph{A full scene of labour = +1} to the Work worked (already in the
+      rules).
+  \end{itemize}
+  \vspace{0.5mm}
+  So a quiet session might pass one watch; a session that sleeps, travels, and
+  labours might pass three. \emph{Your boxed note} (``multiple Works per
+  session, keeper's discretion'') is already true under this: turning a watch
+  advances \emph{every} open Work at once. The thing to decide is whether
+  players can ever \emph{force the keeper to turn a watch} --- I'd say no; only
+  the fiction turns it, and Forcing (\S3.5) is the one player lever on pace.
+\end{proposalbox}
+
+\sect{3.3 The Ledger --- Stakes}
+A Work spends more than time; it spends the crew's finite holdings, pledged
+under three headings:
+
+\begin{tcbraster}[raster columns=3,raster equal height=rows,raster column skip=3mm,
+    sharp corners,boxrule=1pt,colback=white,colframe=navy,coltext=black,
+    left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem \cardhead{Hands}{} people \& their labour
+  \tcbitem \cardhead{Power}{} resources, the means
+  \tcbitem \cardhead{Standing}{} goodwill with peoples
+\end{tcbraster}
+\emph{A stake cannot be pledged twice} --- and \textbf{to wound a pledged stake
+is to stall everything pledged to it.} This is how a single blow lands
+everywhere.
+
+\begin{proposalbox}
+  \prophead{Proposal 2 --- Giving the Ledger Meat --- Hard Hands \& Power, Hidden Standing}
+  Your notes (p.2 ``needs meat,'' p.11 ``quantified \dots\ city resource
+  management'') and your answer both point the same way. Proposed split:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item \emph{Hands \& Power are counted, and public.} Give the expedition a
+      pool --- e.g. Hands as named departments/teams, Power as concrete stores
+      (ZPM charge, C4, jumpers, drones). A Work pledges specific units; the crew
+      can always see what's committed and what's free. This is the `city
+      resource management' layer.
+    \item \emph{Standing is not a number the players see.} Per your answer: the
+      keeper tracks each people's regard (Genii, Hoffan, Athosian\dots) on a
+      hidden scale; players must \emph{intuit} it from how factions behave. The
+      keeper knows whether a faction will lift a hand; the crew has to read the
+      room.
+  \end{itemize}
+  \vspace{0.5mm}
+  Open sub-question I'd flag: do you want Standing tracked per-faction as a small
+  hidden dial (e.g. $-2\dots+2$), or purely as keeper prose? A dial makes ``will
+  they help?'' rulings consistent; prose keeps it loose. I lean \emph{hidden
+  dial, prose to the players.}
+\end{proposalbox}
+
+\sect{3.4 Squalls}
+\cut{Every Great Work} \add{Every Great Work --- and, at the keeper's
+discretion, some lesser Works ---} is declared with \emph{one sealed
+complication} --- its squall --- set face-down beside the card. It breaks at the
+\emph{halfway watch}, or sooner if the weave calls for it.
+
+\sect{3.5 Forcing a Work}
+Once per session, a crew may drive a single Work \emph{one extra watch} by
+paying one of two coins:
+
+\begin{tcbraster}[raster columns=2,raster equal height=rows,raster column skip=4mm,
+    sharp corners,boxrule=0pt,colback=cream,colframe=cream,coltext=black,
+    left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem \textbf{A TRUTH} --- confessed aloud, canon the instant it is spoken.
+    \add{Or a truth made true \emph{of the Council} --- a new law passed.}
+  \tcbitem \textbf{A FAVOR OWED} --- sealed, called due whenever the keeper pleases.
+\end{tcbraster}
+Note the mark of haste: a forced Work \cut{always} \add{still} delivers its squall.
+
+\begin{proposalbox}
+  \prophead{Proposal 4 --- ``A Favor Owed --- Sealed.'' What is Sealed?}
+  You struck `sealed' and asked \emph{what is there to seal?} Two clean readings
+  --- pick one:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item \emph{(a) Sealed = undefined-until-called.} The favor has no named
+      price now; the keeper writes it face-down and reveals it whenever they
+      call it due. What's `sealed' is the \emph{cost}. (Keeps the dread; matches
+      Squalls.)
+    \item \emph{(b) Drop the seal.} A favor owed is just an IOU the keeper can
+      call anytime --- no envelope, no mystery. Simpler at the table.
+  \end{itemize}
+  \vspace{0.5mm}
+  I lean \emph{(a)}: it makes `a favor owed' scarier than `a truth' and gives
+  you a sealed prop to hand over, which fits Council's whole reveal aesthetic.
+\end{proposalbox}
+
+\sect{3.6 Completion \& Work Orders}
+A finished Work stops being a card and becomes a \emph{plain fact of the world.}
+Between sessions the crew may send \emph{Work Orders} --- written instructions
+to the hands who do the labour --- and the keeper answers in those hands' own
+voices next the table sits.
+
+\begin{proposalbox}
+  \prophead{Proposal 5 --- Between-Session Play --- Orders That Resolve Off-Table}
+  Your green note (p.13): \emph{a way for things to progress between sessions
+  without wrecking the timeline, and encouraging between-session play.} Work
+  Orders already point here; proposed expansion:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item Between sessions, any player may file \emph{Standing Orders} to the
+      hands they command --- written instructions (build, scout, treat, dig).
+    \item These \emph{don't turn extra watches} (the timeline is safe): they
+      resolve as of the \emph{next} watch the fiction turns, and the keeper
+      answers in the hands' own voice (letterhead) at session start.
+    \item A player who files orders may open the session already mid-scene on
+      their result --- the reward for playing between sessions.
+  \end{itemize}
+  \vspace{0.5mm}
+  This is a natural fit for the Council website: orders in, letterhead replies out.
+\end{proposalbox}
+
+\sect{3.7 The Divine Work --- The Great Tier}
+Above the Great Work stands one tier more, reserved for labours that span a
+whole telling\add{, or a season}. A \emph{Divine Work} is not a card the crew
+declares; it is a weather the keeper sets moving beneath everything:
+
+\begin{tcbraster}[raster columns=1,raster row skip=2mm,sharp corners,boxrule=0pt,
+    colback=navy,colframe=navy,coltext=cream,left=4mm,right=4mm,top=2.5mm,bottom=2.5mm,
+    before skip=2mm,after skip=2mm]
+  \tcbitem \textbf{No fixed count.} No watch-total set at declaring, no
+    countdown shown \add{--- even if one is quietly kept.}
+  \tcbitem \textbf{Many squalls, not one.} Several sealed \emph{beats}, opened
+    one at a time.
+  \tcbitem \textbf{A beat may rewrite the card.} A beat can recast the aim, add
+    a stake, release another.
+  \tcbitem \textbf{Stakes bind and loose over time.} Hands and Standing attach
+    and detach across its length.
+\end{tcbraster}
+A Divine Work ends not on a watch but on a \emph{turning}. Even here the one law
+holds: \emph{mercy}.
+
+\begin{notebox}
+  {\sffamily\bfseries\footnotesize\textcolor{gold!75!black}%
+    {\textls[100]{HOW A STORM SPEAKS --- A STANDING HOUSE STYLE}}}\par\vspace{1.5mm}
+  Every squall, every beat, every hard turn is delivered as an \emph{in-fiction
+  report on the letterhead of whoever bore it.} Never an omniscient voice from
+  the clouds. In Council, the bad news always arrives signed
+  \add{--- witnessed, not narrated. Testimony is king.}
+\end{notebox}
+
+\begin{proposalbox}
+  \prophead{Proposal 6 --- Trigger Points \& Non-Step-able Countdowns --- The Divine Work Engine}
+  You don't have the shape yet and asked for options. Here's a model that fits
+  `The Storm shouldn't tick until the Genii are ready to be enemies.'
+
+  \emph{The idea.} A Divine Work is a chain of \emph{beats}. A beat does nothing
+  until its \emph{Trigger} is met. When it fires, that beat's \emph{watch-clock}
+  starts counting --- and only then does time bite.
+
+  \emph{A beat has three lines: Trigger} (the fictional condition that arms it),
+  \emph{Clock} (how many watches once armed), \emph{Break} (what the beat does
+  --- usually a signed squall, sometimes a rewrite of the card).
+
+  \emph{`Non-step-able' means two guarantees:} (1) an un-armed beat can't be
+  advanced, forced, or grace'd forward --- no lever moves a clock that hasn't
+  started; (2) once armed, the clock is the keeper's, not the tide's default ---
+  it ticks on its own terms.
+
+  \emph{Storm, worked example:} Beat I \emph{Outer Bands} --- Trigger: Genii
+  gain a foothold · Clock: none (mood only). Beat III \emph{Eye} --- Trigger:
+  storm makes landfall on Atlantis · Clock: 3 watches · Break: shield fails,
+  signed by Radek. Beat IV --- Trigger: Beat III resolves · Break: Earth's ship
+  arrives with McKay + partial ZPM.
+
+  \emph{Decision I need:} is a beat's clock \emph{visible} to players once armed
+  (a ticking dread they can race) or \emph{hidden} (they feel the squeeze but
+  don't see the number)? I'd make it the keeper's choice per beat.
+\end{proposalbox}
+
+\begin{proposalbox}
+  \prophead{Proposal 7 --- Three Tiers of Divine Work --- Keeper Guidance (Not Hard Tiers)}
+  You want these as guidance, not a rigid parallel to Small/Work/Great. Proposed
+  as a keeper sidebar:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item \emph{An Episode} --- one session's worth; a single strong beat.
+      \emph{Ex: the dying ZPM on the children's planet.}
+    \item \emph{An Arc} --- spans several sessions; a handful of chained beats.
+      \emph{Ex: The Storm; poisoning the well; the first Wraith siege.}
+    \item \emph{A Saga} --- one or more seasons; beats that sleep for a long
+      time between arming. \emph{Ex: the Wraith threat; Taxe's Federation;
+      powering the city and getting home.}
+  \end{itemize}
+  \vspace{0.5mm}
+  Same engine (beats + triggers) at every tier --- only the span and the
+  patience differ.
+\end{proposalbox}
+
+\begin{proposalbox}
+  \prophead{Proposal 8 --- ``Dependent Visible Works'' --- What I Meant, and My Recommendation}
+  This was my jargon; here's the plain version. A Divine Work is \emph{weather}
+  the players can't grab directly. A \emph{dependent visible Work} is an
+  ordinary Work card the storm throws off that they \emph{can} grab --- the
+  handhold. The Storm (Divine) can't be `solved'; but \emph{Shield's Heart},
+  \emph{Project Hammer}, and \emph{The Catch} are visible Works the crew can
+  pour Hands into to change how the storm lands.
+
+  \emph{My recommendation, not a hard rule:} every armed beat should expose
+  \emph{at least one} visible Work the players can act on --- otherwise the beat
+  is something that happens \emph{to} them, which is railroading by another
+  name. Make it a keeper habit, not a law.
+\end{proposalbox}
+
+% =====================================================================
+% BOOK IV -- GOVERNANCE
+% =====================================================================
+\clearpage
+\booktitle{Council · A Player's Handbook}{GOVERNANCE}{Book the Fourth}%
+  {who may command a thing to happen --- and what it costs to choose}
+
+\begin{pullquote}The game is named for this book. A Council is not a throne ---
+it is a table, where authority is shared, choices are witnessed, and the cost of
+command is that everyone remembers what you decided.\end{pullquote}
+
+\sect{4.1 The Council}
+A Council is a body of shared command \hlt{with a single seat} that holds the
+\emph{final say}. Its virtue is not efficiency --- it is \emph{the record.}
+Every vote and every dissent is entered and remembered; a voice overruled is not
+silenced but \emph{minuted}.
+
+\begin{pullquote}A king may be wrong in private. A chair may only be wrong in
+front of the table.\end{pullquote}
+
+\begin{proposalbox}
+  \prophead{Proposal 9 --- The Fasces --- An Optional Name \& Rule for the Final Seat}
+  Your p.15 note: call the single-seat holder the one who \emph{holds the
+  Fasces}, rotating each session, and --- like the Roman consuls --- the others
+  in rotation may \emph{veto}. Proposed optional rule:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item The final-say seat rotates each session among those eligible.
+    \item Any other rotation-holder may spend a \emph{veto} to block a single
+      ruling (once per session), forcing a Council vote instead.
+  \end{itemize}
+  \vspace{0.5mm}
+  \emph{Your wide/narrow question:} yes --- at a \emph{wide table} the keeper can
+  absolutely take the Fasces on some sessions (an in-fiction chair, not the GM
+  hat), which is a lovely way to put the keeper's avatar on the record. At a
+  \emph{narrow table}, rotation is usually just among the player-principals and
+  the keeper stays the world. Tie it to the \S4.2 dial.
+\end{proposalbox}
+
+\begin{proposalbox}
+  \prophead{Proposal 10 --- The Minute --- Record-Keeping (and Your Voice-Memo Question)}
+  You circled `on the record' (\S4.5) and asked if minuting is practical ---
+  \emph{can we use voice memos?} Proposed light system, \emph{The Minute}: after
+  any vote, override, or Directive, one line goes in the log --- \emph{who
+  decided, what, who dissented}. That's all `minuted' needs to mean. A phone
+  voice-memo is a perfectly good Minute.
+
+  \emph{On tooling --- straight answer:} I can't transcribe an audio file
+  directly in this workspace (no speech-to-text here). But the loop you want
+  works fine: run tonight's recording through any transcription app, upload the
+  \emph{transcript} (txt/doc), and I'll keep a running game log \emph{and} a
+  formal Council Minutes ledger from it --- votes, Directives, Works advanced,
+  squalls broken. If you'd rather, dictate a recap (like you just did) and I'll
+  minute that. I'd suggest we start a \texttt{Council\_Minutes.md} in the
+  project and append after each session.
+\end{proposalbox}
+
+\sect{4.2 Who Sits --- A Dial Set at Setup}
+Council does not decree who holds a seat; the table sets that dial when it seats
+its own Council:
+
+\begin{tcbraster}[raster columns=2,raster equal height=rows,raster column skip=4mm,
+    sharp corners,boxrule=0pt,colback=navy,coltext=cream,
+    left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem[colframe=gold,toprule=1.4pt] \cardhead{The Wide Table}{} Every
+    standing head holds a seat and a vote. Loud, slow, truly divided. Choose
+    this for intrigue.
+  \tcbitem[colframe=teal,toprule=1.4pt] \cardhead{The Narrow Table · Default}{}
+    Only the few at the heart of the story sit and vote; the heads report and
+    advise. Choose this for pace --- and by default, \emph{this is where a
+    Council begins.}
+\end{tcbraster}
+Council seats a narrow table by default, and widens only when a table decides
+the intrigue of a true vote is worth the pace it costs.
+
+\sect{4.3 The Second Chair --- Deputies}
+A deputy may \hlt{hold a Work at its present watch}, but may not \emph{advance}
+it. To move a Work forward wants a Work Order or a Directive from the seat of
+command.
+
+\begin{proposalbox}
+  \prophead{Proposal 11 --- Reversion --- What Happens to an Unheld Work}
+  Your p.15 question: \emph{without a deputy, does a pulled Work revert one step
+  each watch?} I think your instinct is the right rule, and it's better than a
+  flat `freeze' --- it gives interrupts real teeth. Proposed:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item A Work whose head is \emph{pulled} (\S4.4) and left \emph{unheld slips
+      back one watch} each watch that passes --- the labour decays without its
+      hand.
+    \item A \emph{deputy} holding it stops the slip (freeze at present watch)
+      but can't advance it.
+    \item A \emph{Directive} (\S4.5) keeps the head on task, so it neither slips
+      nor pauses.
+  \end{itemize}
+  \vspace{0.5mm}
+  This answers your `what about Carson pinned on the Hoffan cure?' --- pull
+  Carson to an emergency and, unless Keely (deputy) holds it, the cure work rots
+  a watch at a time until he's back or you Directive him to stay. That's a real
+  cost, which is the point.
+\end{proposalbox}
+
+\sect{4.4 Interrupts}
+An emergency that names a head \emph{pulls them off their Work automatically.}
+The card \emph{freezes} until released, or a deputy steps in to \hlt{hold it}
+\add{--- keeping it from slipping back}.
+
+\sect{4.5 The Override}
+Only the seat of final say may keep a pulled head at their task regardless, by
+issuing a \emph{Directive} --- a \emph{truth committed aloud, on the record.}
+
+\sect{4.6 Absence Beyond Reach}
+When a head is truly beyond word, the need is met anyway, by whoever stands
+present, \emph{without that head's insight} --- it shows as something
+\emph{concrete and specific}, never a clean sealed squall.
+
+\begin{proposalbox}
+  \prophead{Proposal 12 --- \S4.6 Absence Beyond Reach --- Proposed Rewrite}
+  You flagged this as thin. It's the twin of Interrupts: Interrupts pull a head
+  who's \emph{here}; Absence covers a head who is simply \emph{unreachable}
+  (off-world, ascended, missing). Proposed replacement text:
+  \begin{tcolorbox}[blanker,borderline west={2pt}{0pt}{teal},left=4mm,
+      top=1mm,bottom=1mm,before skip=2mm,after skip=2mm]
+    \itshape When a head is beyond all word --- off-world, ascended, or lost ---
+    the table cannot wait on their insight, and the need is met by whoever
+    stands present. The answer still comes, but it comes rough: concrete and
+    specific, shaped by the wrong hands, never the clean sealed squall the
+    absent expert would have drawn. A botany question answered by a soldier gets
+    a soldier's answer. Mark such Works: when the head returns, they may find the
+    labour done crooked, and worth re-doing.
+  \end{tcolorbox}
+  The distinction to keep: Interrupt = freeze/slip (they're here, just busy);
+  Absence = it happens anyway, badly (they're gone).
+\end{proposalbox}
+
+% =====================================================================
+% BOOK V -- TEACH & SHIP
+% =====================================================================
+\clearpage
+\booktitle{Council · A Player's Handbook}{TEACH \& SHIP}{Book the Fifth}%
+  {for the keeper --- how to raise a Council game from nothing, and run it well}
+
+\begin{pullquote}The first four books are the game. This one is the craft of it
+--- how to stand a table up in an evening, and the three small arts that make a
+keeper of you: writing Seals, giving grace, and wounding without cruelty.\end{pullquote}
+
+\sect{5.1 Session Zero --- Raising a Game in One Sitting}
+Council boots in a single evening. Five moves, in order:
+\begin{enumerate}[leftmargin=8mm,itemsep=1.3mm]
+  \item \emph{Rig the world.} Agree the fiction --- the setting, its peoples,
+    what Power and Standing are made of here.
+  \item \emph{Seat the Council.} Decide who holds the final say, and set the
+    dial of \S4.2 --- \emph{narrow by default}, or wide for intrigue.
+  \item \emph{Lay the first Ledger.} Write two or three opening Works.
+  \item \emph{Teach the Water.} Tell the crew, plainly, of Landis.
+  \item \emph{Promise hope.} Say aloud the one creed. Then begin.
+\end{enumerate}
+
+\begin{proposalbox}
+  \prophead{Proposal 13 --- The One Creed --- A Poetic Draft, \& the Session-Zero Ledger Step}
+  Two things land here. First, your `write a poetic creed' --- a first swing, to
+  be said aloud at Session Zero (\S5.1, move 5):
+  \begin{tcolorbox}[blanker,before skip=2mm,after skip=2mm]
+    \centering\itshape
+    We keep no dice, and we keep no fear.\\
+    What we cannot answer, we will pay for true;\\
+    what we cannot pay, we will be given.\\
+    No door is locked that hope can't open ---\\
+    and the only door that locks from the inside is despair.\\
+    So we strive, and we pay, or we are given ---\\
+    and we keep hope, whatever the weather.
+  \end{tcolorbox}
+  Second, move 3 (`Lay the first Ledger') needs expanding once P2 lands --- it
+  should walk the keeper through setting starting Hands/Power pools and, if you
+  want them, \emph{research tiers} (what the expedition can build now vs. what
+  needs a Work first). Flagging; I'll draft it after you rule on P2.
+\end{proposalbox}
+
+\sect{5.2 The First Art --- Writing Seals}
+For any obstacle worth being stuck on, \emph{write three clues before play and
+seal them}: the Nudge, the Bearing, the Answer. Write them \emph{before} ---
+never under the pressure of a stuck table, when your judgment is worst.
+
+\begin{proposalbox}
+  \prophead{Proposal 14 --- Sourcing Clues --- and Which Letterhead They Ride In On}
+  Your p.17 note: clues can come from many sources --- prep them too, at least
+  which source and which letterhead. Proposed addition to \S5.2:
+  \begin{itemize}[leftmargin=6mm,itemsep=1mm,topsep=1mm]
+    \item When you seal a clue, also note its \emph{source} --- who knows it,
+      and how it would reach the crew.
+    \item Give it a \emph{letterhead}: a clue from Beckett arrives as a medical
+      note; from the Genii, as an intercept; from Landis, as a line in still
+      water. Same clue, different voice, different trust.
+  \end{itemize}
+  \vspace{0.5mm}
+  This dovetails with the Signed Squall (\S5.4): in Council, \emph{everything}
+  that arrives --- good news or bad --- arrives signed.
+\end{proposalbox}
+
+\sect{5.3 The Second Art --- Giving Grace}
+Give it \emph{quietly}. Give it toward the \emph{stuck and the hopeful.} Do not
+tally it, do not let it be demanded. Its one hard law is that a truly aground
+crew always receives it.
+
+\sect{5.4 The Third Art --- The Signed Squall}
+Deliver bad news as a \emph{report on the letterhead of whoever bore it.} In
+Council, bad news always arrives signed.
+
+\sect{5.5 On Hope \& Harm --- The Tone of the Game}
+Council is built to reward hope. The game \emph{may wound} --- it may cost
+dearly, and grieve truly. But it breaks only the one who has \emph{stopped
+hoping.}
+
+\begin{pullquote}Despair is the only door that locks from the inside.\end{pullquote}
+
+\sect{5.6 What to Print, What to Keep}
+Two bundles make a Council game ready for a table:
+
+\begin{tcbraster}[raster columns=2,raster equal height=rows,raster column skip=4mm,
+    sharp corners,boxrule=0pt,left=3.5mm,right=3.5mm,top=3mm,bottom=3mm]
+  \tcbitem[colback=cream,colframe=teal,coltext=black,toprule=1.4pt]
+    \cardhead{}{The Crew's Packet} This handbook, and Landis's two handouts. All
+    a player needs. \add{(For the Council of Un: the crew's Standing Orders for
+    the expedition ride here too.)}
+  \tcbitem[colback=navy,colframe=gold,coltext=cream,toprule=1.4pt]
+    \cardhead{}{The Keeper's Papers} Sealed Seals, hidden stakes, Divine Work
+    beats. Shown to no one until its watch turns.
+\end{tcbraster}
+
+\begin{tcolorbox}[enhanced,sharp corners,colback=navy,colframe=navy,
+    coltext=cream,boxrule=0pt,borderline west={2.5pt}{0pt}{gold},
+    left=5mm,right=5mm,top=3.5mm,bottom=3.5mm]
+  \textbf{\textcolor{gold}{The Living Ledger}} --- a place to run Works between
+  sessions: on paper, or (better) online at the Council website.
+\end{tcolorbox}
+
+\begin{center}\itshape Print the first. Keep the second. \add{Run the third.}\end{center}
+
+\vfill
+\begin{center}\deco\end{center}
+
+\end{document}
