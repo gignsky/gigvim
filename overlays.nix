@@ -1,42 +1,20 @@
 #
-# This file defines overlays/custom modifications to upstream packages
+# Overlays layered onto gigpkgs.legacyPackages for gigvim.
 #
-
+# Currently a no-op — all packages come straight from gigpkgs. Leave the
+# scaffolding here so future overlays can be dropped in without rewiring
+# flake.nix. To activate: uncomment the desired overlay(s) and the matching
+# `.extend` call in flake.nix's `pkgsFor`.
+#
 { inputs, ... }:
 {
-  # This one brings our custom packages from the 'pkgs' directory
-  # additions = final: _prev: import ../pkgs { pkgs = final; };
-
-  # # This one contains whatever you want to overlay
-  # # You can change versions, add patches, set compilation flags, anything really.
-  # # https://wiki.nixos.org/wiki/Overlays
-  # modifications = final: prev: {
-  #   # example = prev.example.overrideAttrs (oldAttrs: let ... in {
-  #   # ...
-  #   # });
+  # # Expose bleeding-edge nixpkgs (master) as `pkgs.master.*`.
+  # # Sourced from gigpkgs' own nixpkgs-master input.
+  # master-packages = final: prev: {
+  #   master = import inputs.gigpkgs.inputs.nixpkgs-master {
+  #     inherit (prev) system;
+  #     config.allowUnfree = true;
+  #     overlays = [ ];
+  #   };
   # };
-
-  # When applied, the master nixpkgs set (declared in the flake inputs) will
-  # be accessible through 'pkgs.master'
-  master-packages = final: prev: {
-    master = import inputs.nixpkgs-master {
-      inherit (prev) system;
-      # config = {
-      #   allowUnfree = true;
-      # };
-      overlays = [ ];
-    };
-  };
-
-  # When applied, the local nixpkgs set (declared in the flake inputs) will
-  # be accessible through 'pkgs.local'
-  local-packages = final: prev: {
-    local = import inputs.nixpkgs-local {
-      inherit (prev) system;
-      # config = {
-      #   allowUnfree = true;
-      # };
-      overlays = [ ];
-    };
-  };
 }
