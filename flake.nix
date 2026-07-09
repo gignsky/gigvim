@@ -1,7 +1,10 @@
 {
   inputs = {
-    gigpkgs.url = "github:gignsky/gigpkgs";
-    nixpkgs.follows = "gigpkgs/nixpkgs-unstable";
+    gigpkgs = {
+      url = "github:gignsky/gigpkgs";
+      inputs.nixpkgs.follows = "gigpkgs/nixpkgs-unstable";
+    };
+    nixpkgs.follows = "gigpkgs";
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     # nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     # nixpkgs-local.url = "github:gignsky/nixpkgs/gignsky/add-commasemi-nvim";
