@@ -1,7 +1,12 @@
 {
+  description = "gigvim — Gig's Neovim configuration";
+
   inputs = {
-    gigpkgs.url = "github:gignsky/gigpkgs";
-    nixpkgs.follows = "gigpkgs/nixpkgs-unstable";
+    gigpkgs = {
+      url = "github:gignsky/gigpkgs";
+      inputs.nixpkgs.follows = "gigpkgs/nixos-unstable";
+    };
+    nixpkgs.follows = "gigpkgs";
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     # nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     # nixpkgs-local.url = "github:gignsky/nixpkgs/gignsky/add-commasemi-nvim";
@@ -9,9 +14,6 @@
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
-      # # Optionally, you can also override individual plugins
-      # # for example:
-      # inputs.obsidian-nvim.follows = "obsidian-nvim"; # <- this will use the obsidian-nvim from your inputs
     };
     home-manager.follows = "gigpkgs/home-manager";
     git-dev-nvim = {
@@ -26,91 +28,97 @@
 
   outputs =
     {
-      flake-parts,
+      self,
+      nixpkgs,
       nvf,
       ...
     }@inputs:
-    flake-parts.lib.mkFlake { inherit inputs; } {
+    let
       systems = [
         "x86_64-linux"
-        "x86_64-darwin"
         "aarch64-linux"
+        "x86_64-darwin"
         "aarch64-darwin"
       ];
+      forAllSystems = nixpkgs.lib.genAttrs systems;
 
-      perSystem =
-        { system, ... }:
+      # Bring gigpkgs in as our nixpkgs. To layer local overlays, uncomment
+      # entries in ./overlays.nix and chain them here, e.g.:
+      #   let overlays = import ./overlays.nix { inherit inputs; }; in
+      #   sys: (inputs.gigpkgs.legacyPackages.${sys}).extend overlays.master-packages
+      pkgsFor = sys: inputs.gigpkgs.legacyPackages.${sys};
+
+      mkNvim =
+        sys: module:
+        (nvf.lib.neovimConfiguration {
+          pkgs = pkgsFor sys;
+          modules = [ module ];
+          extraSpecialArgs = { inherit inputs; };
+        }).neovim;
+    in
+    {
+      packages = forAllSystems (
+        sys:
         let
-          overlays = import ./overlays.nix { inherit inputs; };
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            overlays = [
-              overlays.master-packages
-              overlays.local-packages
-            ];
-          };
-          minimalConfigModule = import ./minimal.nix;
-          fullConfigModule = import ./full.nix { inherit inputs pkgs; };
-          fullNvimConfig = nvf.lib.neovimConfiguration {
-            modules = [ fullConfigModule ];
-            inherit pkgs;
-            extraSpecialArgs = { inherit inputs; };
-          };
-          minimalNvimConfig = nvf.lib.neovimConfiguration {
-            modules = [ minimalConfigModule ];
-            inherit pkgs;
-            extraSpecialArgs = { inherit inputs; };
-          };
+          pkgs = pkgsFor sys;
+          full = mkNvim sys (import ./full.nix { inherit inputs pkgs; });
+          minimal = mkNvim sys (import ./minimal.nix);
         in
         {
-          packages.minimal = minimalNvimConfig.neovim;
-          packages.mini = minimalNvimConfig.neovim;
-          packages.default = fullNvimConfig.neovim;
-          packages.full = fullNvimConfig.neovim;
-          packages.gigvim = fullNvimConfig.neovim;
-          formatter = pkgs.nixfmt;
-          devShells.default = pkgs.mkShell {
-            packages = [
-              fullNvimConfig.neovim
-            ];
+          default = full;
+          full = full;
+          gigvim = full;
+          minimal = minimal;
+          mini = minimal;
+        }
+      );
+
+      overlays.default = final: _prev: {
+        gigvim = self.packages.${final.stdenv.hostPlatform.system}.full;
+      };
+
+      formatter = forAllSystems (sys: (pkgsFor sys).nixfmt);
+
+      devShells = forAllSystems (
+        sys:
+        let
+          pkgs = pkgsFor sys;
+        in
+        {
+          default = pkgs.mkShell {
+            packages = [ self.packages.${sys}.full ];
+          };
+        }
+      );
+
+      homeManagerModules.default =
+        {
+          config,
+          lib,
+          pkgs,
+          ...
+        }:
+        {
+          options.programs.gigvim = {
+            enable = lib.mkEnableOption "GigVim Neovim configuration";
+
+            package = lib.mkOption {
+              type = lib.types.package;
+              description = "The Neovim package to use";
+              default = self.packages.${pkgs.stdenv.hostPlatform.system}.full;
+            };
+          };
+
+          config = lib.mkIf config.programs.gigvim.enable {
+            home.packages = [ config.programs.gigvim.package ];
+
+            home.sessionVariables = {
+              EDITOR = lib.mkDefault "${config.programs.gigvim.package}/bin/nvim";
+              VISUAL = lib.mkDefault "${config.programs.gigvim.package}/bin/nvim";
+            };
           };
         };
 
-      flake = {
-        homeManagerModules.default =
-          {
-            config,
-            lib,
-            pkgs,
-            ...
-          }:
-          {
-            options.programs.gigvim = {
-              enable = lib.mkEnableOption "GigVim Neovim configuration";
-
-              package = lib.mkOption {
-                type = lib.types.package;
-                description = "The Neovim package to use";
-                default = inputs.self.packages.${pkgs.stdenv.hostPlatform.system}.full;
-              };
-            };
-
-            config = lib.mkIf config.programs.gigvim.enable {
-              home.packages = [ config.programs.gigvim.package ];
-
-              # Optional: Set as default editor
-              home.sessionVariables = {
-                EDITOR = lib.mkDefault "${config.programs.gigvim.package}/bin/nvim";
-                VISUAL = lib.mkDefault "${config.programs.gigvim.package}/bin/nvim";
-              };
-            };
-          };
-
-        # Alias for convenience
-        homeManagerModules.gigvim = inputs.self.homeManagerModules.default;
-
-        # Custom modifications/overrides to upstream packages.
-        overlays = import ./overlays.nix { inherit inputs; };
-      };
+      homeManagerModules.gigvim = self.homeManagerModules.default;
     };
 }
