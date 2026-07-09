@@ -15,7 +15,7 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    home-manager.follows = "gigpkgs/home-manager";
     git-dev-nvim = {
       url = "github:moyiz/git-dev.nvim";
       flake = false;
