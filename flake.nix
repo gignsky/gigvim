@@ -88,7 +88,10 @@
         in
         {
           default = pkgs.mkShell {
-            packages = [ self.packages.${sys}.full ];
+            packages = [
+              self.packages.${sys}.full
+              pkgs.locker
+            ];
           };
         }
       );
