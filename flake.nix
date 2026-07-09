@@ -4,7 +4,7 @@
   inputs = {
     gigpkgs = {
       url = "github:gignsky/gigpkgs";
-      inputs.nixpkgs.follows = "gigpkgs/nixos-unstable";
+      inputs.nixpkgs.follows = "gigpkgs/nixos-stable";
     };
     nixpkgs.follows = "gigpkgs";
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
