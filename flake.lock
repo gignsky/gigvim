@@ -83,7 +83,7 @@
         "nixos-unstable": "nixos-unstable",
         "nixpkgs": [
           "gigpkgs",
-          "nixos-unstable"
+          "nixpkgs-unstable"
         ],
         "nixpkgs-master": [
           "gigpkgs",
