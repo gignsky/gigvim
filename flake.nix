@@ -10,12 +10,14 @@
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     # nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     # nixpkgs-local.url = "github:gignsky/nixpkgs/gignsky/add-commasemi-nvim";
-    flake-parts.follows = "nvf/flake-parts";
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    flake-parts.follows = "nvf/flake-parts";
+
     home-manager.follows = "gigpkgs/home-manager";
+
     git-dev-nvim = {
       url = "github:moyiz/git-dev.nvim";
       flake = false;
