@@ -288,13 +288,8 @@
         ],
         "gigpkgs": "gigpkgs",
         "git-dev-nvim": "git-dev-nvim",
-        "home-manager": [
-          "gigpkgs",
-          "home-manager"
-        ],
         "nixpkgs": [
-          "gigpkgs",
-          "nixpkgs-unstable"
+          "gigpkgs"
         ],
         "nvf": "nvf",
         "snacks-nvim": "snacks-nvim"
