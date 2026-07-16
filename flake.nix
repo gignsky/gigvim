@@ -63,15 +63,38 @@
         sys:
         let
           pkgs = pkgsFor sys;
-          full = mkNvim sys (import ./full.nix { inherit inputs pkgs; });
-          minimal = mkNvim sys (import ./minimal.nix);
+
+          # Capability TIERS — plugin/LSP depth only. Tiers never touch the look.
+          tiers = {
+            full = import ./full.nix { inherit inputs pkgs; };
+            minimal = import ./minimal.nix;
+          };
+
+          # FLAVORS — the full visual identity (active colorscheme + style, and
+          # as the set grows: dashboard art, statusline accents, purpose plugins).
+          # A flavor is applied at EVERY tier, so a small tier is just as
+          # beautiful as a big one (gigvim#40: tier must not diminish flavor).
+          flavors = {
+            default = import ./flavors/default.nix;
+          };
+
+          # tier x flavor -> a neovim. Beauty (flavor) is orthogonal to size (tier).
+          mkGigvim =
+            {
+              tier ? tiers.full,
+              flavor ? flavors.default,
+            }:
+            mkNvim sys { imports = [ tier flavor ]; };
         in
         {
-          default = full;
-          full = full;
-          gigvim = full;
-          minimal = minimal;
-          mini = minimal;
+          # default / full / gigvim were three identical aliases — now one build,
+          # full tier + the default flavor.
+          default = mkGigvim { };
+          full = mkGigvim { };
+          gigvim = mkGigvim { };
+          # minimal tier, SAME default flavor — proof that tier ⊥ flavor.
+          minimal = mkGigvim { tier = tiers.minimal; };
+          mini = mkGigvim { tier = tiers.minimal; };
         }
       );
 
