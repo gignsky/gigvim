@@ -1,6 +1,7 @@
 { pkgs, ... }:
 {
   imports = [
+    ./gscript.nix
     ./bash.nix
     ./css.nix
     # ./html.nix
