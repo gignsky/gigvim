@@ -2,11 +2,7 @@
   description = "gigvim — Gig's Neovim configuration";
 
   inputs = {
-    gigpkgs = {
-      url = "github:gignsky/gigpkgs";
-      inputs.nixpkgs.follows = "gigpkgs/nixpkgs-unstable";
-    };
-    nixpkgs.follows = "gigpkgs";
+    nixpkgs.url = "github:gignsky/gigpkgs/gigpkgs-unstable";
     # nixpkgs-master.url = "github:NixOS/nixpkgs/master";
     # nixpkgs-local.url = "git+file:///home/gig/local_repos/nixpkgs";
     # nixpkgs-local.url = "github:gignsky/nixpkgs/gignsky/add-commasemi-nvim";
@@ -16,7 +12,7 @@
     };
     flake-parts.follows = "nvf/flake-parts";
 
-    home-manager.follows = "gigpkgs/home-manager";
+    home-manager.follows = "nixpkgs/home-manager";
 
     git-dev-nvim = {
       url = "github:moyiz/git-dev.nvim";
@@ -48,7 +44,7 @@
       # entries in ./overlays.nix and chain them here, e.g.:
       #   let overlays = import ./overlays.nix { inherit inputs; }; in
       #   sys: (inputs.gigpkgs.legacyPackages.${sys}).extend overlays.master-packages
-      pkgsFor = sys: inputs.gigpkgs.legacyPackages.${sys};
+      pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
       mkNvim =
         sys: module:
