@@ -65,7 +65,7 @@
         {
           default = full;
           full = full;
-          gigvim = full;
+          # gigvim = full;
           minimal = minimal;
           mini = minimal;
         }
