@@ -14,8 +14,8 @@ in
     ./plugins/optional/commasemi-nvim.nix
     ./config/optional/notes.nix
     ./config/optional/diagnostics.nix
-    ./config/optional/codecompanion.nix
+    ./plugins/optional/claudecode-nvim.nix
     ./binds/optional/folding.nix
-    ./binds/module/codecompanion-nvim.nix
+    ./binds/module/claudecode-nvim.nix
   ];
 }
