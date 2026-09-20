@@ -56,6 +56,25 @@ in
             -- window, indent the folded part under the paragraph, never touch
             -- the bytes on disk. ('wrap' and 'linebreak' are already on.)
             vim.opt_local.breakindent = true
+
+            -- Spellcheck prose against American English. Neovim's bundled
+            -- en.utf-8.spl (nvim-unwrapped's runtime/spell) tags every word
+            -- with the regions it's valid in, so "en_us" alone already gives
+            -- mostly-American with select Britishisms baked in:
+            --   - shared/non-pair words (whilst, amongst, towards, grey,
+            --     dialogue, ...) are accepted outright -- no US/GB pair
+            --     exists for them, so there's nothing to flag.
+            --   - true spelling-pair Britishisms (colour, realise, centre,
+            --     travelled, favour, ...) are flagged as SpellLocal (a
+            --     regional mismatch, underlined green by default) rather than
+            --     SpellBad (underlined red) -- visible, but clearly softer
+            --     than a real misspelling.
+            -- To fully allow a specific pair-word despite this (elevate it
+            -- out of SpellLocal), add it with "zg" -- Neovim writes personal
+            -- good-words to a spellfile under the XDG state dir by default,
+            -- so it persists outside the Nix store without any config here.
+            vim.opt_local.spelllang = "en_us"
+            vim.opt_local.spell = true
           end
         '';
       }
