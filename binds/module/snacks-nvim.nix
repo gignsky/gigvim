@@ -43,6 +43,18 @@
       action = "";
       desc = "+Debug Options";
     }
+    {
+      key = "<leader>v";
+      mode = "n";
+      action = "";
+      desc = "+View (LaTeX watch)";
+    }
+    {
+      key = "<leader>p";
+      mode = "n";
+      action = "";
+      desc = "+Proofread";
+    }
 
     # Snacks.nvim keybindings
     {
