@@ -1,0 +1,33 @@
+config_version = 1
+repo_root = "/home/gig/local_repos/gigvim"
+rolling_branch = "rolling"
+stable_branch = "main"
+roll_prefix = "roll/"
+version_gate = true
+tag_on_promote = true
+tag_on_graduate = true
+push_tag = true
+dev_versions = true
+mode = "manage"
+username = "gig"
+hosts = []
+roll_to_rolling_gates = [
+  "nix flake check",
+  "nix build .#minimal",
+  "nix build .#full",
+  "nix build",
+]
+rolling_to_main_gates = [
+  "nix flake check",
+  "nix build .#minimal",
+  "nix build .#full",
+  "nix build",
+]
+host_gates = []
+clean_protect = []
+pull_mode = "ff-only"
+lazygit_command = "lazygit"
+bacon_command = "bacon"
+version_manifest = "auto"
+
+[host_active]
