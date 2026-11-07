@@ -11,115 +11,95 @@
       type = [ "rustfmt" ];
     };
     dap.enable = true;
-    lsp = {
-      enable = true;
-      package = pkgs.rust-analyzer;
-      # [docs](https://rust-analyzer.github.io/book/configuration#assist.termSearch.borrowcheck)
-      opts = ''
-        ['rust-analyzer'] = {
-          cargo = {
-            features = "all",
-            allTargets = true,
-            autoreload = true,
-            buildScripts = {
-              enable = true,
-            },
-            targetDir = true,
-            -- sysroot = ${pkgs.rustc},
-          },
-          checkOnSave = true,
-          check = {
-            allTargets = true,
-            features = "all",
-          },
-          procMacro = {
-            enable = true,
-          },
-          assist = {
-            emitMustUse = true,
-            preferSelf = true,
-            termSearch = {
-              borrowcheck = true,
-              fuel = 3600,
-            },
-          },
-          completion = {
-            addSemicolonToUnit = true,
-            autoAwait = {enable = true},
-            autoIter = {enable = true},
-            autoImport = {enable = true},
-            autoself = {enable = true},
-            fullFunctionSignatures = {enable = true},
-            privateEditable = {enable = true},
-            termSearch = {enable = true},
-          },
-          diagnostics = {
-            styleLints = {enable = true},
-          },
-          hover = {
-            actions = {
-              references = {enable = true},
-            },
-            memoryLayout = {
-              niches = true,
-            },
-          },
-          imports = {
-            granularity = {
-              enforce = true,
-              group = "crate",
-            },
-            merge = {glob = false},
-            preferPrelude = true,
-          },
-          inlayHints = {
-            bindingModeHints = {enable = true},
-            closingBraceHints = {
-              minLines = 0,
-            },
-            closureCaptureHints = {enable = true},
-            closureReturnTypeHints = {enable = true},
-            discriminantHints = {enable = true},
-            genericParameterHints = {
-              lifetime = {enable = true},
-              type = {enable = true},
-            },
-            implicitDrops = {enable = true},
-            lifetimeElisionHints = {useParameterNames = true},
-            maxLength = 80,
-            rangeExclusiveHints = {enable = true},
-            typeHints = {
-              hideClosureInitialization = false,
-              hideClosureParameter = false,
-              hideNamedConstructor = false,
-            },
-          },
-          interpret = {tests = true},
-          lens = {
-            enable = true,
-            references = {
-              adt = {enable = true},
-              enumVariant = {enable = true},
-              method = {enable = true},
-              trait = {enable = true},
-            },
-
-          },
-          semanticHighlighting = {
-            operator = {
-              specialization = {enable = true},
-            },
-            punctuation = {
-              enable = true,
-              seperate = {
-                macro = {bang = true},
-              },
-              specialization = {enable = true},
-            },
-          },
-        },
-      '';
-    };
+    lsp.enable = true;
     treesitter.enable = true;
+  };
+
+  # rust-analyzer settings (nvf now configures servers via vim.lsp.servers)
+  # [docs](https://rust-analyzer.github.io/book/configuration#assist.termSearch.borrowcheck)
+  config.vim.lsp.servers.rust-analyzer.settings.rust-analyzer = {
+    cargo = {
+      features = "all";
+      allTargets = true;
+      autoreload = true;
+      buildScripts.enable = true;
+      targetDir = true;
+      # sysroot = "${pkgs.rustc}";
+    };
+    checkOnSave = true;
+    check = {
+      allTargets = true;
+      features = "all";
+    };
+    procMacro.enable = true;
+    assist = {
+      emitMustUse = true;
+      preferSelf = true;
+      termSearch = {
+        borrowcheck = true;
+        fuel = 3600;
+      };
+    };
+    completion = {
+      addSemicolonToUnit = true;
+      autoAwait.enable = true;
+      autoIter.enable = true;
+      autoImport.enable = true;
+      autoself.enable = true;
+      fullFunctionSignatures.enable = true;
+      privateEditable.enable = true;
+      termSearch.enable = true;
+    };
+    diagnostics.styleLints.enable = true;
+    hover = {
+      actions.references.enable = true;
+      memoryLayout.niches = true;
+    };
+    imports = {
+      granularity = {
+        enforce = true;
+        group = "crate";
+      };
+      merge.glob = false;
+      preferPrelude = true;
+    };
+    inlayHints = {
+      bindingModeHints.enable = true;
+      closingBraceHints.minLines = 0;
+      closureCaptureHints.enable = true;
+      closureReturnTypeHints.enable = true;
+      discriminantHints.enable = true;
+      genericParameterHints = {
+        lifetime.enable = true;
+        type.enable = true;
+      };
+      implicitDrops.enable = true;
+      lifetimeElisionHints.useParameterNames = true;
+      maxLength = 80;
+      rangeExclusiveHints.enable = true;
+      typeHints = {
+        hideClosureInitialization = false;
+        hideClosureParameter = false;
+        hideNamedConstructor = false;
+      };
+    };
+    interpret.tests = true;
+    lens = {
+      enable = true;
+      references = {
+        adt.enable = true;
+        enumVariant.enable = true;
+        method.enable = true;
+        trait.enable = true;
+      };
+    };
+    semanticHighlighting = {
+      operator.specialization.enable = true;
+      punctuation = {
+        enable = true;
+        seperate.macro.bang = true;
+        specialization.enable = true;
+      };
+    };
   };
 }

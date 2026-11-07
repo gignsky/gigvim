@@ -10,7 +10,6 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    flake-parts.follows = "nvf/flake-parts";
 
     home-manager.follows = "nixpkgs/home-manager";
 
