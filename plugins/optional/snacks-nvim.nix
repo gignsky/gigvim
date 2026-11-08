@@ -252,7 +252,7 @@ in
     ripgrep # rg - required for grep functionality
     fd # fd - required for file finding (v8.4+)
     sqlite # sqlite3 - required for certain snacks features
-    gscan2pdf # gs - required for image support
+    ghostscript # gs - required for image support
     tectonic # tectonic - required for LaTeX support
     git # its git bitch
     # latex     # pdflatex - required for LaTeX support
