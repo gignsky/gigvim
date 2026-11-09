@@ -4,38 +4,41 @@
     enable = true;
     format = {
       enable = true;
-      type = [ "nixfmt" ];
+      type = [ "nixfmt" ]; # nixfmt-rfc-style, matches dotfiles pre-commit (gigvim#39 P0)
     };
     treesitter.enable = true;
   };
 
-  config.vim.lsp.servers.nil = {
+  # nixd over nil (gigvim#39). nixd links real Nix libexpr, so it *evaluates*:
+  # real eval-error diagnostics, go-to-definition into nixpkgs source, and
+  # evaluation-driven completion (packages + NixOS/HM options).
+  #
+  # The exprs use `builtins.getFlake (builtins.toString ./.)` so they follow the
+  # opened project. `nixpkgs.expr` gives package completion everywhere; the
+  # `options.*` exprs resolve only when editing a flake that actually HAS those
+  # configs (the dotfiles) and silently no-op elsewhere — so they're safe to ship
+  # in a general editor. Pointed at `ganoslal` as the representative host.
+  config.vim.lsp.servers.nixd = {
     enable = true;
-    package = pkgs.nil;
-    server = "nil";
+    package = pkgs.nixd;
+    server = "nixd";
     options = {
-      "nil" = {
+      "nixd" = {
+        "nixpkgs" = {
+          "expr" = "import (builtins.getFlake (builtins.toString ./.)).inputs.nixpkgs { }";
+        };
         "formatting" = {
           "command" = [ "${pkgs.nixfmt}/bin/nixfmt" ];
         };
-        "nix" = {
-          "flake" = {
-            "autoArchive" = true;
-            "autoEvalInputs" = true;
+        "options" = {
+          "nixos" = {
+            "expr" = "(builtins.getFlake (builtins.toString ./.)).nixosConfigurations.ganoslal.options";
+          };
+          "home_manager" = {
+            "expr" = "(builtins.getFlake (builtins.toString ./.)).homeConfigurations.\"gig@ganoslal\".options";
           };
         };
       };
     };
-    settings.nixos-options = {
-      expr = "builtins.getFlake(toString ./.);";
-    };
-  };
-
-  config.vim.snippets.luasnip = {
-    enable = true;
-    providers = [
-      "nix-develop-nvim"
-      pkgs.nil
-    ];
   };
 }
