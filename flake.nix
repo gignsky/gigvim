@@ -45,11 +45,19 @@
       #   sys: (inputs.gigpkgs.legacyPackages.${sys}).extend overlays.master-packages
       pkgsFor = sys: inputs.nixpkgs.legacyPackages.${sys};
 
+      # Single source of truth for the version; roll-flow bumps it.
+      version = (builtins.fromJSON (builtins.readFile ./package.json)).version;
+
+      # `distro` is the label suffix: null for the default package,
+      # "full"/"mini" for the named ones (v0.1.0, v0.1.0-full, v0.1.0-mini).
       mkNvim =
-        sys: module:
+        sys: distro: module:
         (nvf.lib.neovimConfiguration {
           pkgs = pkgsFor sys;
-          modules = [ module ];
+          modules = [
+            module
+            (import ./version.nix { inherit version distro; })
+          ];
           extraSpecialArgs = { inherit inputs; };
         }).neovim;
     in
@@ -58,11 +66,13 @@
         sys:
         let
           pkgs = pkgsFor sys;
-          full = mkNvim sys (import ./full.nix { inherit inputs pkgs; });
-          minimal = mkNvim sys (import ./minimal.nix);
+          fullModule = import ./full.nix { inherit inputs pkgs; };
+          full = mkNvim sys "full" fullModule;
+          minimal = mkNvim sys "mini" (import ./minimal.nix);
         in
         {
-          default = full;
+          # Same config as full; only the version label differs.
+          default = mkNvim sys null fullModule;
           full = full;
           # gigvim = full;
           minimal = minimal;
