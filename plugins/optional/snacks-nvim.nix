@@ -74,6 +74,8 @@ in
             },
             sections = {
               { section = "header" },
+              -- Set by version.nix, e.g. "v0.1.0" / "v0.1.0-full"
+              { text = { vim.g.gigvim_version or "", hl = "SnacksDashboardFooter" }, align = "center" },
               { section = "keys", gap = 1, padding = 1 },
             },
           },
