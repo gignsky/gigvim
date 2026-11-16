@@ -60,6 +60,8 @@
           pkgs = pkgsFor sys;
           full = mkNvim sys (import ./full.nix { inherit inputs pkgs; });
           minimal = mkNvim sys (import ./minimal.nix);
+          marking = mkNvim sys (import ./marking.nix);
+          differ = mkNvim sys (import ./differ.nix);
         in
         {
           default = full;
@@ -67,6 +69,8 @@
           # gigvim = full;
           minimal = minimal;
           mini = minimal;
+          marking = marking;
+          differ = differ;
         }
       );
 
