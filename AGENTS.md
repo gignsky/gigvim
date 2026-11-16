@@ -258,7 +258,13 @@ All commits must include:
 ### Available Packages
 - `minimal`: Core features, essential plugins
 - `full` (default): All features, all plugins
-- `gigvim`: Alias for `full`
+- `marker`: Prose/markdown-focused build (slate + themery switcher)
+- `differ`: Diff-oriented build (nord)
+- `gigvim-marker` / `gigvim-differ`: Same variants with the binary renamed to
+  `mark` / `differ`, installable alongside the main nvim (also in `overlays.default`)
+
+Home Manager variant options: `programs.gigvim.marker.enable`,
+`programs.gigvim.differ.enable`, `programs.gigvim.differ.gitTool` (sets git diff/merge tool).
 
 ### Home Manager Integration
 ```nix

@@ -69,6 +69,8 @@
     #   };
     # };
     # theme = "gruvbox";
-    setupOpts.options.theme = "catppuccin";
+    # catppuccin renamed its lualine theme "catppuccin" -> "catppuccin-nvim"
+    # (follows the active flavour); the old name triggers a lualine warning.
+    setupOpts.options.theme = "catppuccin-nvim";
   };
 }
