@@ -121,6 +121,7 @@
             packages = [
               self.packages.${sys}.full
               pkgs.locker
+              pkgs.python3
             ];
           };
         }
