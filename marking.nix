@@ -6,7 +6,7 @@
     ./plugins
     ./binds
     ./plugins/optional/mini.nix
-    ./themes/kanagawa.nix  # Enable kanagawa theme plugin
+    ./themes/kanagawa.nix # Enable kanagawa theme plugin
   ];
 
   config.vim = {
@@ -26,10 +26,18 @@
         '';
       };
     };
-    
-    theme = {
-      name = lib.mkForce "slate";  # Your preferred default theme
-    };
+
+    # "slate" is a built-in vim colorscheme, not an nvf theme, so disable nvf's
+    # theme module and apply it directly. It runs before themery's setup
+    # (extraPluginConfigs) so a theme picked in themery still wins.
+    theme.enable = lib.mkForce false;
+    luaConfigRC.marking-colorscheme =
+      lib.nvim.dag.entryBetween
+        [ "extraPluginConfigs" ]
+        [
+          "pluginConfigs"
+        ]
+        "vim.cmd.colorscheme('slate')";
     keymaps = [
       {
         key = "jj";

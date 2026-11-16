@@ -52,6 +52,16 @@
           modules = [ module ];
           extraSpecialArgs = { inherit inputs; };
         }).neovim;
+
+      # Expose a variant's nvim under its own command name (e.g. `marking`) so it
+      # can be installed alongside the main gigvim without bin/nvim, vi, vim
+      # collisions.
+      renameBin =
+        sys: name: pkg:
+        (pkgsFor sys).runCommand "gigvim-${name}" { meta.mainProgram = name; } ''
+          mkdir -p $out/bin
+          ln -s ${pkg}/bin/nvim $out/bin/${name}
+        '';
     in
     {
       packages = forAllSystems (
@@ -71,12 +81,23 @@
           mini = minimal;
           marking = marking;
           differ = differ;
+
+          # Variants with renamed binaries (`marking`, `differ`) for side-by-side installs
+          gigvim-marking = renameBin sys "marking" marking;
+          gigvim-differ = renameBin sys "differ" differ;
         }
       );
 
-      overlays.default = final: _prev: {
-        gigvim = self.packages.${final.stdenv.hostPlatform.system}.full;
-      };
+      overlays.default =
+        final: _prev:
+        let
+          p = self.packages.${final.stdenv.hostPlatform.system};
+        in
+        {
+          gigvim = p.full;
+          gigvim-marking = p.gigvim-marking;
+          gigvim-differ = p.gigvim-differ;
+        };
 
       formatter = forAllSystems (sys: (pkgsFor sys).nixfmt);
 
@@ -102,6 +123,10 @@
           pkgs,
           ...
         }:
+        let
+          cfg = config.programs.gigvim;
+          p = self.packages.${pkgs.stdenv.hostPlatform.system};
+        in
         {
           options.programs.gigvim = {
             enable = lib.mkEnableOption "GigVim Neovim configuration";
@@ -109,18 +134,62 @@
             package = lib.mkOption {
               type = lib.types.package;
               description = "The Neovim package to use";
-              default = self.packages.${pkgs.stdenv.hostPlatform.system}.full;
+              default = p.full;
+            };
+
+            # Variants install as their own commands and work with or without `enable`
+            marking = {
+              enable = lib.mkEnableOption "the GigVim marking (prose/markdown) variant as `marking`";
+              package = lib.mkOption {
+                type = lib.types.package;
+                description = "Package providing the `marking` command";
+                default = p.gigvim-marking;
+              };
+            };
+
+            differ = {
+              enable = lib.mkEnableOption "the GigVim differ variant as `differ`";
+              package = lib.mkOption {
+                type = lib.types.package;
+                description = "Package providing the `differ` command";
+                default = p.gigvim-differ;
+              };
+              gitTool = lib.mkEnableOption "differ as git's diff.tool and merge.tool";
             };
           };
 
-          config = lib.mkIf config.programs.gigvim.enable {
-            home.packages = [ config.programs.gigvim.package ];
+          config = lib.mkMerge [
+            (lib.mkIf cfg.enable {
+              home.packages = [ cfg.package ];
 
-            home.sessionVariables = {
-              EDITOR = lib.mkDefault "${config.programs.gigvim.package}/bin/nvim";
-              VISUAL = lib.mkDefault "${config.programs.gigvim.package}/bin/nvim";
-            };
-          };
+              home.sessionVariables = {
+                EDITOR = lib.mkDefault "${cfg.package}/bin/nvim";
+                VISUAL = lib.mkDefault "${cfg.package}/bin/nvim";
+              };
+            })
+
+            (lib.mkIf cfg.marking.enable {
+              home.packages = [ cfg.marking.package ];
+            })
+
+            (lib.mkIf cfg.differ.enable {
+              home.packages = [ cfg.differ.package ];
+            })
+
+            (lib.mkIf (cfg.differ.enable && cfg.differ.gitTool) {
+              programs.git.settings =
+                let
+                  differ = lib.getExe cfg.differ.package;
+                in
+                {
+                  diff.tool = "differ";
+                  difftool.prompt = false;
+                  difftool.differ.cmd = ''${differ} -d "$LOCAL" "$REMOTE"'';
+                  merge.tool = "differ";
+                  mergetool.differ.cmd = ''${differ} -d "$LOCAL" "$REMOTE" "$MERGED" -c "wincmd J"'';
+                };
+            })
+          ];
         };
 
       homeManagerModules.gigvim = self.homeManagerModules.default;
