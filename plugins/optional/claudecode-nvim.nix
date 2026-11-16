@@ -71,6 +71,9 @@ in
             show_progress = true,
             auto_open_terminal = true,
 
+            -- Only surface warnings/errors; INFO spams a startup notification.
+            logging = { level = "WARN" },
+
             -- Keymaps live in binds/module/claudecode-nvim.nix. The plugin
             -- defaults (<leader>cf, <leader>cg, ...) would shadow the
             -- "+Diff Choose Options" <leader>c group in binds/diff-nvim.nix.
@@ -83,7 +86,10 @@ in
         package = withoutDeps pkgs.vimPlugins.claude-fzf-history-nvim;
         after = [ "claudecode" ];
         setup = ''
-          require('claude-fzf-history').setup({})
+          require('claude-fzf-history').setup({
+            -- Only surface warnings/errors; INFO spams a startup notification.
+            logging = { level = "WARN" },
+          })
         '';
       };
     };
