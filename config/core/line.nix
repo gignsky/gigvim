@@ -69,6 +69,6 @@
     #   };
     # };
     # theme = "gruvbox";
-    theme = "catppuccin";
+    setupOpts.options.theme = "catppuccin";
   };
 }
