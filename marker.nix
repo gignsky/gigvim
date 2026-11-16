@@ -31,7 +31,7 @@
     # theme module and apply it directly. It runs before themery's setup
     # (extraPluginConfigs) so a theme picked in themery still wins.
     theme.enable = lib.mkForce false;
-    luaConfigRC.marking-colorscheme =
+    luaConfigRC.marker-colorscheme =
       lib.nvim.dag.entryBetween
         [ "extraPluginConfigs" ]
         [

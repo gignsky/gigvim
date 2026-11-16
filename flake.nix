@@ -61,14 +61,14 @@
           extraSpecialArgs = { inherit inputs; };
         }).neovim;
 
-      # Expose a variant's nvim under its own command name (e.g. `marking`) so it
+      # Expose a variant's nvim under its own command name (e.g. `mark`) so it
       # can be installed alongside the main gigvim without bin/nvim, vi, vim
       # collisions.
       renameBin =
-        sys: name: pkg:
-        (pkgsFor sys).runCommand "gigvim-${name}" { meta.mainProgram = name; } ''
+        sys: name: bin: pkg:
+        (pkgsFor sys).runCommand "gigvim-${name}" { meta.mainProgram = bin; } ''
           mkdir -p $out/bin
-          ln -s ${pkg}/bin/nvim $out/bin/${name}
+          ln -s ${pkg}/bin/nvim $out/bin/${bin}
         '';
     in
     {
@@ -79,7 +79,7 @@
           fullModule = import ./full.nix { inherit inputs pkgs; };
           full = mkNvim sys "full" fullModule;
           minimal = mkNvim sys "mini" (import ./minimal.nix);
-          marking = mkNvim sys "marking" (import ./marking.nix);
+          marker = mkNvim sys "marker" (import ./marker.nix);
           differ = mkNvim sys "differ" (import ./differ.nix);
         in
         {
@@ -89,12 +89,12 @@
           # gigvim = full;
           minimal = minimal;
           mini = minimal;
-          marking = marking;
+          marker = marker;
           differ = differ;
 
-          # Variants with renamed binaries (`marking`, `differ`) for side-by-side installs
-          gigvim-marking = renameBin sys "marking" marking;
-          gigvim-differ = renameBin sys "differ" differ;
+          # Variants with renamed binaries (`mark`, `differ`) for side-by-side installs
+          gigvim-marker = renameBin sys "marker" "mark" marker;
+          gigvim-differ = renameBin sys "differ" "differ" differ;
         }
       );
 
@@ -105,7 +105,7 @@
         in
         {
           gigvim = p.full;
-          gigvim-marking = p.gigvim-marking;
+          gigvim-marker = p.gigvim-marker;
           gigvim-differ = p.gigvim-differ;
         };
 
@@ -148,12 +148,12 @@
             };
 
             # Variants install as their own commands and work with or without `enable`
-            marking = {
-              enable = lib.mkEnableOption "the GigVim marking (prose/markdown) variant as `marking`";
+            marker = {
+              enable = lib.mkEnableOption "the GigVim marker (prose/markdown) variant as `mark`";
               package = lib.mkOption {
                 type = lib.types.package;
-                description = "Package providing the `marking` command";
-                default = p.gigvim-marking;
+                description = "Package providing the `mark` command";
+                default = p.gigvim-marker;
               };
             };
 
@@ -178,8 +178,8 @@
               };
             })
 
-            (lib.mkIf cfg.marking.enable {
-              home.packages = [ cfg.marking.package ];
+            (lib.mkIf cfg.marker.enable {
+              home.packages = [ cfg.marker.package ];
             })
 
             (lib.mkIf cfg.differ.enable {
