@@ -116,7 +116,7 @@
         }
       );
 
-      homeManagerModules.default =
+      homeModules.default =
         {
           config,
           lib,
@@ -192,6 +192,6 @@
           ];
         };
 
-      homeManagerModules.gigvim = self.homeManagerModules.default;
+      homeModules.gigvim = self.homeModules.default;
     };
 }
