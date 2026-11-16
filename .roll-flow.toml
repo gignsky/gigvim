@@ -3,25 +3,25 @@ repo_root = "/home/gig/local_repos/gigvim"
 rolling_branch = "rolling"
 stable_branch = "main"
 roll_prefix = "roll/"
-version_gate = true
-tag_on_promote = true
-tag_on_graduate = true
-push_tag = true
-dev_versions = true
+# No Cargo.toml / package.json in this flake, so rf's version + tag machinery
+# is inert here; switched off so the config says what actually happens.
+version_gate = false
+tag_on_promote = false
+tag_on_graduate = false
+push_tag = false
+dev_versions = false
 mode = "manage"
 username = "gig"
 hosts = []
+# `nix build` (default) == `.#full`, so only the two real outputs are built.
+# --no-link keeps gate runs from clobbering a ./result you're testing with.
 roll_to_rolling_gates = [
   "nix flake check",
-  "nix build .#minimal",
-  "nix build .#full",
-  "nix build",
+  "nix build .#minimal .#full --no-link",
 ]
 rolling_to_main_gates = [
   "nix flake check",
-  "nix build .#minimal",
-  "nix build .#full",
-  "nix build",
+  "nix build .#minimal .#full --no-link",
 ]
 host_gates = []
 clean_protect = []
@@ -29,5 +29,8 @@ pull_mode = "ff-only"
 lazygit_command = "lazygit"
 bacon_command = "bacon"
 version_manifest = "auto"
+claude_command = "claude"
+editor_command = ""
+rebuild_menu = []
 
 [host_active]
