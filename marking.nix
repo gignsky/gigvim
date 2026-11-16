@@ -6,11 +6,29 @@
     ./plugins
     ./binds
     ./plugins/optional/mini.nix
+    ./themes/kanagawa.nix  # Enable kanagawa theme plugin
   ];
 
   config.vim = {
+    # Add minimal themery for your preferred themes only
+    extraPlugins = {
+      themery = {
+        package = pkgs.vimPlugins.themery-nvim;
+        setup = ''
+          require('themery').setup({
+            themes = {
+              "slate",           -- Built-in vim theme (your preference)
+              "kanagawa",        -- Kanagawa theme
+              "kanagawa-lotus",  -- Kanagawa lotus variant
+            },
+            livePreview = true
+          })
+        '';
+      };
+    };
+    
     theme = {
-      name = lib.mkForce "nord";
+      name = lib.mkForce "slate";  # Your preferred default theme
     };
     keymaps = [
       {
