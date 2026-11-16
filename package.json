@@ -1,6 +1,6 @@
 {
   "name": "gigvim",
-  "version": "0.2.0",
+  "version": "0.2.0-roll1",
   "private": true,
   "description": "Version manifest only: read by flake.nix and bumped by roll-flow. Not an npm package."
 }
